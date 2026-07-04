@@ -1,0 +1,2039 @@
+{
+  "counts": {
+    "memories": 9,
+    "clusters": 8,
+    "memberships": 11,
+    "edges": 1,
+    "action_traces": 11,
+    "exposure_events": 1
+  },
+  "memories": [
+    {
+      "memory_id": "mem_fb74d7ddba40",
+      "content": "User prefers quieter day trips that are not stair-heavy, particularly when choosing between Nara and Uji as day trips from Kyoto.",
+      "summary": "Prefers low-stair, quiet day trips.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "preference",
+        "user_profile"
+      ],
+      "source_refs": [
+        "episode_e2173dd04a76"
+      ],
+      "confidence": 0.65,
+      "importance": 0.6,
+      "utility": 0.0,
+      "status": "active",
+      "created_at": "2026-07-04T03:43:27.905394Z",
+      "updated_at": "2026-07-04T03:43:37.085922Z",
+      "last_used_at": null,
+      "use_count": 0,
+      "version": 1,
+      "keywords": [
+        "quieter",
+        "stair-heavy",
+        "day trip",
+        "Nara",
+        "Uji",
+        "Kyoto"
+      ],
+      "entities": [
+        "Nara",
+        "Uji"
+      ],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_f3bbe0152c3f",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_b4f7b4e01195",
+      "content": "For rainy days while traveling, the user prefers indoor culture plans such as museums, covered shopping arcades, tea houses, craft workshops, and department-store food halls.",
+      "summary": "Prefers indoor culture on rainy travel days.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "preference",
+        "user_profile"
+      ],
+      "source_refs": [
+        "episode_7b9b954effc0"
+      ],
+      "confidence": 0.95,
+      "importance": 0.8,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:43:12.904158Z",
+      "updated_at": "2026-07-04T03:43:19.893125Z",
+      "last_used_at": "2026-07-04T03:43:55.235215Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "rainy days",
+        "indoor culture",
+        "museums",
+        "shopping arcades",
+        "tea houses",
+        "craft workshops",
+        "food halls"
+      ],
+      "entities": [],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_8953dcc9653b",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_b0d7db176478",
+      "content": "The user prefers daytime flights over red-eye flights for international travel, and requires at least two hours between connecting flights.",
+      "summary": "Flight preference: daytime, 2h minimum transfer.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "preference"
+      ],
+      "source_refs": [
+        "episode_51072487faa9"
+      ],
+      "confidence": 0.95,
+      "importance": 0.8,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:43:07.512671Z",
+      "updated_at": "2026-07-04T03:43:10.197971Z",
+      "last_used_at": "2026-07-04T03:43:55.236530Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "daytime flights",
+        "red-eye avoidance",
+        "transfer time",
+        "international travel"
+      ],
+      "entities": [
+        "flight booking"
+      ],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_24462f529c48",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_9c61626bf555",
+      "content": "User likes seafood, noodles, matcha desserts, and izakaya snacks. Travel partner does not eat raw fish and avoids beef.",
+      "summary": "Travel food preferences and restrictions for user and partner.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "user_profile",
+        "project_state"
+      ],
+      "source_refs": [
+        "episode_7bf3b1741045"
+      ],
+      "confidence": 0.95,
+      "importance": 0.85,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:42:58.411312Z",
+      "updated_at": "2026-07-04T03:43:02.507287Z",
+      "last_used_at": "2026-07-04T03:43:55.235842Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "food",
+        "dietary restrictions",
+        "travel",
+        "seafood",
+        "noodles",
+        "matcha",
+        "izakaya",
+        "raw fish",
+        "beef"
+      ],
+      "entities": [
+        "user",
+        "travel partner"
+      ],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_34c31ff8eef6",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_eeedbe48cd10",
+      "content": "User prefers careful budgeting for travel: mid-range hotels near transit, simple local meals, and only one or two splurge experiences.",
+      "summary": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splurges.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "preference",
+        "user_profile"
+      ],
+      "source_refs": [
+        "episode_9cc06e129890"
+      ],
+      "confidence": 0.95,
+      "importance": 0.75,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:42:50.713331Z",
+      "updated_at": "2026-07-04T03:42:55.210382Z",
+      "last_used_at": "2026-07-04T03:43:55.233712Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "budget travel",
+        "mid-range hotels",
+        "transit proximity",
+        "local meals",
+        "splurge experiences"
+      ],
+      "entities": [],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_27539563c5b5",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_012fccbccd1c",
+      "content": "The user's mother has mild knee pain, so for Japan trip planning, avoid long stair-heavy routes; elevators, buses, and short taxis are acceptable when they reduce walking.",
+      "summary": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distances.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "user_profile",
+        "preference",
+        "project_state"
+      ],
+      "source_refs": [
+        "episode_1f044654bfcc"
+      ],
+      "confidence": 0.95,
+      "importance": 0.85,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:42:41.451365Z",
+      "updated_at": "2026-07-04T03:42:47.051857Z",
+      "last_used_at": "2026-07-04T03:43:55.237272Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "Japan",
+        "mother",
+        "knee pain",
+        "mobility",
+        "stairs",
+        "elevators",
+        "buses",
+        "taxis"
+      ],
+      "entities": [
+        "user's mother"
+      ],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_fe7ec20ece57",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_70d62785fe14",
+      "content": "For leisure trips, the user prefers a relaxed pace: no departures before 9:30 AM, one major attraction per day, and at least one quiet cafe or bookstore break.",
+      "summary": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "global",
+      "facets": [
+        "preference"
+      ],
+      "source_refs": [
+        "episode_025b44c5824a"
+      ],
+      "confidence": 0.95,
+      "importance": 0.75,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:42:33.155240Z",
+      "updated_at": "2026-07-04T03:42:38.234056Z",
+      "last_used_at": "2026-07-04T03:43:55.234531Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "leisure trips",
+        "relaxed pace",
+        "cafe",
+        "bookstore",
+        "late departure"
+      ],
+      "entities": [],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_d3ace7f2015d",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_0019c1d1b329",
+      "content": "User is planning a Kansai trip in Japan, covering Kyoto, Osaka, and a quieter day trip (likely less crowded).",
+      "summary": "Kansai trip plan: Kyoto, Osaka, + quieter day trip.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "project_state"
+      ],
+      "source_refs": [
+        "episode_7f596bb8dee6"
+      ],
+      "confidence": 0.95,
+      "importance": 0.7,
+      "utility": 0.05,
+      "status": "active",
+      "created_at": "2026-07-04T03:42:27.484825Z",
+      "updated_at": "2026-07-04T03:42:29.973857Z",
+      "last_used_at": "2026-07-04T03:43:55.237969Z",
+      "use_count": 1,
+      "version": 1,
+      "keywords": [
+        "Kansai",
+        "Kyoto",
+        "Osaka",
+        "day trip",
+        "quieter"
+      ],
+      "entities": [
+        "Kansai",
+        "Kyoto",
+        "Osaka"
+      ],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_2afcbe4f6126",
+      "secondary_cluster_ids": [],
+      "history": [],
+      "metadata": {}
+    },
+    {
+      "memory_id": "mem_bfa1fdb6ddc6",
+      "content": "For Japan trips, the user prefers the cheapest red-eye flights, tight layovers, early departures, and packed itineraries with several major attractions each day.",
+      "summary": "Old stale note: choose cheap red-eye flights, tight layovers, and packed early itineraries.",
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "facets": [
+        "preference"
+      ],
+      "source_refs": [],
+      "confidence": 0.72,
+      "importance": 0.46,
+      "utility": 0.0,
+      "status": "active",
+      "created_at": "2026-06-13T03:42:38.234056Z",
+      "updated_at": "2026-06-13T03:42:38.234056Z",
+      "last_used_at": null,
+      "use_count": 0,
+      "version": 1,
+      "keywords": [
+        "Japan",
+        "travel",
+        "red-eye",
+        "tight",
+        "layovers",
+        "early",
+        "packed",
+        "itineraries",
+        "attractions"
+      ],
+      "entities": [],
+      "embedding": "<omitted dim=1024>",
+      "primary_cluster_id": "cluster_24462f529c48",
+      "secondary_cluster_ids": [
+        "cluster_27539563c5b5",
+        "cluster_f3bbe0152c3f"
+      ],
+      "history": [],
+      "metadata": {}
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cluster_8953dcc9653b",
+      "member_memory_ids": [
+        "mem_b4f7b4e01195"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_b4f7b4e01195",
+      "title": "Prefers indoor culture on rainy travel days.",
+      "summary": "Prefers indoor culture on rainy travel days. (facets=preference,user_profile; keywords=craft workshops,food halls,indoor culture,museums,rainy days,shopping arcades,tea houses)",
+      "keywords": [
+        "museums",
+        "tea houses",
+        "rainy days",
+        "shopping arcades",
+        "culture",
+        "food halls",
+        "days",
+        "travel",
+        "craft workshops",
+        "indoor",
+        "on",
+        "indoor culture"
+      ],
+      "entities": [],
+      "facet_distribution": {
+        "preference": 1,
+        "user_profile": 1
+      },
+      "time_range": [
+        "2026-07-04T03:43:12.904158Z",
+        "2026-07-04T03:43:12.904158Z"
+      ],
+      "size": 1,
+      "radius": 0.0,
+      "cohesion": 1.0,
+      "entropy": 1.0,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:43:19.895060Z",
+      "updated_at": "2026-07-04T03:43:42.492458Z"
+    },
+    {
+      "cluster_id": "cluster_34c31ff8eef6",
+      "member_memory_ids": [
+        "mem_9c61626bf555"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_9c61626bf555",
+      "title": "Travel food preferences and restrictions for user and partner.",
+      "summary": "Travel food preferences and restrictions for user and partner. (facets=project_state,user_profile; keywords=beef,dietary restrictions,food,izakaya,matcha,noodles,raw fish,seafood)",
+      "keywords": [
+        "preferences",
+        "user",
+        "izakaya",
+        "raw fish",
+        "dietary restrictions",
+        "restrictions",
+        "for",
+        "matcha",
+        "partner",
+        "travel",
+        "food",
+        "beef"
+      ],
+      "entities": [
+        "user",
+        "travel partner"
+      ],
+      "facet_distribution": {
+        "project_state": 1,
+        "user_profile": 1
+      },
+      "time_range": [
+        "2026-07-04T03:42:58.411312Z",
+        "2026-07-04T03:42:58.411312Z"
+      ],
+      "size": 1,
+      "radius": 0.0,
+      "cohesion": 1.0,
+      "entropy": 1.0,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:43:02.508405Z",
+      "updated_at": "2026-07-04T03:43:42.491306Z"
+    },
+    {
+      "cluster_id": "cluster_fe7ec20ece57",
+      "member_memory_ids": [
+        "mem_012fccbccd1c"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_012fccbccd1c",
+      "title": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distanc",
+      "summary": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distances. (facets=preference,project_state,user_profile; keywords=Japan,buses,elevators,knee pain,mobility,mother,stairs,taxis)",
+      "keywords": [
+        "knee",
+        "mother",
+        "taxis",
+        "mobility",
+        "elevators",
+        "pain",
+        "knee pain",
+        "avoid",
+        "for",
+        "short",
+        "prefer",
+        "stairs"
+      ],
+      "entities": [
+        "user's mother"
+      ],
+      "facet_distribution": {
+        "preference": 1,
+        "project_state": 1,
+        "user_profile": 1
+      },
+      "time_range": [
+        "2026-07-04T03:42:41.451365Z",
+        "2026-07-04T03:42:41.451365Z"
+      ],
+      "size": 1,
+      "radius": 0.0,
+      "cohesion": 1.0,
+      "entropy": 1.584962500721156,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:42:47.055987Z",
+      "updated_at": "2026-07-04T03:43:42.490175Z"
+    },
+    {
+      "cluster_id": "cluster_d3ace7f2015d",
+      "member_memory_ids": [
+        "mem_70d62785fe14"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_70d62785fe14",
+      "title": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break",
+      "summary": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break. (facets=preference; keywords=bookstore,cafe,late departure,leisure trips,relaxed pace)",
+      "keywords": [
+        "late departure",
+        "leisure",
+        "one",
+        "cafe",
+        "break",
+        "bookstore",
+        "attraction",
+        "start",
+        "relaxed pace",
+        "daily",
+        "preferences",
+        "leisure trips"
+      ],
+      "entities": [],
+      "facet_distribution": {
+        "preference": 1
+      },
+      "time_range": [
+        "2026-07-04T03:42:33.155240Z",
+        "2026-07-04T03:42:33.155240Z"
+      ],
+      "size": 1,
+      "radius": 0.0,
+      "cohesion": 1.0,
+      "entropy": -0.0,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "global",
+      "created_at": "2026-07-04T03:42:38.240520Z",
+      "updated_at": "2026-07-04T03:43:42.488951Z"
+    },
+    {
+      "cluster_id": "cluster_2afcbe4f6126",
+      "member_memory_ids": [
+        "mem_0019c1d1b329"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_0019c1d1b329",
+      "title": "Kansai trip plan: Kyoto, Osaka, + quieter day trip.",
+      "summary": "Kansai trip plan: Kyoto, Osaka, + quieter day trip. (facets=project_state; keywords=Kansai,Kyoto,Osaka,day trip,quieter)",
+      "keywords": [
+        "osaka",
+        "trip",
+        "day trip",
+        "kansai",
+        "plan",
+        "kyoto",
+        "quieter",
+        "day"
+      ],
+      "entities": [
+        "Kansai",
+        "Kyoto",
+        "Osaka"
+      ],
+      "facet_distribution": {
+        "project_state": 1
+      },
+      "time_range": [
+        "2026-07-04T03:42:27.484825Z",
+        "2026-07-04T03:42:27.484825Z"
+      ],
+      "size": 1,
+      "radius": 0.0,
+      "cohesion": 1.0,
+      "entropy": -0.0,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:42:29.976422Z",
+      "updated_at": "2026-07-04T03:43:42.487725Z"
+    },
+    {
+      "cluster_id": "cluster_24462f529c48",
+      "member_memory_ids": [
+        "mem_b0d7db176478",
+        "mem_bfa1fdb6ddc6"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_b0d7db176478",
+      "title": "Flight preference: daytime, 2h minimum transfer.",
+      "summary": "Flight preference: daytime, 2h minimum transfer. (facets=preference; keywords=Japan,attractions,daytime flights,early,international travel,itineraries,layovers,packed)",
+      "keywords": [
+        "transfer",
+        "daytime flights",
+        "daytime",
+        "transfer time",
+        "flight",
+        "preference",
+        "minimum",
+        "2h",
+        "international travel",
+        "red-eye avoidance",
+        "red",
+        "note"
+      ],
+      "entities": [
+        "flight booking"
+      ],
+      "facet_distribution": {
+        "preference": 2
+      },
+      "time_range": [
+        "2026-06-13T03:42:38.234056Z",
+        "2026-07-04T03:43:07.512671Z"
+      ],
+      "size": 2,
+      "radius": 0.2471989820274504,
+      "cohesion": 0.7528010179725496,
+      "entropy": -0.0,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:43:10.200383Z",
+      "updated_at": "2026-07-04T03:43:42.486245Z"
+    },
+    {
+      "cluster_id": "cluster_27539563c5b5",
+      "member_memory_ids": [
+        "mem_eeedbe48cd10",
+        "mem_bfa1fdb6ddc6"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_eeedbe48cd10",
+      "title": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splu",
+      "summary": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splurges. (facets=preference,user_profile; keywords=Japan,attractions,budget travel,early,itineraries,layovers,local meals,mid-range hotels)",
+      "keywords": [
+        "travel",
+        "transit proximity",
+        "local",
+        "local meals",
+        "budget",
+        "mid-range hotels",
+        "hotels",
+        "budget travel",
+        "meals",
+        "preferences",
+        "splurges",
+        "limited"
+      ],
+      "entities": [],
+      "facet_distribution": {
+        "preference": 2,
+        "user_profile": 1
+      },
+      "time_range": [
+        "2026-06-13T03:42:38.234056Z",
+        "2026-07-04T03:42:50.713331Z"
+      ],
+      "size": 2,
+      "radius": 0.31896738677320546,
+      "cohesion": 0.6810326132267945,
+      "entropy": 0.9182958340544896,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:42:55.212955Z",
+      "updated_at": "2026-07-04T03:43:42.484552Z"
+    },
+    {
+      "cluster_id": "cluster_f3bbe0152c3f",
+      "member_memory_ids": [
+        "mem_fb74d7ddba40",
+        "mem_bfa1fdb6ddc6"
+      ],
+      "centroid_embedding": "<omitted dim=1024>",
+      "medoid_memory_id": "mem_fb74d7ddba40",
+      "title": "Prefers low-stair, quiet day trips.",
+      "summary": "Prefers low-stair, quiet day trips. (facets=preference,user_profile; keywords=Japan,Kyoto,Nara,Uji,attractions,day trip,early,itineraries)",
+      "keywords": [
+        "uji",
+        "low",
+        "day trip",
+        "trips",
+        "stair",
+        "kyoto",
+        "nara",
+        "quieter",
+        "quiet",
+        "day",
+        "prefers",
+        "stair-heavy"
+      ],
+      "entities": [
+        "Nara",
+        "Uji"
+      ],
+      "facet_distribution": {
+        "preference": 2,
+        "user_profile": 1
+      },
+      "time_range": [
+        "2026-06-13T03:42:38.234056Z",
+        "2026-07-04T03:43:27.905394Z"
+      ],
+      "size": 2,
+      "radius": 0.31727006957940795,
+      "cohesion": 0.682729930420592,
+      "entropy": 0.9182958340544896,
+      "query_hits": 0,
+      "avg_utility": 0.0,
+      "shard_id": "shard:life-travel-planning",
+      "dirty": false,
+      "version": 2,
+      "status": "active",
+      "redirect_to": [],
+      "user_id": "travel_demo_user",
+      "project_id": "life-travel-planning",
+      "scope": "project",
+      "created_at": "2026-07-04T03:43:37.092639Z",
+      "updated_at": "2026-07-04T03:43:42.482833Z"
+    }
+  ],
+  "memberships": [
+    {
+      "membership_id": "membership_eea3f49d1e19",
+      "cluster_id": "cluster_2afcbe4f6126",
+      "memory_id": "mem_0019c1d1b329",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:42:29.978220Z"
+    },
+    {
+      "membership_id": "membership_3d3e19c7c961",
+      "cluster_id": "cluster_d3ace7f2015d",
+      "memory_id": "mem_70d62785fe14",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:42:38.243136Z"
+    },
+    {
+      "membership_id": "membership_ec7fd5ecf191",
+      "cluster_id": "cluster_fe7ec20ece57",
+      "memory_id": "mem_012fccbccd1c",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:42:47.056906Z"
+    },
+    {
+      "membership_id": "membership_c2873acd0c36",
+      "cluster_id": "cluster_27539563c5b5",
+      "memory_id": "mem_eeedbe48cd10",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:42:55.214116Z"
+    },
+    {
+      "membership_id": "membership_c404a9cc5232",
+      "cluster_id": "cluster_34c31ff8eef6",
+      "memory_id": "mem_9c61626bf555",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:43:02.508815Z"
+    },
+    {
+      "membership_id": "membership_2625339f4e88",
+      "cluster_id": "cluster_24462f529c48",
+      "memory_id": "mem_b0d7db176478",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:43:10.201196Z"
+    },
+    {
+      "membership_id": "membership_7a6b69308bf6",
+      "cluster_id": "cluster_8953dcc9653b",
+      "memory_id": "mem_b4f7b4e01195",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:43:19.895728Z"
+    },
+    {
+      "membership_id": "membership_569fbdf4b45b",
+      "cluster_id": "cluster_f3bbe0152c3f",
+      "memory_id": "mem_fb74d7ddba40",
+      "role": "primary",
+      "score": 1.0,
+      "created_at": "2026-07-04T03:43:37.093686Z"
+    },
+    {
+      "membership_id": "membership_13018fc3611e",
+      "cluster_id": "cluster_24462f529c48",
+      "memory_id": "mem_bfa1fdb6ddc6",
+      "role": "primary",
+      "score": 0.7618295894011211,
+      "created_at": "2026-07-04T03:43:42.471272Z"
+    },
+    {
+      "membership_id": "membership_cddfa6d6874c",
+      "cluster_id": "cluster_27539563c5b5",
+      "memory_id": "mem_bfa1fdb6ddc6",
+      "role": "secondary",
+      "score": 0.737727057671239,
+      "created_at": "2026-07-04T03:43:42.472803Z"
+    },
+    {
+      "membership_id": "membership_f128eafbb217",
+      "cluster_id": "cluster_f3bbe0152c3f",
+      "memory_id": "mem_bfa1fdb6ddc6",
+      "role": "secondary",
+      "score": 0.7311936666843284,
+      "created_at": "2026-07-04T03:43:42.474531Z"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "edge_8663ef360e51",
+      "src_memory_id": "mem_bfa1fdb6ddc6",
+      "dst_memory_id": "mem_70d62785fe14",
+      "relation_type": "CONFLICTS_WITH",
+      "weight": 1.0,
+      "evidence": "Travel demo conflict: newer preferences reject red-eye flights, tight transfers, or packed days.",
+      "created_at": "2026-07-04T03:43:42.475559Z"
+    }
+  ],
+  "action_traces": [
+    {
+      "trace_id": "trace_e49fe77a8228",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_7f596bb8dee6",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "New durable trip planning memory."
+        },
+        "policy_reason": "New durable trip planning memory."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "User is planning a Kansai trip in Japan, covering Kyoto, Osaka, and a quieter day trip (likely less crowded).",
+            "created_at": "2026-07-04T03:42:27.484825Z",
+            "embedding": null,
+            "entities": [
+              "Kansai",
+              "Kyoto",
+              "Osaka"
+            ],
+            "facets": [
+              "project_state"
+            ],
+            "history": [],
+            "importance": 0.7,
+            "keywords": [
+              "Kansai",
+              "Kyoto",
+              "Osaka",
+              "day trip",
+              "quieter"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_0019c1d1b329",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_7f596bb8dee6"
+            ],
+            "status": "active",
+            "summary": "Kansai trip plan: Kyoto, Osaka, + quieter day trip.",
+            "updated_at": "2026-07-04T03:42:27.484837Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_0019c1d1b329",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 1.4494999777525663,
+      "created_at": "2026-07-04T03:42:29.975320Z"
+    },
+    {
+      "trace_id": "trace_ca947976ff5b",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_025b44c5824a",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "New durable leisure trip preference not covered by existing memories."
+        },
+        "policy_reason": "New durable leisure trip preference not covered by existing memories."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "For leisure trips, the user prefers a relaxed pace: no departures before 9:30 AM, one major attraction per day, and at least one quiet cafe or bookstore break.",
+            "created_at": "2026-07-04T03:42:33.155240Z",
+            "embedding": null,
+            "entities": [],
+            "facets": [
+              "preference"
+            ],
+            "history": [],
+            "importance": 0.75,
+            "keywords": [
+              "leisure trips",
+              "relaxed pace",
+              "cafe",
+              "bookstore",
+              "late departure"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_70d62785fe14",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "global",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_025b44c5824a"
+            ],
+            "status": "active",
+            "summary": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break.",
+            "updated_at": "2026-07-04T03:42:33.155251Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_70d62785fe14",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 3.520832979120314,
+      "created_at": "2026-07-04T03:42:38.237585Z"
+    },
+    {
+      "trace_id": "trace_e96d8ac5e6e1",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_1f044654bfcc",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "New durable preference about mother's mobility needs for travel planning."
+        },
+        "policy_reason": "New durable preference about mother's mobility needs for travel planning."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "The user's mother has mild knee pain, so for Japan trip planning, avoid long stair-heavy routes; elevators, buses, and short taxis are acceptable when they reduce walking.",
+            "created_at": "2026-07-04T03:42:41.451365Z",
+            "embedding": null,
+            "entities": [
+              "user's mother"
+            ],
+            "facets": [
+              "user_profile",
+              "preference",
+              "project_state"
+            ],
+            "history": [],
+            "importance": 0.85,
+            "keywords": [
+              "Japan",
+              "mother",
+              "knee pain",
+              "mobility",
+              "stairs",
+              "elevators",
+              "buses",
+              "taxis"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_012fccbccd1c",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_1f044654bfcc"
+            ],
+            "status": "active",
+            "summary": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distances.",
+            "updated_at": "2026-07-04T03:42:41.451377Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_012fccbccd1c",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 2.035790996160358,
+      "created_at": "2026-07-04T03:42:47.053977Z"
+    },
+    {
+      "trace_id": "trace_f2714350fe86",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_9cc06e129890",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "New durable preference not covered by any existing memory."
+        },
+        "policy_reason": "New durable preference not covered by any existing memory."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "User prefers careful budgeting for travel: mid-range hotels near transit, simple local meals, and only one or two splurge experiences.",
+            "created_at": "2026-07-04T03:42:50.713331Z",
+            "embedding": null,
+            "entities": [],
+            "facets": [
+              "preference",
+              "user_profile"
+            ],
+            "history": [],
+            "importance": 0.75,
+            "keywords": [
+              "budget travel",
+              "mid-range hotels",
+              "transit proximity",
+              "local meals",
+              "splurge experiences"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_eeedbe48cd10",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_9cc06e129890"
+            ],
+            "status": "active",
+            "summary": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splurges.",
+            "updated_at": "2026-07-04T03:42:50.713339Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_eeedbe48cd10",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 1.3634999631904066,
+      "created_at": "2026-07-04T03:42:55.211761Z"
+    },
+    {
+      "trace_id": "trace_3cb93da7621a",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_7bf3b1741045",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "New durable memory about user and partner food preferences for travel."
+        },
+        "policy_reason": "New durable memory about user and partner food preferences for travel."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "User likes seafood, noodles, matcha desserts, and izakaya snacks. Travel partner does not eat raw fish and avoids beef.",
+            "created_at": "2026-07-04T03:42:58.411312Z",
+            "embedding": null,
+            "entities": [
+              "user",
+              "travel partner"
+            ],
+            "facets": [
+              "user_profile",
+              "project_state"
+            ],
+            "history": [],
+            "importance": 0.85,
+            "keywords": [
+              "food",
+              "dietary restrictions",
+              "travel",
+              "seafood",
+              "noodles",
+              "matcha",
+              "izakaya",
+              "raw fish",
+              "beef"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_9c61626bf555",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_7bf3b1741045"
+            ],
+            "status": "active",
+            "summary": "Travel food preferences and restrictions for user and partner.",
+            "updated_at": "2026-07-04T03:42:58.411327Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_9c61626bf555",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 0.6667920388281345,
+      "created_at": "2026-07-04T03:43:02.507963Z"
+    },
+    {
+      "trace_id": "trace_a162b760fb3b",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_51072487faa9",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "Candidate is a new durable memory not covered by existing memories."
+        },
+        "policy_reason": "Candidate is a new durable memory not covered by existing memories."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "The user prefers daytime flights over red-eye flights for international travel, and requires at least two hours between connecting flights.",
+            "created_at": "2026-07-04T03:43:07.512671Z",
+            "embedding": null,
+            "entities": [
+              "flight booking"
+            ],
+            "facets": [
+              "preference"
+            ],
+            "history": [],
+            "importance": 0.8,
+            "keywords": [
+              "daytime flights",
+              "red-eye avoidance",
+              "transfer time",
+              "international travel"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_b0d7db176478",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_51072487faa9"
+            ],
+            "status": "active",
+            "summary": "Flight preference: daytime, 2h minimum transfer.",
+            "updated_at": "2026-07-04T03:43:07.512676Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_b0d7db176478",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 1.424333022441715,
+      "created_at": "2026-07-04T03:43:10.199423Z"
+    },
+    {
+      "trace_id": "trace_ea887387e94f",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": null,
+        "best_existing_score": 0.0,
+        "episode_id": "episode_7b9b954effc0",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "Candidate is a new durable user preference about rainy day activities, not covered by existing memories."
+        },
+        "policy_reason": "Candidate is a new durable user preference about rainy day activities, not covered by existing memories."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.95,
+            "content": "For rainy days while traveling, the user prefers indoor culture plans such as museums, covered shopping arcades, tea houses, craft workshops, and department-store food halls.",
+            "created_at": "2026-07-04T03:43:12.904158Z",
+            "embedding": null,
+            "entities": [],
+            "facets": [
+              "preference",
+              "user_profile"
+            ],
+            "history": [],
+            "importance": 0.8,
+            "keywords": [
+              "rainy days",
+              "indoor culture",
+              "museums",
+              "shopping arcades",
+              "tea houses",
+              "craft workshops",
+              "food halls"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_b4f7b4e01195",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_7b9b954effc0"
+            ],
+            "status": "active",
+            "summary": "Prefers indoor culture on rainy travel days.",
+            "updated_at": "2026-07-04T03:43:12.904162Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_b4f7b4e01195",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 0.9659589850343764,
+      "created_at": "2026-07-04T03:43:19.894051Z"
+    },
+    {
+      "trace_id": "trace_751ecda124a3",
+      "phase": "remember",
+      "action": "WRITE_NEW",
+      "observation_json": {
+        "best_existing_memory_id": "mem_b4f7b4e01195",
+        "best_existing_score": 0.3055555555555556,
+        "episode_id": "episode_e2173dd04a76",
+        "policy_action": {
+          "action": "WRITE_NEW",
+          "cluster_ids": [],
+          "memory_ids": [],
+          "params": {},
+          "reason": "Candidate adds new and specific preference for quieter, low-stair day trips between Nara and Uji, not covered by existing memories."
+        },
+        "policy_reason": "Candidate adds new and specific preference for quieter, low-stair day trips between Nara and Uji, not covered by existing memories."
+      },
+      "action_json": {
+        "action": "WRITE_NEW",
+        "payload": {
+          "entry": {
+            "confidence": 0.65,
+            "content": "User prefers quieter day trips that are not stair-heavy, particularly when choosing between Nara and Uji as day trips from Kyoto.",
+            "created_at": "2026-07-04T03:43:27.905394Z",
+            "embedding": null,
+            "entities": [
+              "Nara",
+              "Uji"
+            ],
+            "facets": [
+              "preference",
+              "user_profile"
+            ],
+            "history": [],
+            "importance": 0.6,
+            "keywords": [
+              "quieter",
+              "stair-heavy",
+              "day trip",
+              "Nara",
+              "Uji",
+              "Kyoto"
+            ],
+            "last_used_at": null,
+            "memory_id": "mem_fb74d7ddba40",
+            "metadata": {},
+            "primary_cluster_id": null,
+            "project_id": "life-travel-planning",
+            "scope": "project",
+            "secondary_cluster_ids": [],
+            "source_refs": [
+              "episode_e2173dd04a76"
+            ],
+            "status": "active",
+            "summary": "Prefers low-stair, quiet day trips.",
+            "updated_at": "2026-07-04T03:43:27.905407Z",
+            "use_count": 0,
+            "user_id": "travel_demo_user",
+            "utility": 0.0,
+            "version": 1
+          }
+        }
+      },
+      "tool_result_json": {
+        "memory_id": "mem_fb74d7ddba40",
+        "ok": true,
+        "version": 1
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 5.229083995800465,
+      "created_at": "2026-07-04T03:43:37.090886Z"
+    },
+    {
+      "trace_id": "trace_9b660749493d",
+      "phase": "maintenance",
+      "action": "CLUSTER_MAINTENANCE",
+      "observation_json": {
+        "avg_cohesion": 0.8895704452024921,
+        "avg_radius": 0.11042955479750798,
+        "avg_size": 1.375,
+        "created_at": "2026-07-04T03:43:42.481909Z",
+        "deprecate_candidates": [],
+        "large_ratio": 0.0,
+        "merge_candidates": [],
+        "num_clusters": 8,
+        "proposals": [
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_f3bbe0152c3f",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_27539563c5b5",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_24462f529c48",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_2afcbe4f6126",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_d3ace7f2015d",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_fe7ec20ece57",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_34c31ff8eef6",
+            "reason": "dirty"
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_8953dcc9653b",
+            "reason": "dirty"
+          }
+        ],
+        "refresh_candidates": [
+          "cluster_f3bbe0152c3f",
+          "cluster_27539563c5b5",
+          "cluster_24462f529c48",
+          "cluster_2afcbe4f6126",
+          "cluster_d3ace7f2015d",
+          "cluster_fe7ec20ece57",
+          "cluster_34c31ff8eef6",
+          "cluster_8953dcc9653b"
+        ],
+        "report_id": "health_74cc8dc97b83",
+        "small_ratio": 1.0,
+        "split_candidates": []
+      },
+      "action_json": {
+        "max_proposals": 8
+      },
+      "tool_result_json": {
+        "results": [
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_f3bbe0152c3f",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_27539563c5b5",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_24462f529c48",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_2afcbe4f6126",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_d3ace7f2015d",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_fe7ec20ece57",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_34c31ff8eef6",
+            "ok": true
+          },
+          {
+            "action": "REFRESH_CLUSTER_CARD",
+            "cluster_id": "cluster_8953dcc9653b",
+            "ok": true
+          }
+        ]
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 0.0,
+      "created_at": "2026-07-04T03:43:42.493129Z"
+    },
+    {
+      "trace_id": "trace_a72f2e34a8e5",
+      "phase": "use",
+      "action": "EXPAND_CLUSTER",
+      "observation_json": {
+        "bank_stats": {
+          "num_clusters": 8,
+          "num_memories": 9,
+          "visible_cluster_cards": 8
+        },
+        "budget": {
+          "max_clusters": 8,
+          "max_items": 8,
+          "token_budget": 2400,
+          "top_k_per_cluster": 8,
+          "top_m": 12,
+          "verify": true
+        },
+        "cluster_cards": [
+          {
+            "cluster_id": "cluster_d3ace7f2015d",
+            "facet_distribution": {
+              "preference": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "late departure",
+              "leisure",
+              "one",
+              "cafe",
+              "break",
+              "bookstore",
+              "attraction",
+              "start",
+              "relaxed pace",
+              "daily",
+              "preferences",
+              "leisure trips"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break.",
+            "retrieval_score": 0.6763670299741515,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 1,
+            "summary": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break. (facets=preference; keywords=bookstore,cafe,late departure,leisure trips,relaxed pace)",
+            "time_range": [
+              "2026-07-04T03:42:33.155240Z",
+              "2026-07-04T03:42:33.155240Z"
+            ],
+            "title": "Leisure trip preferences: late start, one attraction daily, cafe/bookstore break",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_27539563c5b5",
+            "facet_distribution": {
+              "preference": 2,
+              "user_profile": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "travel",
+              "transit proximity",
+              "local",
+              "local meals",
+              "budget",
+              "mid-range hotels",
+              "hotels",
+              "budget travel",
+              "meals",
+              "preferences",
+              "splurges",
+              "limited"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splurges.",
+            "retrieval_score": 0.6597821281900629,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 2,
+            "summary": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splurges. (facets=preference,user_profile; keywords=Japan,attractions,budget travel,early,itineraries,layovers,local meals,mid-range hotels)",
+            "time_range": [
+              "2026-06-13T03:42:38.234056Z",
+              "2026-07-04T03:42:50.713331Z"
+            ],
+            "title": "Budget-conscious travel preferences: mid-range hotels, local meals, limited splu",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_8953dcc9653b",
+            "facet_distribution": {
+              "preference": 1,
+              "user_profile": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "museums",
+              "tea houses",
+              "rainy days",
+              "shopping arcades",
+              "culture",
+              "food halls",
+              "days",
+              "travel",
+              "craft workshops",
+              "indoor",
+              "on",
+              "indoor culture"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Prefers indoor culture on rainy travel days.",
+            "retrieval_score": 0.6550856903110156,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 1,
+            "summary": "Prefers indoor culture on rainy travel days. (facets=preference,user_profile; keywords=craft workshops,food halls,indoor culture,museums,rainy days,shopping arcades,tea houses)",
+            "time_range": [
+              "2026-07-04T03:43:12.904158Z",
+              "2026-07-04T03:43:12.904158Z"
+            ],
+            "title": "Prefers indoor culture on rainy travel days.",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_24462f529c48",
+            "facet_distribution": {
+              "preference": 2
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "transfer",
+              "daytime flights",
+              "daytime",
+              "transfer time",
+              "flight",
+              "preference",
+              "minimum",
+              "2h",
+              "international travel",
+              "red-eye avoidance",
+              "red",
+              "note"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Flight preference: daytime, 2h minimum transfer.",
+            "retrieval_score": 0.6475785835091808,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 2,
+            "summary": "Flight preference: daytime, 2h minimum transfer. (facets=preference; keywords=Japan,attractions,daytime flights,early,international travel,itineraries,layovers,packed)",
+            "time_range": [
+              "2026-06-13T03:42:38.234056Z",
+              "2026-07-04T03:43:07.512671Z"
+            ],
+            "title": "Flight preference: daytime, 2h minimum transfer.",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_f3bbe0152c3f",
+            "facet_distribution": {
+              "preference": 2,
+              "user_profile": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "uji",
+              "low",
+              "day trip",
+              "trips",
+              "stair",
+              "kyoto",
+              "nara",
+              "quieter",
+              "quiet",
+              "day",
+              "prefers",
+              "stair-heavy"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Prefers low-stair, quiet day trips.",
+            "retrieval_score": 0.6411610986814924,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 2,
+            "summary": "Prefers low-stair, quiet day trips. (facets=preference,user_profile; keywords=Japan,Kyoto,Nara,Uji,attractions,day trip,early,itineraries)",
+            "time_range": [
+              "2026-06-13T03:42:38.234056Z",
+              "2026-07-04T03:43:27.905394Z"
+            ],
+            "title": "Prefers low-stair, quiet day trips.",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_2afcbe4f6126",
+            "facet_distribution": {
+              "project_state": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "osaka",
+              "trip",
+              "day trip",
+              "kansai",
+              "plan",
+              "kyoto",
+              "quieter",
+              "day"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Kansai trip plan: Kyoto, Osaka, + quieter day trip.",
+            "retrieval_score": 0.6378118981374322,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 1,
+            "summary": "Kansai trip plan: Kyoto, Osaka, + quieter day trip. (facets=project_state; keywords=Kansai,Kyoto,Osaka,day trip,quieter)",
+            "time_range": [
+              "2026-07-04T03:42:27.484825Z",
+              "2026-07-04T03:42:27.484825Z"
+            ],
+            "title": "Kansai trip plan: Kyoto, Osaka, + quieter day trip.",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_34c31ff8eef6",
+            "facet_distribution": {
+              "project_state": 1,
+              "user_profile": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "preferences",
+              "user",
+              "izakaya",
+              "raw fish",
+              "dietary restrictions",
+              "restrictions",
+              "for",
+              "matcha",
+              "partner",
+              "travel",
+              "food",
+              "beef"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Travel food preferences and restrictions for user and partner.",
+            "retrieval_score": 0.609558300468746,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 1,
+            "summary": "Travel food preferences and restrictions for user and partner. (facets=project_state,user_profile; keywords=beef,dietary restrictions,food,izakaya,matcha,noodles,raw fish,seafood)",
+            "time_range": [
+              "2026-07-04T03:42:58.411312Z",
+              "2026-07-04T03:42:58.411312Z"
+            ],
+            "title": "Travel food preferences and restrictions for user and partner.",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          },
+          {
+            "cluster_id": "cluster_fe7ec20ece57",
+            "facet_distribution": {
+              "preference": 1,
+              "project_state": 1,
+              "user_profile": 1
+            },
+            "health_flags": [
+              "too_small"
+            ],
+            "keywords": [
+              "knee",
+              "mother",
+              "taxis",
+              "mobility",
+              "elevators",
+              "pain",
+              "knee pain",
+              "avoid",
+              "for",
+              "short",
+              "prefer",
+              "stairs"
+            ],
+            "project_id": "life-travel-planning",
+            "representative_memory": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distances.",
+            "retrieval_score": 0.6071277530231826,
+            "risk_flags": [],
+            "shard_id": "shard:life-travel-planning",
+            "size": 1,
+            "summary": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distances. (facets=preference,project_state,user_profile; keywords=Japan,buses,elevators,knee pain,mobility,mother,stairs,taxis)",
+            "time_range": [
+              "2026-07-04T03:42:41.451365Z",
+              "2026-07-04T03:42:41.451365Z"
+            ],
+            "title": "Mother's knee pain: avoid stairs, prefer elevators/buses/taxis for short distanc",
+            "user_id": "travel_demo_user",
+            "utility_score": 0.0
+          }
+        ],
+        "evidence_items": [],
+        "phase": "use",
+        "query": "请根据我之前说过的旅行偏好，帮我设计一个 6 天关西旅行初版方案：京都 3 天、大阪 2 天、奈良或宇治 1 天。请同时考虑航班时间、住宿区域、每日节奏、饮食限制、妈妈膝盖不适、下雨备用方案，以及为什么不要安排红眼航班或每天塞满景点。回答用中文，结构化但不要像论文。\nRetrieval hints: relaxed pace, no departures before 9:30 AM, one major attraction per day, quiet cafe, bookstore, mother knee pain, avoid stairs, mid-range hotels near transit, simple local meals, raw fish, avoids beef, no red-eye flights, no tight transfers, rainy days, museums, covered shopping arcades, tea houses, craft workshops.",
+        "risk_flags": []
+      },
+      "action_json": {
+        "action": "EXPAND_CLUSTER",
+        "cluster_ids": [
+          "cluster_d3ace7f2015d",
+          "cluster_27539563c5b5",
+          "cluster_8953dcc9653b",
+          "cluster_24462f529c48",
+          "cluster_f3bbe0152c3f",
+          "cluster_2afcbe4f6126",
+          "cluster_34c31ff8eef6",
+          "cluster_fe7ec20ece57"
+        ],
+        "memory_ids": [],
+        "params": {
+          "max_items": 3
+        },
+        "reason": "All eight cluster cards are directly relevant to the query, covering leisure pace, budget, rainy-day alternatives, flight preferences, low-stair day trips, Kansai plan, dietary restrictions, and mother's knee mobility. Expanding all provides comprehensive evidence for the plan."
+      },
+      "tool_result_json": {
+        "selected_clusters": [
+          "cluster_d3ace7f2015d",
+          "cluster_27539563c5b5",
+          "cluster_8953dcc9653b",
+          "cluster_24462f529c48",
+          "cluster_f3bbe0152c3f",
+          "cluster_2afcbe4f6126",
+          "cluster_34c31ff8eef6",
+          "cluster_fe7ec20ece57"
+        ]
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 0.0,
+      "created_at": "2026-07-04T03:43:54.432189Z"
+    },
+    {
+      "trace_id": "trace_0d33eece7ad8",
+      "phase": "verify",
+      "action": "CHECK_CONFLICT",
+      "observation_json": {
+        "memory_ids": [
+          "mem_eeedbe48cd10",
+          "mem_70d62785fe14",
+          "mem_b4f7b4e01195",
+          "mem_bfa1fdb6ddc6",
+          "mem_9c61626bf555",
+          "mem_b0d7db176478",
+          "mem_012fccbccd1c",
+          "mem_0019c1d1b329"
+        ],
+        "query": "请根据我之前说过的旅行偏好，帮我设计一个 6 天关西旅行初版方案：京都 3 天、大阪 2 天、奈良或宇治 1 天。请同时考虑航班时间、住宿区域、每日节奏、饮食限制、妈妈膝盖不适、下雨备用方案，以及为什么不要安排红眼航班或每天塞满景点。回答用中文，结构化但不要像论文。\nRetrieval hints: relaxed pace, no departures before 9:30 AM, one major attraction per day, quiet cafe, bookstore, mother knee pain, avoid stairs, mid-range hotels near transit, simple local meals, raw fish, avoids beef, no red-eye flights, no tight transfers, rainy days, museums, covered shopping arcades, tea houses, craft workshops."
+      },
+      "action_json": {
+        "verifier": "rule_based"
+      },
+      "tool_result_json": {
+        "results": [
+          {
+            "keep": true,
+            "memory_id": "mem_eeedbe48cd10",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_70d62785fe14",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_b4f7b4e01195",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": false,
+            "memory_id": "mem_bfa1fdb6ddc6",
+            "reason": "conflicts with newer selected memory mem_70d62785fe14",
+            "verdict": "contradicted"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_9c61626bf555",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_b0d7db176478",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_012fccbccd1c",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          },
+          {
+            "keep": true,
+            "memory_id": "mem_0019c1d1b329",
+            "reason": "memory is active and passed lightweight checks",
+            "verdict": "valid"
+          }
+        ]
+      },
+      "valid_format": true,
+      "error_code": null,
+      "latency_ms": 0.0,
+      "created_at": "2026-07-04T03:43:55.232925Z"
+    }
+  ],
+  "exposure_events": [
+    {
+      "exposure_id": "exposure_7109b635f462",
+      "query_id": "query_939a956472d0",
+      "query": "请根据我之前说过的旅行偏好，帮我设计一个 6 天关西旅行初版方案：京都 3 天、大阪 2 天、奈良或宇治 1 天。请同时考虑航班时间、住宿区域、每日节奏、饮食限制、妈妈膝盖不适、下雨备用方案，以及为什么不要安排红眼航班或每天塞满景点。回答用中文，结构化但不要像论文。\nRetrieval hints: relaxed pace, no departures before 9:30 AM, one major attraction per day, quiet cafe, bookstore, mother knee pain, avoid stairs, mid-range hotels near transit, simple local meals, raw fish, avoids beef, no red-eye flights, no tight transfers, rainy days, museums, covered shopping arcades, tea houses, craft workshops.",
+      "selected_memory_ids": [
+        "mem_eeedbe48cd10",
+        "mem_70d62785fe14",
+        "mem_b4f7b4e01195",
+        "mem_9c61626bf555",
+        "mem_b0d7db176478",
+        "mem_012fccbccd1c",
+        "mem_0019c1d1b329"
+      ],
+      "cluster_ids": [
+        "cluster_d3ace7f2015d",
+        "cluster_27539563c5b5",
+        "cluster_8953dcc9653b",
+        "cluster_24462f529c48",
+        "cluster_f3bbe0152c3f",
+        "cluster_2afcbe4f6126",
+        "cluster_34c31ff8eef6",
+        "cluster_fe7ec20ece57"
+      ],
+      "exposure_format": "evidence_packet",
+      "token_count": 247,
+      "answer_score": null,
+      "latency_ms": 12744.17675001314,
+      "created_at": "2026-07-04T03:43:55.238522Z",
+      "metadata": {}
+    }
+  ]
+}
