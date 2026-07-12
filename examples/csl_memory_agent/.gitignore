@@ -1,0 +1,5 @@
+# Reproducible runtime artifacts; keep compact reports and analyses in Git.
+demo_outputs/
+official_runs/**/raw/
+official_runs/**/state/
+official_runs/**/*_pilot.json

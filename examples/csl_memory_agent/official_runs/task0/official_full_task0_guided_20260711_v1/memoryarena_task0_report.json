@@ -1,0 +1,163 @@
+{
+  "scope": "single_official_memoryarena_item",
+  "scope_note": "This is one complete official item, not the 150-item aggregate reported in the paper.",
+  "task_id": "baking_item_0",
+  "expected_steps": 6,
+  "completed_steps": 6,
+  "scored_steps": 6,
+  "score_eligible": true,
+  "hard_passed_steps": 1,
+  "hard_step_pass_rate": 0.16666666666666666,
+  "PS_item": 0.16666666666666666,
+  "SR_item": 0,
+  "soft_average_reward": 0.16666666666666666,
+  "purchased_asins": [
+    "B00TUDFEW2",
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "target_asins": [
+    "B00TUDFEW2",
+    "B08957C9ZH",
+    "B08SC5FLRK",
+    "B07FSHWK6B",
+    "B09CNVBP13",
+    "B06XG24BBK"
+  ],
+  "step_rewards": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "step_success": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "token_scope": "answer_agent_plus_memory_agent; offline_reward_scorer_excluded",
+  "tokens": {
+    "answer_agent": {
+      "calls": 115,
+      "prompt_tokens": 281040,
+      "completion_tokens": 87500,
+      "total_tokens": 368540,
+      "latency_ms": 917191.0664557945
+    },
+    "memory_agent": {
+      "instances": 1,
+      "calls": 1,
+      "prompt_tokens": 5046,
+      "completion_tokens": 909,
+      "total_tokens": 5955,
+      "latency_ms": 10506.676207995042,
+      "guard_cache_hits": 1,
+      "guard_llm_calls_avoided": 1
+    },
+    "combined_total_tokens": 374495
+  },
+  "official_reward_summary": {
+    "run_dir": "/private/tmp/MemoryArena-official-readonly/.csl_score_run.C1eLJ8/run",
+    "generated_at": "2026-07-11T11:23:34Z",
+    "total_items": 1,
+    "total_steps": 6,
+    "average_reward": 0.16666666666666666,
+    "item_success_rate": 0.0,
+    "item_success_count": 0,
+    "average_success_rate": 0.16666666666666666,
+    "per_step": {
+      "1": {
+        "count": 1,
+        "average_reward": 1.0,
+        "success_rate": 1.0,
+        "failure_modes": {
+          "no_purchase_ratio": 0.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          1.0
+        ]
+      },
+      "2": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "3": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "4": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "5": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "6": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      }
+    }
+  },
+  "source_files": {
+    "task_result": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_full_task0_guided_20260711_v1/raw/item_0/deepseek-v4-flash-split-dart_csl_vtcc/step_results/item_0_results_20260711_192226.json",
+    "reward_report": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_full_task0_guided_20260711_v1/raw/item_0/deepseek-v4-flash-split-dart_csl_vtcc/reward_report.json",
+    "answer_usage_log": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_full_task0_guided_20260711_v1/raw/answer_api_usage.jsonl",
+    "memory_state_root": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_full_task0_guided_20260711_v1/state"
+  }
+}

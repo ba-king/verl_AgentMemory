@@ -1,0 +1,161 @@
+{
+  "scope": "single_official_memoryarena_item",
+  "task_id": "baking_item_0",
+  "expected_steps": 6,
+  "completed_steps": 6,
+  "scored_steps": 6,
+  "score_eligible": true,
+  "hard_passed_steps": 0,
+  "hard_step_pass_rate": 0.0,
+  "PS_item": 0.0,
+  "SR_item": 0,
+  "soft_average_reward": 0.0,
+  "purchased_asins": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "target_asins": [
+    "B00TUDFEW2",
+    "B08957C9ZH",
+    "B08SC5FLRK",
+    "B07FSHWK6B",
+    "B09CNVBP13",
+    "B06XG24BBK"
+  ],
+  "step_rewards": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "step_success": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "tokens": {
+    "answer_agent": {
+      "calls": 150,
+      "prompt_tokens": 1693332,
+      "completion_tokens": 257935,
+      "total_tokens": 1951267,
+      "latency_ms": 2802439.749000361
+    },
+    "memory_agent": {
+      "instances": 1,
+      "calls": 17,
+      "prompt_tokens": 70293,
+      "completion_tokens": 17528,
+      "total_tokens": 87821,
+      "latency_ms": 187978.3032083651,
+      "guard_cache_hits": 0,
+      "guard_llm_calls_avoided": 0
+    },
+    "combined_total_tokens": 2039088
+  },
+  "official_reward_summary": {
+    "run_dir": "/private/tmp/MemoryArena-official-readonly/.csl_score_run.2vcXEo/run",
+    "generated_at": "2026-07-10T20:54:42Z",
+    "total_items": 1,
+    "total_steps": 6,
+    "average_reward": 0.0,
+    "item_success_rate": 0.0,
+    "item_success_count": 0,
+    "average_success_rate": 0.0,
+    "per_step": {
+      "1": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "2": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "3": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "4": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "5": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      },
+      "6": {
+        "count": 1,
+        "average_reward": 0.0,
+        "success_rate": 0.0,
+        "failure_modes": {
+          "no_purchase_ratio": 1.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          null
+        ]
+      }
+    }
+  },
+  "source_files": {
+    "task_result": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_optimized_task0_v3/raw/item_0/deepseek-v4-flash-split-dart_csl_vtcc/step_results/item_0_results_20260711_045158.json",
+    "reward_report": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_optimized_task0_v3/raw/item_0/deepseek-v4-flash-split-dart_csl_vtcc/reward_report.json",
+    "answer_usage_log": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_optimized_task0_v3/raw/answer_api_usage.jsonl",
+    "memory_state_root": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/task0/official_optimized_task0_v3/state"
+  }
+}

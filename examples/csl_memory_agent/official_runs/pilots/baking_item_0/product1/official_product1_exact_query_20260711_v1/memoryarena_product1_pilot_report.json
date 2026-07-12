@@ -1,0 +1,78 @@
+{
+  "scope": "single_official_memoryarena_step_functional_pilot",
+  "scope_note": "This is one official WebShop session used as a functional pilot, not a complete six-step item or the paper's 150-item aggregate.",
+  "task_id": "baking_item_0_product1_pilot",
+  "expected_steps": 1,
+  "completed_steps": 1,
+  "scored_steps": 1,
+  "score_eligible": true,
+  "hard_passed_steps": 1,
+  "hard_step_pass_rate": 1.0,
+  "PS_item": 1.0,
+  "SR_item": 1,
+  "soft_average_reward": 1.0,
+  "purchased_asins": [
+    "B00TUDFEW2"
+  ],
+  "target_asins": [
+    "B00TUDFEW2"
+  ],
+  "step_rewards": [
+    1.0
+  ],
+  "step_success": [
+    true
+  ],
+  "token_scope": "answer_agent_plus_memory_agent; offline_reward_scorer_excluded",
+  "tokens": {
+    "answer_agent": {
+      "calls": 16,
+      "prompt_tokens": 38251,
+      "completion_tokens": 12516,
+      "total_tokens": 50767,
+      "latency_ms": 129985.5829179287
+    },
+    "memory_agent": {
+      "instances": 1,
+      "calls": 1,
+      "prompt_tokens": 5014,
+      "completion_tokens": 521,
+      "total_tokens": 5535,
+      "latency_ms": 5758.865874959156,
+      "guard_cache_hits": 1,
+      "guard_llm_calls_avoided": 1
+    },
+    "combined_total_tokens": 56302
+  },
+  "official_reward_summary": {
+    "run_dir": "/private/tmp/MemoryArena-official-readonly/.csl_score_repair.LTGmT6/run",
+    "generated_at": "2026-07-11T10:22:09Z",
+    "total_items": 1,
+    "total_steps": 1,
+    "average_reward": 1.0,
+    "item_success_rate": 1.0,
+    "item_success_count": 1,
+    "average_success_rate": 1.0,
+    "per_step": {
+      "1": {
+        "count": 1,
+        "average_reward": 1.0,
+        "success_rate": 1.0,
+        "failure_modes": {
+          "no_purchase_ratio": 0.0,
+          "partial_reward_ratio": 0.0,
+          "other_failure_ratio": 0.0
+        },
+        "rewards": [
+          1.0
+        ]
+      }
+    }
+  },
+  "source_files": {
+    "task_result": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/pilots/baking_item_0/product1/official_product1_exact_query_20260711_v1/raw/product1_pilot/deepseek-v4-flash-full-dart_csl_vtcc/step_results/product1_pilot_results_20260711_181338.json",
+    "reward_report": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/pilots/baking_item_0/product1/official_product1_exact_query_20260711_v1/raw/product1_pilot/deepseek-v4-flash-full-dart_csl_vtcc/reward_report.json",
+    "answer_usage_log": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/pilots/baking_item_0/product1/official_product1_exact_query_20260711_v1/raw/answer_api_usage.jsonl",
+    "memory_state_root": "/Users/lizizheng/verl/examples/csl_memory_agent/official_runs/pilots/baking_item_0/product1/official_product1_exact_query_20260711_v1/state"
+  }
+}

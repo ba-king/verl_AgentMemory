@@ -1,0 +1,91 @@
+method_name: dart_csl_vtcc
+expanded_name: Decision-Aware, Action-Guarded, Repairable, Token-Bounded Causal State Ledger with Visible Task Contract Compilation
+short_name: DART-CSL
+storage_backend: jsonl
+state_dir: .csl_state
+
+schema_induction:
+  enabled: true
+  allow_fixed_task_categories: false
+  allow_category_specific_prompts: false
+  update_on_write: true
+  update_on_read: true
+  min_confidence_to_update: 0.55
+
+llm:
+  provider: mock
+  model: mock
+  temperature: 0
+  max_retries: 3
+  json_repair: true
+
+write_time:
+  extract_every_n_events: 4
+  extract_on_boundary_signal: true
+  extract_on_success_or_failure_signal: true
+  force_extract_on_wrap: true
+  lazy_write: true
+  enable_checkpoint_summary: true
+  enable_contract_compilation: true
+  enable_schema_card_induction: true
+  enable_generic_delta_extractor: true
+  enable_delta_validator: true
+  enable_canonicalizer: true
+  enable_dependency_edges: true
+  enable_repair_barrier: true
+
+read_time:
+  max_state_packet_tokens: 800
+  max_contract_rules: 4
+  max_final_states: 12
+  max_constraints: 12
+  max_dependencies: 6
+  max_negative_states: 8
+  max_evidence_pointers: 4
+  max_active_path_events: 4
+  recent_event_count: 1
+  dependency_expand_depth: 2
+  enable_backfill: true
+  max_backfill_events: 24
+  enable_soft_verifier: true
+  enable_hard_action_guard: true
+  hard_guard_only_on_irreversible_actions: true
+  enable_guard_audit_cache: true
+  guard_audit_policy_version: selection-proof-v1
+
+progress:
+  enabled: true
+  repeat_limit: 2
+  history_limit: 32
+  cycle_window: 6
+
+transition_validation:
+  enabled: true
+  max_consecutive_same_recovery: 2
+
+state_lanes:
+  enable_contract_lane: true
+  enable_decision_lane: true
+  enable_constraint_lane: true
+  enable_dependency_lane: true
+  enable_negative_lane: true
+  enable_evidence_lane: true
+  enable_recent_lane: true
+  enable_uncertainty_lane: true
+  enable_repair_lane: true
+
+ablation:
+  disable_task_contract: false
+  disable_schema_induction: false
+  disable_ledger: false
+  disable_constraints: false
+  disable_dependency_graph: false
+  disable_negative_memory: false
+  disable_repair_barrier: false
+  disable_backfill: false
+  disable_decision_signature: false
+  disable_soft_verifier: false
+  disable_hard_action_guard: false
+  disable_transition_validation: false
+  use_path_summary_only: false
+  use_semantic_retrieval_only: false
