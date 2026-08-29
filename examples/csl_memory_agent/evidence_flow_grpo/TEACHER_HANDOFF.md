@@ -30,6 +30,8 @@ Answerer-conditioned `Q_t` reward。
 
 本包审核所针对的 VERL 基线提交为：
 `34530469d482fc322f985434dbbc9ca28fe06928`。
+老师是否已经 clone 过仓库不确定时，按 `TEACHER_CLONE_REVIEW_GUIDE.md` 中对应 Case 操作，
+不要直接覆盖已有工作区。
 源码级独立审计结果见 `EXPERIMENT_AUDIT.md`：结论是可进入 G0/G1 smoke；该审计是
 same-family Type-A review，不是跨模型复现，也不是 GPU 运行证据。
 

@@ -7,7 +7,9 @@
 当前交付状态是：**工程上可进入服务器 G0/G1 smoke，科学上尚不能验证核心方法**。这里训练的
 是静态候选池上的 retrieval/selection policy，不是带在线 Memory Bank transition 的完整端到端
 Memory Agent。当前 gold-subset reward 也是 `synthetic_proxy`，不是最终方法需要的可信局部
-`Q_t`。老师建议先阅读 [`TEACHER_HANDOFF.md`](TEACHER_HANDOFF.md)；完整服务器步骤见
+`Q_t`。不确定是否已经 clone 过仓库时，先看
+[`TEACHER_CLONE_REVIEW_GUIDE.md`](TEACHER_CLONE_REVIEW_GUIDE.md)；方法交接见
+[`TEACHER_HANDOFF.md`](TEACHER_HANDOFF.md)；完整服务器步骤见
 [`SERVER_RUNBOOK.md`](SERVER_RUNBOOK.md)，独立源码审计见
 [`EXPERIMENT_AUDIT.md`](EXPERIMENT_AUDIT.md)。本包针对 VERL 基线提交
 `34530469d482fc322f985434dbbc9ca28fe06928` 审核。
