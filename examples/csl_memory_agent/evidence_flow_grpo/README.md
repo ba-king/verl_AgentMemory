@@ -8,7 +8,7 @@
 是静态候选池上的 retrieval/selection policy，不是带在线 Memory Bank transition 的完整端到端
 Memory Agent。当前 gold-subset reward 也是 `synthetic_proxy`，不是最终方法需要的可信局部
 `Q_t`。不确定是否已经 clone 过仓库时，先看
-[`TEACHER_CLONE_REVIEW_GUIDE.md`](TEACHER_CLONE_REVIEW_GUIDE.md)；方法交接见
+[`CLONE_REVIEW_GUIDE.md`](CLONE_REVIEW_GUIDE.md)；方法交接见
 [`TEACHER_HANDOFF.md`](TEACHER_HANDOFF.md)；完整服务器步骤见
 [`SERVER_RUNBOOK.md`](SERVER_RUNBOOK.md)，独立源码审计见
 [`EXPERIMENT_AUDIT.md`](EXPERIMENT_AUDIT.md)。本包针对 VERL 基线提交
@@ -55,7 +55,7 @@ markdown、不截断、不修复：额外字段、未知/重复 ID、非法组�
 - `analyze_g2.py` / `aggregate_g2.py`：重算密封 held-out reward、简单基线和两 seed
   预注册门槛；aggregate 会从原始 validation/metadata/checkpoint 重新执行每个 seed 的审计，
   不信任手改的中间 JSON。
-- `SERVER_RUNBOOK.md`：老师在服务器上的完整操作顺序。
+- `SERVER_RUNBOOK.md`：目标服务器上的完整操作顺序。
 
 public 训练 row 只携带不透明 `sample_id`。Gold 动作、证据状态和内容哈希集合只存在于
 `scorer/targets.json`；其完整文件 SHA-256 同时写入每条 public row。reward worker 在哈希不一致
@@ -163,7 +163,7 @@ step-0、训练和 checkpoint 验证必须共同使用同一个本地模型 snap
 
 ## 结果边界
 
-S0 通过只说明 public data → sealed reward → group-relative advantage 的结构闭环成立。老师完成
+S0 通过只说明 public data → sealed reward → group-relative advantage 的结构闭环成立。完成
 G1/G2 后，只有 held-out semantic exact 相对 step-0 在两个 seed 上均改善、schema-valid 不退化，
 才可写成“该 synthetic proxy 上存在初步 RL learnability”。它仍不等价于 Answerer 质量提升、
 PEV 主张成立、RL 必要性或 MemoryArena 泛化；这些必须由后续 cached PEV 和自然状态实验验证。

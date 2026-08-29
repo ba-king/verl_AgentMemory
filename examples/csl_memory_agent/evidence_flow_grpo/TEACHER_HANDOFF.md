@@ -1,4 +1,4 @@
-# Evidence-Flow GRPO：老师交接说明
+# Evidence-Flow GRPO：交接说明
 
 ## 一句话定位
 
@@ -30,7 +30,7 @@ Answerer-conditioned `Q_t` reward。
 
 本包审核所针对的 VERL 基线提交为：
 `34530469d482fc322f985434dbbc9ca28fe06928`。
-老师是否已经 clone 过仓库不确定时，按 `TEACHER_CLONE_REVIEW_GUIDE.md` 中对应 Case 操作，
+不确定本机是否已经 clone 过仓库时，按 `CLONE_REVIEW_GUIDE.md` 中对应 Case 操作，
 不要直接覆盖已有工作区。
 源码级独立审计结果见 `EXPERIMENT_AUDIT.md`：结论是可进入 G0/G1 smoke；该审计是
 same-family Type-A review，不是跨模型复现，也不是 GPU 运行证据。
@@ -44,7 +44,7 @@ same-family Type-A review，不是跨模型复现，也不是 GPU 运行证据�
 论文中的局部 reward。这里仅记录它对工程路线的影响；旧 API 原始输出和 sealed 自然目标因不属于
 服务器训练依赖而明确排除在本次 branch 之外。
 
-## 老师第一次运行只需要四步
+## 第一次运行只需要四步
 
 在完整 VERL checkout 根目录、准备好的 Linux/NVIDIA 环境中：
 
@@ -109,12 +109,12 @@ Dockerfile 的 `vllm==0.20.2` 和 bf16 为冻结执行路径；`setup.py` 的 vL
 6. **何时允许扩大算力**：建议先通过 G0、10-step G1，以及新数据上的 evaluator/oracle 校准，
    再执行 100-step × 2 seeds；不要用 smoke checkpoint 做论文结论。
 7. **服务器环境是否接受**：第一次运行应固定当前 checkout、官方 Dockerfile 的
-   `vllm==0.20.2` 与 bf16；如老师已有不同镜像，先以 G0/DRY_RUN 结果决定是否另做兼容分支，
+   `vllm==0.20.2` 与 bf16；如已有不同镜像，先以 G0/DRY_RUN 结果决定是否另做兼容分支，
    不要临时绕过预检。
 
 另外，`run_metadata.json` 是启动前的 provenance 记录；G2 会核对位置并重算文件哈希/分数，
 但在没有可信执行环境或独立签名的 post-run manifest 时，不能从密码学上证明同一路径的文件从未
-被人工替换。老师应保留服务器原始目录为只读证据，不要把 analyzer PASS 当成防恶意篡改证明。
+被人工替换。应保留服务器原始目录为只读证据，不要把 analyzer PASS 当成防恶意篡改证明。
 
 ## 可允许的当前汇报
 

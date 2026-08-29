@@ -1,4 +1,4 @@
-# Evidence-Flow GRPO：老师 Clone 与 Review 指南
+# Evidence-Flow GRPO：Clone 与 Review 指南
 
 这份指南只解决一件事：无论本机是否已经 clone 过 VERL 仓库，都能安全取得本次 handoff，
 并与 `main` 比较。不要直接下载 GitHub 网页上的 `/tree/.../examples` 子目录；pipeline 依赖完整
@@ -23,7 +23,7 @@ git merge-base --is-ancestor \
   && echo "Core pipeline commit present"
 ```
 
-## Case A：老师从未 clone 过这个仓库
+## Case A：本机从未 clone 过这个仓库
 
 这是最简单、最推荐的情况：
 
@@ -46,7 +46,7 @@ git diff --name-status origin/main...HEAD
 
 ## Case B：已经 clone，工作区没有本地修改
 
-先进入老师已有的 checkout：
+先进入已有的 checkout：
 
 ```bash
 cd /absolute/path/to/existing/verl_AgentMemory
@@ -93,7 +93,7 @@ git status --short --branch
 ```
 
 如果 `../verl_AgentMemory-evidence-review` 已存在，请换一个全新的目录名。Review 完成前不要删除
-老师原来的工作区。
+原来的工作区。
 
 ## Case D：已经 clone，但 `origin` 不是这个 GitHub 项目
 
@@ -102,19 +102,19 @@ git status --short --branch
 ```bash
 cd /absolute/path/to/existing/verl
 git remote -v
-git remote add teacher-handoff \
+git remote add review-source \
   https://github.com/ba-king/verl_AgentMemory.git
-git fetch teacher-handoff
+git fetch review-source
 git worktree add --detach \
   ../verl_AgentMemory-evidence-review \
-  teacher-handoff/evidence-flow-grpo-handoff
+  review-source/evidence-flow-grpo-handoff
 cd ../verl_AgentMemory-evidence-review
 ```
 
-如果 `teacher-handoff` 已经存在，先用下面的只读命令核对 URL，不要重复添加：
+如果 `review-source` 已经存在，先用下面的只读命令核对 URL，不要重复添加：
 
 ```bash
-git remote get-url teacher-handoff
+git remote get-url review-source
 ```
 
 ## Case E：暂时不想 clone，只想在 GitHub 网页 Review
@@ -162,8 +162,8 @@ git diff origin/main...HEAD -- \
   examples/csl_memory_agent/evidence_flow_grpo/aggregate_g2.py
 ```
 
-如果使用的是 `teacher-handoff` remote，请把上述 `origin/main` 换成
-`teacher-handoff/main`。
+如果使用的是 `review-source` remote，请把上述 `origin/main` 换成
+`review-source/main`。
 
 ## 可选：只运行 CPU/source 测试
 
