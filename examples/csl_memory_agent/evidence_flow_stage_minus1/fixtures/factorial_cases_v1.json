@@ -1,0 +1,1511 @@
+{
+  "case_count": 16,
+  "cases": [
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"mode\":\"GREEN\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "7dd5aad1af9e7b5f3fe01bdd4bc8337a84684caf8cccfc26abf55c8c9a18f5b2",
+          "memory_id": "M1"
+        }
+      ],
+      "candidate_pool_sha256": "ad920a93dc263c70c793f2f5742c9a97e4641a3e04d04ec3419ba365a5a5cb2a",
+      "case_id": "cf_f1_registry_r_only",
+      "case_sha256": "c51f3daa96c1810cd7dbf25fc0681492466b6478406aa5565bef5818f1fe3c86",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need a snapshot-valid signed registry value for Orion's deployment mode.",
+        "obligations": [
+          {
+            "description": "A signed deployment-mode value for Orion whose validity interval contains the snapshot.",
+            "key_contains_any": [
+              "mode",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "orion_snapshot_mode",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Orion",
+              "deployment"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "243c4655537228297cb4b5a649460c9ae3bc178355109a5c6786967382b1d1a9",
+      "expected_answer": "mode=GREEN",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F1_DEPLOYMENT_MODE",
+        "candidate_keys_by_memory_id": {
+          "M1": "R"
+        },
+        "candidate_role_map_sha256": "1707ae34631e396d097152cb58e7926d45f179fa7059eb560cef17e121d3b02f",
+        "candidate_roles_by_memory_id": {
+          "M1": "required"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 0,
+          "order": "required_only",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "deployment_mode",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_only"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, report Orion's deployment mode. Use a registry record only when service matches, signed=true, and the validity interval contains the snapshot; an operations note is not a registry record. Return exactly mode=<value>.",
+      "task_request_sha256": "c19d8794694dda3d0d1a8e46b3a83b98de4ad5341bf47b122fce0c8c16bb8298"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"mode\":\"GREEN\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "7dd5aad1af9e7b5f3fe01bdd4bc8337a84684caf8cccfc26abf55c8c9a18f5b2",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Lyra\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "cdea48a917ba72bc9d7931d76c004d864f43e742843b7d55eea279b6cbf132f2",
+          "memory_id": "M2"
+        }
+      ],
+      "candidate_pool_sha256": "cdcc34a009c8a920a812b680869ffedbd236d223bef4179a7f74ed8ac9fe352b",
+      "case_id": "cf_f1_registry_r_neutral",
+      "case_sha256": "de3bde1038014cccc07b4c2d8057b7ce93619e70f4fbfdb5c1b531b8b2e82677",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need a snapshot-valid signed registry value for Orion's deployment mode.",
+        "obligations": [
+          {
+            "description": "A signed deployment-mode value for Orion whose validity interval contains the snapshot.",
+            "key_contains_any": [
+              "mode",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "orion_snapshot_mode",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Orion",
+              "deployment"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "243c4655537228297cb4b5a649460c9ae3bc178355109a5c6786967382b1d1a9",
+      "expected_answer": "mode=GREEN",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F1_DEPLOYMENT_MODE",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N"
+        },
+        "candidate_role_map_sha256": "a57d073107a65ea480abfb7e688d1b77229b3811fef5d6c4929bf75f6f953d9a",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "deployment_mode",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, report Orion's deployment mode. Use a registry record only when service matches, signed=true, and the validity interval contains the snapshot; an operations note is not a registry record. Return exactly mode=<value>.",
+      "task_request_sha256": "c19d8794694dda3d0d1a8e46b3a83b98de4ad5341bf47b122fce0c8c16bb8298"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"mode\":\"GREEN\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "7dd5aad1af9e7b5f3fe01bdd4bc8337a84684caf8cccfc26abf55c8c9a18f5b2",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Lyra\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "cdea48a917ba72bc9d7931d76c004d864f43e742843b7d55eea279b6cbf132f2",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-01T00:00:00Z\",\"valid_to\":\"2026-08-10T00:00:00Z\"}",
+          "content_sha256": "03adc8370f6ffa0b5a29aec97cf673e927c5721d6fc08c767b40bff6df55b54a",
+          "memory_id": "M3"
+        }
+      ],
+      "candidate_pool_sha256": "7d4e71525d3631a7f34a408aeb2b1968a8588227df2f3607fdd7d30bfa657a0b",
+      "case_id": "cf_f1_registry_r_neutral_stale",
+      "case_sha256": "e794d1e337553bd0c89bd472448af4bb3b4743bcb2e1fac175262f12c2de6efb",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need a snapshot-valid signed registry value for Orion's deployment mode.",
+        "obligations": [
+          {
+            "description": "A signed deployment-mode value for Orion whose validity interval contains the snapshot.",
+            "key_contains_any": [
+              "mode",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "orion_snapshot_mode",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Orion",
+              "deployment"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "243c4655537228297cb4b5a649460c9ae3bc178355109a5c6786967382b1d1a9",
+      "expected_answer": "mode=GREEN",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F1_DEPLOYMENT_MODE",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N",
+          "M3": "S"
+        },
+        "candidate_role_map_sha256": "b6c9faad91c15734e2aeebaa85f3b7f4f48b6a800ce6abdecaf7b1dec4e54030",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral",
+          "M3": "stale"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 1,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "deployment_mode",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral_stale"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, report Orion's deployment mode. Use a registry record only when service matches, signed=true, and the validity interval contains the snapshot; an operations note is not a registry record. Return exactly mode=<value>.",
+      "task_request_sha256": "c19d8794694dda3d0d1a8e46b3a83b98de4ad5341bf47b122fce0c8c16bb8298"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"mode\":\"GREEN\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "7dd5aad1af9e7b5f3fe01bdd4bc8337a84684caf8cccfc26abf55c8c9a18f5b2",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Lyra\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "cdea48a917ba72bc9d7931d76c004d864f43e742843b7d55eea279b6cbf132f2",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"mode\":\"BLUE\",\"observed_at\":\"2026-08-24T11:55:00Z\",\"record_type\":\"operations_note\",\"service\":\"Orion\",\"signed\":false}",
+          "content_sha256": "62bd098ba66af11e70b323a35d70342132a74b1866abd98cafb854e0a3fd210c",
+          "memory_id": "M3"
+        }
+      ],
+      "candidate_pool_sha256": "1eb0b55cac2b2db4de118e5c4fd513845ffb58502823a25f56f314f8fe1f2c20",
+      "case_id": "cf_f1_registry_r_neutral_conflict",
+      "case_sha256": "7fa4bc4755945f5846eeea80f5b0fb2bc963013625b1c44157a8bec201b950b1",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need a snapshot-valid signed registry value for Orion's deployment mode.",
+        "obligations": [
+          {
+            "description": "A signed deployment-mode value for Orion whose validity interval contains the snapshot.",
+            "key_contains_any": [
+              "mode",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "orion_snapshot_mode",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Orion",
+              "deployment"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "243c4655537228297cb4b5a649460c9ae3bc178355109a5c6786967382b1d1a9",
+      "expected_answer": "mode=GREEN",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F1_DEPLOYMENT_MODE",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N",
+          "M3": "C"
+        },
+        "candidate_role_map_sha256": "2140ad6bd33a7bc4e4946668717be035c97441bd6f058824387765c43643ef96",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral",
+          "M3": "conflicting"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "deployment_mode",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral_conflict"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, report Orion's deployment mode. Use a registry record only when service matches, signed=true, and the validity interval contains the snapshot; an operations note is not a registry record. Return exactly mode=<value>.",
+      "task_request_sha256": "c19d8794694dda3d0d1a8e46b3a83b98de4ad5341bf47b122fce0c8c16bb8298"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "beae1dfae551d708a94c526cd12f132c3de8f45bf2d09a989cd194af391266a9",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"action\":\"release\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"deployer\",\"admin\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "3b6caeca3baad7244185534ec4ec7b39bfd50940800a188ea57619531c4340d5",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Mira\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "b4f70490b4287802dcc38664cca77a57c1a533d9ec1a3ab0e48aac27c6666875",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"viewer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "ce4aa4546d0ef44f802b89b962ebbe0e5d65548f1632e7c5717f4cf71339bd95",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"observed_at\":\"2026-08-24T11:58:00Z\",\"record_type\":\"security_note\",\"role\":\"suspended\",\"signed\":false,\"suggested_token\":\"DENY\",\"user\":\"Nia\"}",
+          "content_sha256": "96abe34293b4dabf540cc0f621714ae11808e84a148bc480d731502f3a545ead",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "9fab51416ebdfe6906918d28c831772596c32baf47c098ec3f602677f19456b7",
+      "case_id": "cf_f2_auth_full_front",
+      "case_sha256": "c721540bbf66555838f5dbd224e155c9f575b261374113880f6e8c8cc756028b",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the active signed role binding and active signed policy for Nia's release action.",
+        "obligations": [
+          {
+            "description": "Nia's snapshot-valid signed role binding.",
+            "key_contains_any": [
+              "user",
+              "role",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "nia_active_role",
+            "role": "relation",
+            "subject_contains_any": [
+              "Nia",
+              "role binding"
+            ]
+          },
+          {
+            "description": "The snapshot-valid signed release policy with role, freeze, and output-token fields.",
+            "key_contains_any": [
+              "permitted_roles",
+              "freeze",
+              "on_match_token"
+            ],
+            "obligation_id": "active_release_policy",
+            "role": "target_result",
+            "subject_contains_any": [
+              "release",
+              "action policy"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "75e680d48bdea32bf798233be13630ff49334198ae8274f0a757af8c1e690da5",
+      "expected_answer": "access=ALLOW",
+      "gold_memory_ids": [
+        "M1",
+        "M2"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F2_AUTHORIZATION_JOIN",
+        "candidate_keys_by_memory_id": {
+          "M1": "R1",
+          "M2": "R2",
+          "M3": "N",
+          "M4": "S",
+          "M5": "C"
+        },
+        "candidate_role_map_sha256": "588a4ed0cd14a87c1ae75ad8a6e5aed75e898fd7235ec0aa796f9fc4836a4fe5",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "required",
+          "M3": "neutral",
+          "M4": "stale",
+          "M5": "conflicting"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 2,
+          "stale_count": 1,
+          "top1_gold_count": 1,
+          "top3_gold_count": 2
+        },
+        "oracle_id": "authorization_join",
+        "order_pair_metadata": {
+          "compare_by": "content_sha256",
+          "member": "front",
+          "pair_id": "F2_AUTHORIZATION_JOIN__full_order"
+        },
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "full_front"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, determine whether user Nia is authorized to perform action release. A commitment requires both a snapshot-valid signed role binding and a snapshot-valid signed action policy. Use the policy's on_match_token when the bound role is listed in permitted_roles and freeze=false; otherwise use its on_mismatch_token. An unsigned note cannot replace either record. Return exactly access=<policy token>.",
+      "task_request_sha256": "5c172b0741936160bae6bbb213b888afc30a11052bd02aaf83ef014dd4309af5"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"viewer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "ce4aa4546d0ef44f802b89b962ebbe0e5d65548f1632e7c5717f4cf71339bd95",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"observed_at\":\"2026-08-24T11:58:00Z\",\"record_type\":\"security_note\",\"role\":\"suspended\",\"signed\":false,\"suggested_token\":\"DENY\",\"user\":\"Nia\"}",
+          "content_sha256": "96abe34293b4dabf540cc0f621714ae11808e84a148bc480d731502f3a545ead",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Mira\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "b4f70490b4287802dcc38664cca77a57c1a533d9ec1a3ab0e48aac27c6666875",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "beae1dfae551d708a94c526cd12f132c3de8f45bf2d09a989cd194af391266a9",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"action\":\"release\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"deployer\",\"admin\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "3b6caeca3baad7244185534ec4ec7b39bfd50940800a188ea57619531c4340d5",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "a1a942d8aaa7f7e6ec9af129a787d5c022c0dc4679b01af05d50f7920629a1aa",
+      "case_id": "cf_f2_auth_full_back",
+      "case_sha256": "36b8cf097bbcf290778aad7a879d88b061b79ed2cc0931d320a3978bf093e446",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the active signed role binding and active signed policy for Nia's release action.",
+        "obligations": [
+          {
+            "description": "Nia's snapshot-valid signed role binding.",
+            "key_contains_any": [
+              "user",
+              "role",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "nia_active_role",
+            "role": "relation",
+            "subject_contains_any": [
+              "Nia",
+              "role binding"
+            ]
+          },
+          {
+            "description": "The snapshot-valid signed release policy with role, freeze, and output-token fields.",
+            "key_contains_any": [
+              "permitted_roles",
+              "freeze",
+              "on_match_token"
+            ],
+            "obligation_id": "active_release_policy",
+            "role": "target_result",
+            "subject_contains_any": [
+              "release",
+              "action policy"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "75e680d48bdea32bf798233be13630ff49334198ae8274f0a757af8c1e690da5",
+      "expected_answer": "access=ALLOW",
+      "gold_memory_ids": [
+        "M4",
+        "M5"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F2_AUTHORIZATION_JOIN",
+        "candidate_keys_by_memory_id": {
+          "M1": "S",
+          "M2": "C",
+          "M3": "N",
+          "M4": "R1",
+          "M5": "R2"
+        },
+        "candidate_role_map_sha256": "96ac09daaa48b143296188c3ed402205f41b86748f8ffdfc5718b2ed37b6da6d",
+        "candidate_roles_by_memory_id": {
+          "M1": "stale",
+          "M2": "conflicting",
+          "M3": "neutral",
+          "M4": "required",
+          "M5": "required"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_back",
+          "required_count": 2,
+          "stale_count": 1,
+          "top1_gold_count": 0,
+          "top3_gold_count": 0
+        },
+        "oracle_id": "authorization_join",
+        "order_pair_metadata": {
+          "compare_by": "content_sha256",
+          "member": "back",
+          "pair_id": "F2_AUTHORIZATION_JOIN__full_order"
+        },
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "full_back"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, determine whether user Nia is authorized to perform action release. A commitment requires both a snapshot-valid signed role binding and a snapshot-valid signed action policy. Use the policy's on_match_token when the bound role is listed in permitted_roles and freeze=false; otherwise use its on_mismatch_token. An unsigned note cannot replace either record. Return exactly access=<policy token>.",
+      "task_request_sha256": "5c172b0741936160bae6bbb213b888afc30a11052bd02aaf83ef014dd4309af5"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "beae1dfae551d708a94c526cd12f132c3de8f45bf2d09a989cd194af391266a9",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"action\":\"release\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"deployer\",\"admin\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "3b6caeca3baad7244185534ec4ec7b39bfd50940800a188ea57619531c4340d5",
+          "memory_id": "M2"
+        }
+      ],
+      "candidate_pool_sha256": "fff4be7d9fc6d0f48593553c2e17f6107bec94554fd11c285a2b9d1fca960ac0",
+      "case_id": "cf_f2_auth_required_only",
+      "case_sha256": "1033cf65d18abc285350014c88ef9c5f6f1deeb9fb0a14d7384fd4349cd0f863",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the active signed role binding and active signed policy for Nia's release action.",
+        "obligations": [
+          {
+            "description": "Nia's snapshot-valid signed role binding.",
+            "key_contains_any": [
+              "user",
+              "role",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "nia_active_role",
+            "role": "relation",
+            "subject_contains_any": [
+              "Nia",
+              "role binding"
+            ]
+          },
+          {
+            "description": "The snapshot-valid signed release policy with role, freeze, and output-token fields.",
+            "key_contains_any": [
+              "permitted_roles",
+              "freeze",
+              "on_match_token"
+            ],
+            "obligation_id": "active_release_policy",
+            "role": "target_result",
+            "subject_contains_any": [
+              "release",
+              "action policy"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "75e680d48bdea32bf798233be13630ff49334198ae8274f0a757af8c1e690da5",
+      "expected_answer": "access=ALLOW",
+      "gold_memory_ids": [
+        "M1",
+        "M2"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "F2_AUTHORIZATION_JOIN",
+        "candidate_keys_by_memory_id": {
+          "M1": "R1",
+          "M2": "R2"
+        },
+        "candidate_role_map_sha256": "50eec6898228ac7d67eb2b778a957317f2d23ae3d76b3cdd6c03442a78024f44",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "required"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 0,
+          "order": "required_only",
+          "required_count": 2,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 2
+        },
+        "oracle_id": "authorization_join",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "required_only"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, determine whether user Nia is authorized to perform action release. A commitment requires both a snapshot-valid signed role binding and a snapshot-valid signed action policy. Use the policy's on_match_token when the bound role is listed in permitted_roles and freeze=false; otherwise use its on_mismatch_token. An unsigned note cannot replace either record. Return exactly access=<policy token>.",
+      "task_request_sha256": "5c172b0741936160bae6bbb213b888afc30a11052bd02aaf83ef014dd4309af5"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"viewer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "ce4aa4546d0ef44f802b89b962ebbe0e5d65548f1632e7c5717f4cf71339bd95",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"observed_at\":\"2026-08-24T11:58:00Z\",\"record_type\":\"security_note\",\"role\":\"suspended\",\"signed\":false,\"suggested_token\":\"DENY\",\"user\":\"Nia\"}",
+          "content_sha256": "96abe34293b4dabf540cc0f621714ae11808e84a148bc480d731502f3a545ead",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Mira\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "b4f70490b4287802dcc38664cca77a57c1a533d9ec1a3ab0e48aac27c6666875",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"action\":\"read\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"viewer\",\"auditor\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "a520412d384324e03e5e0134ea116d4e9aea637fc3608c387c9045ee0681d02b",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"auditor\",\"signed\":true,\"user\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "2f4905bd616121c1d26dfee56f1b52aade37e463a93680d6af2e867c8459cc9c",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "5f11a9bd2482b238d6b01fc7082998ae6d3be2a7421968fd5cfc87cbc91ad8d0",
+      "case_id": "cf_f2_auth_no_required",
+      "case_sha256": "9265fb4cfc49292c09671b2b8e99054f7062226dfc846009fed19b09bed535fe",
+      "category": "irrelevant_noise",
+      "decision_evidence_request": {
+        "description": "Need the active signed role binding and active signed policy for Nia's release action.",
+        "obligations": [
+          {
+            "description": "Nia's snapshot-valid signed role binding.",
+            "key_contains_any": [
+              "user",
+              "role",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "nia_active_role",
+            "role": "relation",
+            "subject_contains_any": [
+              "Nia",
+              "role binding"
+            ]
+          },
+          {
+            "description": "The snapshot-valid signed release policy with role, freeze, and output-token fields.",
+            "key_contains_any": [
+              "permitted_roles",
+              "freeze",
+              "on_match_token"
+            ],
+            "obligation_id": "active_release_policy",
+            "role": "target_result",
+            "subject_contains_any": [
+              "release",
+              "action policy"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "75e680d48bdea32bf798233be13630ff49334198ae8274f0a757af8c1e690da5",
+      "expected_answer": null,
+      "gold_memory_ids": [],
+      "ground_truth_decision": "REQUEST_EVIDENCE",
+      "provenance": {
+        "base_task_id": "F2_AUTHORIZATION_JOIN",
+        "candidate_keys_by_memory_id": {
+          "M1": "S",
+          "M2": "C",
+          "M3": "N",
+          "M4": "N2",
+          "M5": "N3"
+        },
+        "candidate_role_map_sha256": "cfb9c78d427a8a88a04a84eee73abc7a90323c1789a6c2df448a24c408815bd1",
+        "candidate_roles_by_memory_id": {
+          "M1": "stale",
+          "M2": "conflicting",
+          "M3": "neutral",
+          "M4": "neutral",
+          "M5": "neutral"
+        },
+        "domain": "formal_reasoning",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 3,
+          "order": "required_absent",
+          "required_count": 0,
+          "stale_count": 1,
+          "top1_gold_count": 0,
+          "top3_gold_count": 0
+        },
+        "oracle_id": "authorization_join",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "no_required"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, determine whether user Nia is authorized to perform action release. A commitment requires both a snapshot-valid signed role binding and a snapshot-valid signed action policy. Use the policy's on_match_token when the bound role is listed in permitted_roles and freeze=false; otherwise use its on_mismatch_token. An unsigned note cannot replace either record. Return exactly access=<policy token>.",
+      "task_request_sha256": "5c172b0741936160bae6bbb213b888afc30a11052bd02aaf83ef014dd4309af5"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"39.90\",\"sku\":\"K65\"},{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"42.00\",\"sku\":\"X65\"},{\"connector\":\"USB-C\",\"pd_w\":45,\"price\":\"29.00\",\"sku\":\"B45\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "3e0d17a71976cec41c5954241517ac4d2c95273fc11dd8d358d9a498fc688195",
+          "memory_id": "M1"
+        }
+      ],
+      "candidate_pool_sha256": "8e96d6f857776c9c721c66c8bee5c3aec915bc9d3cc61475204cdabd87d05ab3",
+      "case_id": "cf_p1_charger_r_only",
+      "case_sha256": "3089e97a7feb4d899eee8d99f2aa185b4b47840e3f4addc14faae8e5f970743c",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the current verified cart requirements and complete charger option snapshot.",
+        "obligations": [
+          {
+            "description": "The current cart connector and required power.",
+            "key_contains_any": [
+              "cart_connector",
+              "cart_device_required_power_w"
+            ],
+            "obligation_id": "current_cart_power",
+            "role": "attribute",
+            "subject_contains_any": [
+              "cart device",
+              "charger step"
+            ]
+          },
+          {
+            "description": "The complete current verified charger option set with prices.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "price"
+            ],
+            "obligation_id": "verified_charger_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "charger",
+              "checkout snapshot"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "30416873abd0004c1a32c45cb35096a87cb67b27e2c3025c082021f13599ff7e",
+      "expected_answer": "sku=K65; price=$39.90",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P1_CHARGER_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R"
+        },
+        "candidate_role_map_sha256": "1707ae34631e396d097152cb58e7926d45f179fa7059eb560cef17e121d3b02f",
+        "candidate_roles_by_memory_id": {
+          "M1": "required"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 0,
+          "order": "required_only",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "charger_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_only"
+      },
+      "task_request": "At checkout snapshot 2026-08-24T12:00:00Z, select the charger for the device already fixed in the cart. Use only a catalog_verified=true checkout snapshot for current_step=charger whose validity interval contains the snapshot. A product is eligible only if connector equals the cart connector and pd_w is at least cart_device_required_power_w; choose the eligible product with lowest price, breaking ties by lexicographically smallest SKU. Return exactly sku=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "5d225c863449ccb6cc3534a1927137792475003641c0c5eb0a7be2b839948297"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"39.90\",\"sku\":\"K65\"},{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"42.00\",\"sku\":\"X65\"},{\"connector\":\"USB-C\",\"pd_w\":45,\"price\":\"29.00\",\"sku\":\"B45\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "3e0d17a71976cec41c5954241517ac4d2c95273fc11dd8d358d9a498fc688195",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"price\":\"8.90\",\"sku\":\"CB2\"},{\"connector\":\"USB-C\",\"price\":\"10.20\",\"sku\":\"CB3\"}],\"current_step\":\"cable\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "e747e50d8b9008742ab3ed805822e47c9610ee3bb940977c09a0a3e09fe05959",
+          "memory_id": "M2"
+        }
+      ],
+      "candidate_pool_sha256": "bec173a7c9ca875dbec461a6036e5aa821161aca779f71c9d6f56739f404ff01",
+      "case_id": "cf_p1_charger_r_neutral",
+      "case_sha256": "bb7955611724d140c096eec630cba59fc43880c2b64698295d1b19771a8c1bbf",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the current verified cart requirements and complete charger option snapshot.",
+        "obligations": [
+          {
+            "description": "The current cart connector and required power.",
+            "key_contains_any": [
+              "cart_connector",
+              "cart_device_required_power_w"
+            ],
+            "obligation_id": "current_cart_power",
+            "role": "attribute",
+            "subject_contains_any": [
+              "cart device",
+              "charger step"
+            ]
+          },
+          {
+            "description": "The complete current verified charger option set with prices.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "price"
+            ],
+            "obligation_id": "verified_charger_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "charger",
+              "checkout snapshot"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "30416873abd0004c1a32c45cb35096a87cb67b27e2c3025c082021f13599ff7e",
+      "expected_answer": "sku=K65; price=$39.90",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P1_CHARGER_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N"
+        },
+        "candidate_role_map_sha256": "a57d073107a65ea480abfb7e688d1b77229b3811fef5d6c4929bf75f6f953d9a",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "charger_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral"
+      },
+      "task_request": "At checkout snapshot 2026-08-24T12:00:00Z, select the charger for the device already fixed in the cart. Use only a catalog_verified=true checkout snapshot for current_step=charger whose validity interval contains the snapshot. A product is eligible only if connector equals the cart connector and pd_w is at least cart_device_required_power_w; choose the eligible product with lowest price, breaking ties by lexicographically smallest SKU. Return exactly sku=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "5d225c863449ccb6cc3534a1927137792475003641c0c5eb0a7be2b839948297"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"39.90\",\"sku\":\"K65\"},{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"42.00\",\"sku\":\"X65\"},{\"connector\":\"USB-C\",\"pd_w\":45,\"price\":\"29.00\",\"sku\":\"B45\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "3e0d17a71976cec41c5954241517ac4d2c95273fc11dd8d358d9a498fc688195",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"price\":\"8.90\",\"sku\":\"CB2\"},{\"connector\":\"USB-C\",\"price\":\"10.20\",\"sku\":\"CB3\"}],\"current_step\":\"cable\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "e747e50d8b9008742ab3ed805822e47c9610ee3bb940977c09a0a3e09fe05959",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"31.00\",\"sku\":\"Q65\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-01T00:00:00Z\",\"valid_to\":\"2026-08-10T00:00:00Z\"}",
+          "content_sha256": "283bc9f5d5b22421578c438a1caa2bae205524b319199dcdb0cce8d4665be4ae",
+          "memory_id": "M3"
+        }
+      ],
+      "candidate_pool_sha256": "47ad8ea966650ef564b84ccbece9f2e0c3bd10418f55ec8c69f7643c620de008",
+      "case_id": "cf_p1_charger_r_neutral_stale",
+      "case_sha256": "89cc1118a5ce21981dac177c4319d1f0c6d767d2bded448788a7343248db0ecf",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the current verified cart requirements and complete charger option snapshot.",
+        "obligations": [
+          {
+            "description": "The current cart connector and required power.",
+            "key_contains_any": [
+              "cart_connector",
+              "cart_device_required_power_w"
+            ],
+            "obligation_id": "current_cart_power",
+            "role": "attribute",
+            "subject_contains_any": [
+              "cart device",
+              "charger step"
+            ]
+          },
+          {
+            "description": "The complete current verified charger option set with prices.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "price"
+            ],
+            "obligation_id": "verified_charger_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "charger",
+              "checkout snapshot"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "30416873abd0004c1a32c45cb35096a87cb67b27e2c3025c082021f13599ff7e",
+      "expected_answer": "sku=K65; price=$39.90",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P1_CHARGER_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N",
+          "M3": "S"
+        },
+        "candidate_role_map_sha256": "b6c9faad91c15734e2aeebaa85f3b7f4f48b6a800ce6abdecaf7b1dec4e54030",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral",
+          "M3": "stale"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 1,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "charger_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral_stale"
+      },
+      "task_request": "At checkout snapshot 2026-08-24T12:00:00Z, select the charger for the device already fixed in the cart. Use only a catalog_verified=true checkout snapshot for current_step=charger whose validity interval contains the snapshot. A product is eligible only if connector equals the cart connector and pd_w is at least cart_device_required_power_w; choose the eligible product with lowest price, breaking ties by lexicographically smallest SKU. Return exactly sku=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "5d225c863449ccb6cc3534a1927137792475003641c0c5eb0a7be2b839948297"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"39.90\",\"sku\":\"K65\"},{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"42.00\",\"sku\":\"X65\"},{\"connector\":\"USB-C\",\"pd_w\":45,\"price\":\"29.00\",\"sku\":\"B45\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "3e0d17a71976cec41c5954241517ac4d2c95273fc11dd8d358d9a498fc688195",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"price\":\"8.90\",\"sku\":\"CB2\"},{\"connector\":\"USB-C\",\"price\":\"10.20\",\"sku\":\"CB3\"}],\"current_step\":\"cable\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "e747e50d8b9008742ab3ed805822e47c9610ee3bb940977c09a0a3e09fe05959",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":false,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"19.90\",\"sku\":\"Z65\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "e21d2c9f219c57ee01c2928b7b77a050e98cb5e5520672732bc112643d8d7b43",
+          "memory_id": "M3"
+        }
+      ],
+      "candidate_pool_sha256": "7ff1eac37748c217451624e1b13b4dd0447fa97c3061fe3fdd213da465fc6124",
+      "case_id": "cf_p1_charger_r_neutral_conflict",
+      "case_sha256": "2654ede41432282cbf54787a422027cfaf24dbb5a8d79c372d26092ab61eaf78",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need the current verified cart requirements and complete charger option snapshot.",
+        "obligations": [
+          {
+            "description": "The current cart connector and required power.",
+            "key_contains_any": [
+              "cart_connector",
+              "cart_device_required_power_w"
+            ],
+            "obligation_id": "current_cart_power",
+            "role": "attribute",
+            "subject_contains_any": [
+              "cart device",
+              "charger step"
+            ]
+          },
+          {
+            "description": "The complete current verified charger option set with prices.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "price"
+            ],
+            "obligation_id": "verified_charger_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "charger",
+              "checkout snapshot"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "30416873abd0004c1a32c45cb35096a87cb67b27e2c3025c082021f13599ff7e",
+      "expected_answer": "sku=K65; price=$39.90",
+      "gold_memory_ids": [
+        "M1"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P1_CHARGER_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R",
+          "M2": "N",
+          "M3": "C"
+        },
+        "candidate_role_map_sha256": "2140ad6bd33a7bc4e4946668717be035c97441bd6f058824387765c43643ef96",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "neutral",
+          "M3": "conflicting"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 1,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 1
+        },
+        "oracle_id": "charger_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "r_neutral_conflict"
+      },
+      "task_request": "At checkout snapshot 2026-08-24T12:00:00Z, select the charger for the device already fixed in the cart. Use only a catalog_verified=true checkout snapshot for current_step=charger whose validity interval contains the snapshot. A product is eligible only if connector equals the cart connector and pd_w is at least cart_device_required_power_w; choose the eligible product with lowest price, breaking ties by lexicographically smallest SKU. Return exactly sku=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "5d225c863449ccb6cc3534a1927137792475003641c0c5eb0a7be2b839948297"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"160.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "316ad770d8d28d0cb0423c862587ab8f27b591c4ad309462e62aa3e717b12c49",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"HARBOR-17\",\"price\":\"140.00\",\"rating\":\"4.8\"},{\"house_rule\":\"no-smoking\",\"listing\":\"PINE-04\",\"price\":\"135.00\",\"rating\":\"4.6\"},{\"house_rule\":\"pets-allowed\",\"listing\":\"LOFT-21\",\"price\":\"142.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Riverton\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "8aba27c4d03a430899803521a1acbc90ed533583b6e2ec2abb01fb7b57fc26bc",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"150.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Kai\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "50107d4062cf622862da6c7fcfefa9a67a8f71be328ab8c8c254ba09ee0c3090",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"pets-allowed\",\"price\":\"200.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "d0e9a312ad598c01781a8919522d5c1e3cbdcfc6f4912c543137b94c6146ae9f",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"observed_at\":\"2026-08-24T11:50:00Z\",\"price\":\"180.00\",\"record_type\":\"itinerary_note\",\"signed\":false,\"traveler\":\"Omar\"}",
+          "content_sha256": "4caf31dfbfad740738037cb1da6596c03cddc97652069340651c84da08c89d44",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "c98c1538ad7b47745b9915dc6f942d73c5307593c20947f519a79165d904087b",
+      "case_id": "cf_p2_stay_full_front",
+      "case_sha256": "951c7f6816625ad7c3ab8e1c5c871a00659d5c8c92e7b9e4590a1d5801ccc081",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need Omar's current confirmed booking and the complete verified Riverton candidate set.",
+        "obligations": [
+          {
+            "description": "Omar's snapshot-valid signed day-two price and house rule.",
+            "key_contains_any": [
+              "price",
+              "house_rule",
+              "signed"
+            ],
+            "obligation_id": "omar_day2_reference",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Omar",
+              "day-two booking"
+            ]
+          },
+          {
+            "description": "The complete current verified Riverton accommodation options.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "rating"
+            ],
+            "obligation_id": "riverton_day2_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "Riverton",
+              "accommodation search"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "09f922da9ce53b8e0f02da56d07a2c8f1d4ddec70672d614188ce12605947ab3",
+      "expected_answer": "listing=HARBOR-17; price=$140.00",
+      "gold_memory_ids": [
+        "M1",
+        "M2"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P2_ACCOMMODATION_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R1",
+          "M2": "R2",
+          "M3": "N",
+          "M4": "S",
+          "M5": "C"
+        },
+        "candidate_role_map_sha256": "588a4ed0cd14a87c1ae75ad8a6e5aed75e898fd7235ec0aa796f9fc4836a4fe5",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "required",
+          "M3": "neutral",
+          "M4": "stale",
+          "M5": "conflicting"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_front",
+          "required_count": 2,
+          "stale_count": 1,
+          "top1_gold_count": 1,
+          "top3_gold_count": 2
+        },
+        "oracle_id": "accommodation_selection",
+        "order_pair_metadata": {
+          "compare_by": "content_sha256",
+          "member": "front",
+          "pair_id": "P2_ACCOMMODATION_SELECTION__full_order"
+        },
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "full_front"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, select Lena's day-two accommodation in Riverton. It must cost at least 10% less than Omar's confirmed day-two booking and have the same house_rule. Use a snapshot-valid signed booking record and a complete catalog_verified=true Riverton search snapshot. Among eligible listings choose highest rating, then lower price, then lexicographically smallest listing. Return exactly listing=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "822d02dbe3459d9f8c5eb1b7cb37f79f93f4bb04b5a5198c93ce83e3f2524d97"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"pets-allowed\",\"price\":\"200.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "d0e9a312ad598c01781a8919522d5c1e3cbdcfc6f4912c543137b94c6146ae9f",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"observed_at\":\"2026-08-24T11:50:00Z\",\"price\":\"180.00\",\"record_type\":\"itinerary_note\",\"signed\":false,\"traveler\":\"Omar\"}",
+          "content_sha256": "4caf31dfbfad740738037cb1da6596c03cddc97652069340651c84da08c89d44",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"150.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Kai\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "50107d4062cf622862da6c7fcfefa9a67a8f71be328ab8c8c254ba09ee0c3090",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"160.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "316ad770d8d28d0cb0423c862587ab8f27b591c4ad309462e62aa3e717b12c49",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"HARBOR-17\",\"price\":\"140.00\",\"rating\":\"4.8\"},{\"house_rule\":\"no-smoking\",\"listing\":\"PINE-04\",\"price\":\"135.00\",\"rating\":\"4.6\"},{\"house_rule\":\"pets-allowed\",\"listing\":\"LOFT-21\",\"price\":\"142.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Riverton\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "8aba27c4d03a430899803521a1acbc90ed533583b6e2ec2abb01fb7b57fc26bc",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "f5f37919626e0be267d776e9267c296180033754eb86c76cc201641d79efc731",
+      "case_id": "cf_p2_stay_full_back",
+      "case_sha256": "68135e26c6d6c7fe8f60f0e6db839384c653ae2600e3dcff4de8debfffe6cf40",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need Omar's current confirmed booking and the complete verified Riverton candidate set.",
+        "obligations": [
+          {
+            "description": "Omar's snapshot-valid signed day-two price and house rule.",
+            "key_contains_any": [
+              "price",
+              "house_rule",
+              "signed"
+            ],
+            "obligation_id": "omar_day2_reference",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Omar",
+              "day-two booking"
+            ]
+          },
+          {
+            "description": "The complete current verified Riverton accommodation options.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "rating"
+            ],
+            "obligation_id": "riverton_day2_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "Riverton",
+              "accommodation search"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "09f922da9ce53b8e0f02da56d07a2c8f1d4ddec70672d614188ce12605947ab3",
+      "expected_answer": "listing=HARBOR-17; price=$140.00",
+      "gold_memory_ids": [
+        "M4",
+        "M5"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P2_ACCOMMODATION_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "S",
+          "M2": "C",
+          "M3": "N",
+          "M4": "R1",
+          "M5": "R2"
+        },
+        "candidate_role_map_sha256": "96ac09daaa48b143296188c3ed402205f41b86748f8ffdfc5718b2ed37b6da6d",
+        "candidate_roles_by_memory_id": {
+          "M1": "stale",
+          "M2": "conflicting",
+          "M3": "neutral",
+          "M4": "required",
+          "M5": "required"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 1,
+          "order": "required_back",
+          "required_count": 2,
+          "stale_count": 1,
+          "top1_gold_count": 0,
+          "top3_gold_count": 0
+        },
+        "oracle_id": "accommodation_selection",
+        "order_pair_metadata": {
+          "compare_by": "content_sha256",
+          "member": "back",
+          "pair_id": "P2_ACCOMMODATION_SELECTION__full_order"
+        },
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "full_back"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, select Lena's day-two accommodation in Riverton. It must cost at least 10% less than Omar's confirmed day-two booking and have the same house_rule. Use a snapshot-valid signed booking record and a complete catalog_verified=true Riverton search snapshot. Among eligible listings choose highest rating, then lower price, then lexicographically smallest listing. Return exactly listing=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "822d02dbe3459d9f8c5eb1b7cb37f79f93f4bb04b5a5198c93ce83e3f2524d97"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"160.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "316ad770d8d28d0cb0423c862587ab8f27b591c4ad309462e62aa3e717b12c49",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"HARBOR-17\",\"price\":\"140.00\",\"rating\":\"4.8\"},{\"house_rule\":\"no-smoking\",\"listing\":\"PINE-04\",\"price\":\"135.00\",\"rating\":\"4.6\"},{\"house_rule\":\"pets-allowed\",\"listing\":\"LOFT-21\",\"price\":\"142.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Riverton\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "8aba27c4d03a430899803521a1acbc90ed533583b6e2ec2abb01fb7b57fc26bc",
+          "memory_id": "M2"
+        }
+      ],
+      "candidate_pool_sha256": "402e6031d957c8a854c624665aec6f89447e32748fdd5177bb0deb4a377560ce",
+      "case_id": "cf_p2_stay_required_only",
+      "case_sha256": "aae26e106eb230a3540bf8da108fb6791faab0e26c861de91845528d1358c445",
+      "category": "authoritative_sufficient",
+      "decision_evidence_request": {
+        "description": "Need Omar's current confirmed booking and the complete verified Riverton candidate set.",
+        "obligations": [
+          {
+            "description": "Omar's snapshot-valid signed day-two price and house rule.",
+            "key_contains_any": [
+              "price",
+              "house_rule",
+              "signed"
+            ],
+            "obligation_id": "omar_day2_reference",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Omar",
+              "day-two booking"
+            ]
+          },
+          {
+            "description": "The complete current verified Riverton accommodation options.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "rating"
+            ],
+            "obligation_id": "riverton_day2_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "Riverton",
+              "accommodation search"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "09f922da9ce53b8e0f02da56d07a2c8f1d4ddec70672d614188ce12605947ab3",
+      "expected_answer": "listing=HARBOR-17; price=$140.00",
+      "gold_memory_ids": [
+        "M1",
+        "M2"
+      ],
+      "ground_truth_decision": "COMMIT",
+      "provenance": {
+        "base_task_id": "P2_ACCOMMODATION_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "R1",
+          "M2": "R2"
+        },
+        "candidate_role_map_sha256": "50eec6898228ac7d67eb2b778a957317f2d23ae3d76b3cdd6c03442a78024f44",
+        "candidate_roles_by_memory_id": {
+          "M1": "required",
+          "M2": "required"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 0,
+          "neutral_count": 0,
+          "order": "required_only",
+          "required_count": 2,
+          "stale_count": 0,
+          "top1_gold_count": 1,
+          "top3_gold_count": 2
+        },
+        "oracle_id": "accommodation_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "required_only"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, select Lena's day-two accommodation in Riverton. It must cost at least 10% less than Omar's confirmed day-two booking and have the same house_rule. Use a snapshot-valid signed booking record and a complete catalog_verified=true Riverton search snapshot. Among eligible listings choose highest rating, then lower price, then lexicographically smallest listing. Return exactly listing=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "822d02dbe3459d9f8c5eb1b7cb37f79f93f4bb04b5a5198c93ce83e3f2524d97"
+    },
+    {
+      "candidate_pool": [
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"pets-allowed\",\"price\":\"200.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "content_sha256": "d0e9a312ad598c01781a8919522d5c1e3cbdcfc6f4912c543137b94c6146ae9f",
+          "memory_id": "M1"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"observed_at\":\"2026-08-24T11:50:00Z\",\"price\":\"180.00\",\"record_type\":\"itinerary_note\",\"signed\":false,\"traveler\":\"Omar\"}",
+          "content_sha256": "4caf31dfbfad740738037cb1da6596c03cddc97652069340651c84da08c89d44",
+          "memory_id": "M2"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"150.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Kai\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "50107d4062cf622862da6c7fcfefa9a67a8f71be328ab8c8c254ba09ee0c3090",
+          "memory_id": "M3"
+        },
+        {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"LAKE-08\",\"price\":\"120.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Lakeview\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "content_sha256": "b5e0f62904cb99692d8e2c55c59622093b0defce9bca61f230771f1d3103ba2a",
+          "memory_id": "M4"
+        },
+        {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"170.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Jules\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "content_sha256": "5d4666b166b66b1d673599c2ba46b8d416e708213979a2364143defd7c6510e8",
+          "memory_id": "M5"
+        }
+      ],
+      "candidate_pool_sha256": "77ef341634c0d53eb8ace13945cf7c44b88bf360aed4cc50c757b9b594e6671e",
+      "case_id": "cf_p2_stay_no_required",
+      "case_sha256": "3e84f5ad5ac714ee0a2e51c51d0232a25b7e1d2ad4760a633e46c2b388e6f9d5",
+      "category": "irrelevant_noise",
+      "decision_evidence_request": {
+        "description": "Need Omar's current confirmed booking and the complete verified Riverton candidate set.",
+        "obligations": [
+          {
+            "description": "Omar's snapshot-valid signed day-two price and house rule.",
+            "key_contains_any": [
+              "price",
+              "house_rule",
+              "signed"
+            ],
+            "obligation_id": "omar_day2_reference",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Omar",
+              "day-two booking"
+            ]
+          },
+          {
+            "description": "The complete current verified Riverton accommodation options.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "rating"
+            ],
+            "obligation_id": "riverton_day2_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "Riverton",
+              "accommodation search"
+            ]
+          }
+        ]
+      },
+      "decision_evidence_request_sha256": "09f922da9ce53b8e0f02da56d07a2c8f1d4ddec70672d614188ce12605947ab3",
+      "expected_answer": null,
+      "gold_memory_ids": [],
+      "ground_truth_decision": "REQUEST_EVIDENCE",
+      "provenance": {
+        "base_task_id": "P2_ACCOMMODATION_SELECTION",
+        "candidate_keys_by_memory_id": {
+          "M1": "S",
+          "M2": "C",
+          "M3": "N",
+          "M4": "N2",
+          "M5": "N3"
+        },
+        "candidate_role_map_sha256": "cfb9c78d427a8a88a04a84eee73abc7a90323c1789a6c2df448a24c408815bd1",
+        "candidate_roles_by_memory_id": {
+          "M1": "stale",
+          "M2": "conflicting",
+          "M3": "neutral",
+          "M4": "neutral",
+          "M5": "neutral"
+        },
+        "domain": "progressive_search",
+        "factor_metadata": {
+          "conflicting_count": 1,
+          "neutral_count": 3,
+          "order": "required_absent",
+          "required_count": 0,
+          "stale_count": 1,
+          "top1_gold_count": 0,
+          "top3_gold_count": 0
+        },
+        "oracle_id": "accommodation_selection",
+        "order_pair_metadata": null,
+        "source_spec_content_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+        "source_spec_file_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922",
+        "suite_id": "stage1.5_factorial_counterfactual_v1",
+        "variant_id": "no_required"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, select Lena's day-two accommodation in Riverton. It must cost at least 10% less than Omar's confirmed day-two booking and have the same house_rule. Use a snapshot-valid signed booking record and a complete catalog_verified=true Riverton search snapshot. Among eligible listings choose highest rating, then lower price, then lexicographically smallest listing. Return exactly listing=<identifier>; price=<amount with two decimals>.",
+      "task_request_sha256": "822d02dbe3459d9f8c5eb1b7cb37f79f93f4bb04b5a5198c93ce83e3f2524d97"
+    }
+  ],
+  "fixture_sha256": "cb96e7875a7812242f1e1e8274a1e9c1314a62b84c83fc4396c96578e020c864",
+  "schema_version": "evidence-flow-stage-minus1-controlled-v1",
+  "source_fixture": "factorial_spec_v1.json",
+  "source_fixture_sha256": "c8f4ee1d5943b0b56031893b6d95d5db78d1f6e788bd0dc4cff032d0febe6922"
+}

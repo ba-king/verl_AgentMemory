@@ -1,0 +1,133 @@
+# Frozen reviewed defaults for the Evidence-Flow retrieval-policy probe.
+#
+# The launcher converts these values to explicit overrides of VERL's stock
+# ppo_trainer config.  Runtime file paths and resource counts are supplied as
+# absolute paths/environment variables by run_qwen25_05b_grpo_fsdp.sh.
+
+algorithm:
+  adv_estimator: grpo
+  use_kl_in_reward: false
+  kl_ctrl:
+    kl_coef: 0.0
+
+data:
+  train_files: data/factorial_v1/public/train.parquet
+  val_files: data/factorial_v1/public/dev.parquet
+  prompt_key: prompt
+  reward_fn_key: data_source
+  train_batch_size: 16
+  max_prompt_length: 1280
+  max_response_length: 128
+  return_raw_chat: true
+  filter_overlong_prompts: true
+  truncation: error
+  shuffle: true
+  seed: 20260824
+
+actor_rollout_ref:
+  model:
+    path: Qwen/Qwen2.5-0.5B-Instruct
+    trust_remote_code: false
+    use_remove_padding: true
+    enable_gradient_checkpointing: true
+    lora_rank: 16
+    lora_alpha: 16
+    target_modules: all-linear
+  actor:
+    strategy: fsdp
+    data_loader_seed: 20260824
+    optim:
+      lr: 0.000005
+    ppo_mini_batch_size: 16
+    ppo_micro_batch_size_per_gpu: 1
+    ppo_max_token_len_per_gpu: 1408
+    use_dynamic_bsz: false
+    use_kl_loss: true
+    kl_loss_coef: 0.001
+    kl_loss_type: low_var_kl
+    entropy_coeff: 0.0
+    fsdp_config:
+      seed: 20260824
+      param_offload: false
+      optimizer_offload: false
+      dtype: bfloat16
+      mixed_precision:
+        param_dtype: bf16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+  rollout:
+    name: vllm
+    mode: async
+    dtype: bfloat16
+    n: 4
+    temperature: 0.8
+    top_k: -1
+    top_p: 0.95
+    do_sample: true
+    tensor_model_parallel_size: 1
+    gpu_memory_utilization: 0.5
+    max_model_len: 1408
+    max_num_batched_tokens: 2048
+    max_num_seqs: 64
+    log_prob_micro_batch_size_per_gpu: 1
+    load_format: safetensors
+    layered_summon: true
+    enforce_eager: true
+    enable_chunked_prefill: false
+    free_cache_engine: true
+    val_kwargs:
+      temperature: 0.0
+      top_k: -1
+      top_p: 1.0
+      do_sample: false
+      n: 1
+  ref:
+    log_prob_micro_batch_size_per_gpu: 1
+    fsdp_config:
+      seed: 20260824
+      param_offload: true
+      dtype: bfloat16
+      mixed_precision:
+        param_dtype: bf16
+        reduce_dtype: fp32
+        buffer_dtype: fp32
+
+reward:
+  num_workers: 1
+  custom_reward_function:
+    path: reward.py
+    name: compute_score
+    reward_kwargs:
+      scorer_path: data/factorial_v1/scorer/targets.json
+  reward_manager:
+    source: register
+    name: naive
+  reward_model:
+    enable: false
+
+trainer:
+  device: cuda
+  nnodes: 1
+  n_gpus_per_node: 1
+  logger:
+    - console
+  project_name: evidence_flow_grpo
+  experiment_name: retrieval_grpo_v0_qwen25_05b
+  balance_batch: true
+  val_before_train: true
+  critic_warmup: 0
+  # VERL iterates the dataloader at most once per epoch. With the frozen
+  # 16-row train split and batch size 16, 100 epochs are needed to make the
+  # explicit 100-step cap reachable.
+  total_epochs: 100
+  total_training_steps: 100
+  save_freq: 20
+  test_freq: 10
+  resume_mode: disable
+  val_only: false
+
+# Output contract is enforced by the dataset prompt and deterministic reward:
+# exactly one short JSON object with action RETRIEVE or NO_RETRIEVE, an
+# evidence_status, and at most three selected_memory_ids. No prose or repair.
+# DeepSeek is intentionally absent: it is a frozen future Answerer interface,
+# never the trainable actor or a reward-time dependency.

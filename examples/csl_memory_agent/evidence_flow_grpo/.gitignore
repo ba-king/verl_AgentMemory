@@ -1,0 +1,19 @@
+# Generated dataset bundles. Rebuild with build_dataset.py on the target host.
+data/
+
+# Internal planning/reviewer history is not part of the teacher handoff.
+refine-logs/
+EXPERIMENT_PLAN.md
+EXPERIMENT_TRACKER.md
+
+# Real training, validation, and rollout artifacts must remain outside Git.
+runs/**
+
+# Keep only the small, canonical CPU structural evidence checked into this
+# handoff. Its generated dataset is intentionally excluded and reproducible.
+!runs/structural_sanity_v1/
+!runs/structural_sanity_v1/structural_sanity.json
+!runs/structural_sanity_v1/structural_checkpoint.json
+
+*.log
+*.parquet

@@ -1,0 +1,65 @@
+{
+  "audit_date": "2026-08-28",
+  "audit_scope": "teacher_handoff_source_and_engineering",
+  "audit_status": "pass",
+  "cross_model_replication": false,
+  "evaluation_type": "structural_mock_and_held_out_synthetic_proxy",
+  "gpu_training_observed": false,
+  "integrity_checks": {
+    "credential_scan": "pass",
+    "ground_truth_provenance": "pass",
+    "raw_scoring_without_self_normalization": "pass",
+    "result_existence": "pass",
+    "result_to_claim_boundary": "pass",
+    "scope_labeling": "pass"
+  },
+  "original_major": {
+    "finding": "Validation JSONLs were not required to carry their own VAL_ONLY launcher metadata binding.",
+    "status": "closed",
+    "verification": [
+      "training, step-0, and checkpoint-validation metadata are required",
+      "validation path must equal recorded OUTPUT_DIR/validation/<step>.jsonl",
+      "seed, model, frozen artifact hashes, and training parameters must match",
+      "checkpoint validation resume path must equal the audited checkpoint",
+      "two-seed aggregate requires distinct training and validation run identities",
+      "negative regression tests cover outside-output and wrong-resume bindings"
+    ]
+  },
+  "review_independence": {
+    "class": "same_family_type_a",
+    "independent_read_only_reviewers": 2,
+    "type_b_cross_model": false
+  },
+  "stock_verl_integration_review": {
+    "final_verdict": "pass_for_g0_then_bounded_g1",
+    "required_success_markers": [
+      "PREFLIGHT PASS",
+      "Exact Hydra composition PASS"
+    ],
+    "closed_findings": [
+      "prompt_filtering_and_zero_step_risk",
+      "stale_setup_py_vllm_contract",
+      "missing_numpy_torchdata_and_flash_attn_runtime_checks",
+      "fsdp_dtype_override_not_consumed",
+      "preflight_only_skipped_exact_hydra_composition",
+      "incomplete_resume_and_result_provenance_guards"
+    ],
+    "remaining_non_blocking_limitations": [
+      "no_target_host_cuda_execution",
+      "local_model_index_references_not_preflight_validated",
+      "tokenizer_files_not_hashed_for_g2",
+      "g2_metadata_does_not_require_clean_git_worktree"
+    ]
+  },
+  "scientific_result_status": "not_run",
+  "smoke_handoff_verdict": "ready_for_g0_then_fresh_10_step_after_both_success_markers",
+  "verification": {
+    "bash_syntax": "pass",
+    "black": "pass",
+    "canonical_structural_byte_comparison": "pass",
+    "compileall": "pass",
+    "credential_and_local_path_scan": "pass",
+    "fresh_structural_sanity": "pass",
+    "pytest": "57 GRPO package tests + 8 fixture provenance tests = 65 passed"
+  }
+}

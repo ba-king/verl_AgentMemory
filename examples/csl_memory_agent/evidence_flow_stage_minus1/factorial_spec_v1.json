@@ -1,0 +1,745 @@
+{
+  "base_tasks": [
+    {
+      "base_task_id": "F1_DEPLOYMENT_MODE",
+      "candidates": {
+        "C": {
+          "content": "{\"mode\":\"BLUE\",\"observed_at\":\"2026-08-24T11:55:00Z\",\"record_type\":\"operations_note\",\"service\":\"Orion\",\"signed\":false}",
+          "factor_role": "conflicting"
+        },
+        "N": {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Lyra\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "R": {
+          "content": "{\"mode\":\"GREEN\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "S": {
+          "content": "{\"mode\":\"BLUE\",\"record_type\":\"deployment_registry\",\"service\":\"Orion\",\"signed\":true,\"valid_from\":\"2026-08-01T00:00:00Z\",\"valid_to\":\"2026-08-10T00:00:00Z\"}",
+          "factor_role": "stale"
+        }
+      },
+      "decision_evidence_request": {
+        "description": "Need a snapshot-valid signed registry value for Orion's deployment mode.",
+        "obligations": [
+          {
+            "description": "A signed deployment-mode value for Orion whose validity interval contains the snapshot.",
+            "key_contains_any": [
+              "mode",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "orion_snapshot_mode",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Orion",
+              "deployment"
+            ]
+          }
+        ]
+      },
+      "domain": "formal_reasoning",
+      "oracle": {
+        "kind": "deployment_mode",
+        "service": "Orion",
+        "snapshot": "2026-08-24T12:00:00Z"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, report Orion's deployment mode. Use a registry record only when service matches, signed=true, and the validity interval contains the snapshot; an operations note is not a registry record. Return exactly mode=<value>.",
+      "variants": [
+        {
+          "candidate_keys": [
+            "R"
+          ],
+          "case_id": "cf_f1_registry_r_only",
+          "category": "authoritative_sufficient",
+          "expected_answer": "mode=GREEN",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 0,
+            "order": "required_only",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_only"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N"
+          ],
+          "case_id": "cf_f1_registry_r_neutral",
+          "category": "authoritative_sufficient",
+          "expected_answer": "mode=GREEN",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N",
+            "S"
+          ],
+          "case_id": "cf_f1_registry_r_neutral_stale",
+          "category": "authoritative_sufficient",
+          "expected_answer": "mode=GREEN",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 1,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral_stale"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N",
+            "C"
+          ],
+          "case_id": "cf_f1_registry_r_neutral_conflict",
+          "category": "authoritative_sufficient",
+          "expected_answer": "mode=GREEN",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral_conflict"
+        }
+      ]
+    },
+    {
+      "base_task_id": "F2_AUTHORIZATION_JOIN",
+      "candidates": {
+        "C": {
+          "content": "{\"observed_at\":\"2026-08-24T11:58:00Z\",\"record_type\":\"security_note\",\"role\":\"suspended\",\"signed\":false,\"suggested_token\":\"DENY\",\"user\":\"Nia\"}",
+          "factor_role": "conflicting"
+        },
+        "N": {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Mira\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "N2": {
+          "content": "{\"action\":\"read\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"viewer\",\"auditor\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "N3": {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"auditor\",\"signed\":true,\"user\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "R1": {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"deployer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "R2": {
+          "content": "{\"action\":\"release\",\"freeze\":false,\"on_match_token\":\"ALLOW\",\"on_mismatch_token\":\"DENY\",\"permitted_roles\":[\"deployer\",\"admin\"],\"record_type\":\"action_policy\",\"signed\":true,\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "S": {
+          "content": "{\"record_type\":\"role_binding\",\"role\":\"viewer\",\"signed\":true,\"user\":\"Nia\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "factor_role": "stale"
+        }
+      },
+      "decision_evidence_request": {
+        "description": "Need the active signed role binding and active signed policy for Nia's release action.",
+        "obligations": [
+          {
+            "description": "Nia's snapshot-valid signed role binding.",
+            "key_contains_any": [
+              "user",
+              "role",
+              "valid_from",
+              "valid_to",
+              "signed"
+            ],
+            "obligation_id": "nia_active_role",
+            "role": "relation",
+            "subject_contains_any": [
+              "Nia",
+              "role binding"
+            ]
+          },
+          {
+            "description": "The snapshot-valid signed release policy with role, freeze, and output-token fields.",
+            "key_contains_any": [
+              "permitted_roles",
+              "freeze",
+              "on_match_token"
+            ],
+            "obligation_id": "active_release_policy",
+            "role": "target_result",
+            "subject_contains_any": [
+              "release",
+              "action policy"
+            ]
+          }
+        ]
+      },
+      "domain": "formal_reasoning",
+      "oracle": {
+        "action": "release",
+        "kind": "authorization_join",
+        "snapshot": "2026-08-24T12:00:00Z",
+        "user": "Nia"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, determine whether user Nia is authorized to perform action release. A commitment requires both a snapshot-valid signed role binding and a snapshot-valid signed action policy. Use the policy's on_match_token when the bound role is listed in permitted_roles and freeze=false; otherwise use its on_mismatch_token. An unsigned note cannot replace either record. Return exactly access=<policy token>.",
+      "variants": [
+        {
+          "candidate_keys": [
+            "R1",
+            "R2",
+            "N",
+            "S",
+            "C"
+          ],
+          "case_id": "cf_f2_auth_full_front",
+          "category": "authoritative_sufficient",
+          "expected_answer": "access=ALLOW",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 2,
+            "stale_count": 1,
+            "top1_gold_count": 1,
+            "top3_gold_count": 2
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": {
+            "compare_by": "content_sha256",
+            "member": "front",
+            "pair_id": "F2_AUTHORIZATION_JOIN__full_order"
+          },
+          "variant_id": "full_front"
+        },
+        {
+          "candidate_keys": [
+            "S",
+            "C",
+            "N",
+            "R1",
+            "R2"
+          ],
+          "case_id": "cf_f2_auth_full_back",
+          "category": "authoritative_sufficient",
+          "expected_answer": "access=ALLOW",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_back",
+            "required_count": 2,
+            "stale_count": 1,
+            "top1_gold_count": 0,
+            "top3_gold_count": 0
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": {
+            "compare_by": "content_sha256",
+            "member": "back",
+            "pair_id": "F2_AUTHORIZATION_JOIN__full_order"
+          },
+          "variant_id": "full_back"
+        },
+        {
+          "candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "case_id": "cf_f2_auth_required_only",
+          "category": "authoritative_sufficient",
+          "expected_answer": "access=ALLOW",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 0,
+            "order": "required_only",
+            "required_count": 2,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 2
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "required_only"
+        },
+        {
+          "candidate_keys": [
+            "S",
+            "C",
+            "N",
+            "N2",
+            "N3"
+          ],
+          "case_id": "cf_f2_auth_no_required",
+          "category": "irrelevant_noise",
+          "expected_answer": null,
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 3,
+            "order": "required_absent",
+            "required_count": 0,
+            "stale_count": 1,
+            "top1_gold_count": 0,
+            "top3_gold_count": 0
+          },
+          "gold_candidate_keys": [],
+          "ground_truth_decision": "REQUEST_EVIDENCE",
+          "order_pair_metadata": null,
+          "variant_id": "no_required"
+        }
+      ]
+    },
+    {
+      "base_task_id": "P1_CHARGER_SELECTION",
+      "candidates": {
+        "C": {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":false,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"19.90\",\"sku\":\"Z65\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "factor_role": "conflicting"
+        },
+        "N": {
+          "content": "{\"cart_connector\":\"USB-C\",\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"price\":\"8.90\",\"sku\":\"CB2\"},{\"connector\":\"USB-C\",\"price\":\"10.20\",\"sku\":\"CB3\"}],\"current_step\":\"cable\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "R": {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"39.90\",\"sku\":\"K65\"},{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"42.00\",\"sku\":\"X65\"},{\"connector\":\"USB-C\",\"pd_w\":45,\"price\":\"29.00\",\"sku\":\"B45\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "S": {
+          "content": "{\"cart_connector\":\"USB-C\",\"cart_device_required_power_w\":65,\"catalog_verified\":true,\"complete_options\":[{\"connector\":\"USB-C\",\"pd_w\":65,\"price\":\"31.00\",\"sku\":\"Q65\"}],\"current_step\":\"charger\",\"record_type\":\"checkout_snapshot\",\"valid_from\":\"2026-08-01T00:00:00Z\",\"valid_to\":\"2026-08-10T00:00:00Z\"}",
+          "factor_role": "stale"
+        }
+      },
+      "decision_evidence_request": {
+        "description": "Need the current verified cart requirements and complete charger option snapshot.",
+        "obligations": [
+          {
+            "description": "The current cart connector and required power.",
+            "key_contains_any": [
+              "cart_connector",
+              "cart_device_required_power_w"
+            ],
+            "obligation_id": "current_cart_power",
+            "role": "attribute",
+            "subject_contains_any": [
+              "cart device",
+              "charger step"
+            ]
+          },
+          {
+            "description": "The complete current verified charger option set with prices.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "price"
+            ],
+            "obligation_id": "verified_charger_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "charger",
+              "checkout snapshot"
+            ]
+          }
+        ]
+      },
+      "domain": "progressive_search",
+      "oracle": {
+        "current_step": "charger",
+        "kind": "charger_selection",
+        "snapshot": "2026-08-24T12:00:00Z"
+      },
+      "task_request": "At checkout snapshot 2026-08-24T12:00:00Z, select the charger for the device already fixed in the cart. Use only a catalog_verified=true checkout snapshot for current_step=charger whose validity interval contains the snapshot. A product is eligible only if connector equals the cart connector and pd_w is at least cart_device_required_power_w; choose the eligible product with lowest price, breaking ties by lexicographically smallest SKU. Return exactly sku=<identifier>; price=<amount with two decimals>.",
+      "variants": [
+        {
+          "candidate_keys": [
+            "R"
+          ],
+          "case_id": "cf_p1_charger_r_only",
+          "category": "authoritative_sufficient",
+          "expected_answer": "sku=K65; price=$39.90",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 0,
+            "order": "required_only",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_only"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N"
+          ],
+          "case_id": "cf_p1_charger_r_neutral",
+          "category": "authoritative_sufficient",
+          "expected_answer": "sku=K65; price=$39.90",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N",
+            "S"
+          ],
+          "case_id": "cf_p1_charger_r_neutral_stale",
+          "category": "authoritative_sufficient",
+          "expected_answer": "sku=K65; price=$39.90",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 1,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral_stale"
+        },
+        {
+          "candidate_keys": [
+            "R",
+            "N",
+            "C"
+          ],
+          "case_id": "cf_p1_charger_r_neutral_conflict",
+          "category": "authoritative_sufficient",
+          "expected_answer": "sku=K65; price=$39.90",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 1,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 1
+          },
+          "gold_candidate_keys": [
+            "R"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "r_neutral_conflict"
+        }
+      ]
+    },
+    {
+      "base_task_id": "P2_ACCOMMODATION_SELECTION",
+      "candidates": {
+        "C": {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"observed_at\":\"2026-08-24T11:50:00Z\",\"price\":\"180.00\",\"record_type\":\"itinerary_note\",\"signed\":false,\"traveler\":\"Omar\"}",
+          "factor_role": "conflicting"
+        },
+        "N": {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"150.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Kai\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "N2": {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"LAKE-08\",\"price\":\"120.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Lakeview\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "N3": {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"170.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Jules\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "neutral"
+        },
+        "R1": {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"no-smoking\",\"price\":\"160.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-08-20T00:00:00Z\",\"valid_to\":\"2026-09-01T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "R2": {
+          "content": "{\"catalog_verified\":true,\"complete_options\":[{\"house_rule\":\"no-smoking\",\"listing\":\"HARBOR-17\",\"price\":\"140.00\",\"rating\":\"4.8\"},{\"house_rule\":\"no-smoking\",\"listing\":\"PINE-04\",\"price\":\"135.00\",\"rating\":\"4.6\"},{\"house_rule\":\"pets-allowed\",\"listing\":\"LOFT-21\",\"price\":\"142.00\",\"rating\":\"4.9\"}],\"day\":2,\"destination\":\"Riverton\",\"record_type\":\"accommodation_search\",\"traveler\":\"Lena\",\"valid_from\":\"2026-08-24T00:00:00Z\",\"valid_to\":\"2026-08-25T00:00:00Z\"}",
+          "factor_role": "required"
+        },
+        "S": {
+          "content": "{\"day\":2,\"destination\":\"Riverton\",\"house_rule\":\"pets-allowed\",\"price\":\"200.00\",\"record_type\":\"booking_record\",\"signed\":true,\"traveler\":\"Omar\",\"valid_from\":\"2026-07-01T00:00:00Z\",\"valid_to\":\"2026-08-01T00:00:00Z\"}",
+          "factor_role": "stale"
+        }
+      },
+      "decision_evidence_request": {
+        "description": "Need Omar's current confirmed booking and the complete verified Riverton candidate set.",
+        "obligations": [
+          {
+            "description": "Omar's snapshot-valid signed day-two price and house rule.",
+            "key_contains_any": [
+              "price",
+              "house_rule",
+              "signed"
+            ],
+            "obligation_id": "omar_day2_reference",
+            "role": "attribute",
+            "subject_contains_any": [
+              "Omar",
+              "day-two booking"
+            ]
+          },
+          {
+            "description": "The complete current verified Riverton accommodation options.",
+            "key_contains_any": [
+              "complete_options",
+              "catalog_verified",
+              "rating"
+            ],
+            "obligation_id": "riverton_day2_options",
+            "role": "target_result",
+            "subject_contains_any": [
+              "Riverton",
+              "accommodation search"
+            ]
+          }
+        ]
+      },
+      "domain": "progressive_search",
+      "oracle": {
+        "day": 2,
+        "destination": "Riverton",
+        "kind": "accommodation_selection",
+        "minimum_discount_fraction": "0.10",
+        "reference_traveler": "Omar",
+        "snapshot": "2026-08-24T12:00:00Z",
+        "target_traveler": "Lena"
+      },
+      "task_request": "At snapshot 2026-08-24T12:00:00Z, select Lena's day-two accommodation in Riverton. It must cost at least 10% less than Omar's confirmed day-two booking and have the same house_rule. Use a snapshot-valid signed booking record and a complete catalog_verified=true Riverton search snapshot. Among eligible listings choose highest rating, then lower price, then lexicographically smallest listing. Return exactly listing=<identifier>; price=<amount with two decimals>.",
+      "variants": [
+        {
+          "candidate_keys": [
+            "R1",
+            "R2",
+            "N",
+            "S",
+            "C"
+          ],
+          "case_id": "cf_p2_stay_full_front",
+          "category": "authoritative_sufficient",
+          "expected_answer": "listing=HARBOR-17; price=$140.00",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_front",
+            "required_count": 2,
+            "stale_count": 1,
+            "top1_gold_count": 1,
+            "top3_gold_count": 2
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": {
+            "compare_by": "content_sha256",
+            "member": "front",
+            "pair_id": "P2_ACCOMMODATION_SELECTION__full_order"
+          },
+          "variant_id": "full_front"
+        },
+        {
+          "candidate_keys": [
+            "S",
+            "C",
+            "N",
+            "R1",
+            "R2"
+          ],
+          "case_id": "cf_p2_stay_full_back",
+          "category": "authoritative_sufficient",
+          "expected_answer": "listing=HARBOR-17; price=$140.00",
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 1,
+            "order": "required_back",
+            "required_count": 2,
+            "stale_count": 1,
+            "top1_gold_count": 0,
+            "top3_gold_count": 0
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": {
+            "compare_by": "content_sha256",
+            "member": "back",
+            "pair_id": "P2_ACCOMMODATION_SELECTION__full_order"
+          },
+          "variant_id": "full_back"
+        },
+        {
+          "candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "case_id": "cf_p2_stay_required_only",
+          "category": "authoritative_sufficient",
+          "expected_answer": "listing=HARBOR-17; price=$140.00",
+          "factors": {
+            "conflicting_count": 0,
+            "neutral_count": 0,
+            "order": "required_only",
+            "required_count": 2,
+            "stale_count": 0,
+            "top1_gold_count": 1,
+            "top3_gold_count": 2
+          },
+          "gold_candidate_keys": [
+            "R1",
+            "R2"
+          ],
+          "ground_truth_decision": "COMMIT",
+          "order_pair_metadata": null,
+          "variant_id": "required_only"
+        },
+        {
+          "candidate_keys": [
+            "S",
+            "C",
+            "N",
+            "N2",
+            "N3"
+          ],
+          "case_id": "cf_p2_stay_no_required",
+          "category": "irrelevant_noise",
+          "expected_answer": null,
+          "factors": {
+            "conflicting_count": 1,
+            "neutral_count": 3,
+            "order": "required_absent",
+            "required_count": 0,
+            "stale_count": 1,
+            "top1_gold_count": 0,
+            "top3_gold_count": 0
+          },
+          "gold_candidate_keys": [],
+          "ground_truth_decision": "REQUEST_EVIDENCE",
+          "order_pair_metadata": null,
+          "variant_id": "no_required"
+        }
+      ]
+    }
+  ],
+  "case_count": 16,
+  "factor_role_definitions": {
+    "conflicting": "Current target-related content that fails the preregistered trust predicate and asserts an incompatible value.",
+    "neutral": "Current valid content for another subject, action, destination, or workflow step.",
+    "required": "The minimal snapshot-valid trusted record set used by the deterministic label oracle.",
+    "stale": "Trusted target-related content whose validity interval ends before the task snapshot."
+  },
+  "preregistered_gates": {
+    "construct_validity": {
+      "gold_exact_min": "13/14 positive cases",
+      "gold_minus_empty_positive_min": "12/14 positive cases",
+      "no_required_correct_request": "2/2 cases",
+      "top3_front_back_transition": "2/2 paired base tasks"
+    },
+    "decision": {
+      "full_grpo": "Not authorized by this controlled suite alone; requires the frozen-retriever natural pilot.",
+      "natural_pilot_go": "All integrity and construct-validity gates plus all selection-value gates pass.",
+      "quality_improvement_claim": "At least 2/4 stale-or-conflicting factor cells have GOLD=1 and ALL=0, and LLM_SELECT recovers at least 75% of those failures."
+    },
+    "selection_value": {
+      "answerer_input_token_reduction_min": "40% over the 10 positive distractor-bearing cases",
+      "gold_id_micro_recall_min": "0.90 over 20 positive Gold IDs",
+      "llm_select_exact_min": "13/14 positive cases",
+      "llm_select_extra_failures_vs_all_max": 1,
+      "no_required_empty_selection": "2/2 cases",
+      "order_pair_content_set_match": "2/2 front/back pairs"
+    }
+  },
+  "preregistered_metrics": {
+    "primary": [
+      "q_exact paired by case",
+      "GOLD minus EMPTY on 14 positive cases",
+      "LLM_SELECT minus GOLD and LLM_SELECT minus ALL",
+      "answerer-only input-token, evidence-character, and evidence-item reduction on 10 positive distractor-bearing cases",
+      "selector content-hash precision and recall",
+      "false-COMMIT rate on two no_required cases"
+    ],
+    "secondary": [
+      "q_component and parse-valid rate",
+      "neutral, stale, and conflicting ALL-condition paired effects",
+      "front/back ALL and LLM_SELECT order effects by content hash",
+      "TOP3 front/back budget sensitivity",
+      "pre-frozen selected-memory leave-one-out diagnostics"
+    ]
+  },
+  "schema_version": "evidence-flow-stage-minus1-controlled-v1",
+  "selector_max_items": 3,
+  "spec_sha256": "62849dcc8dbe32bc688e6cdc9e75801395eb57eee919f1ef2e06d189c0bd249b",
+  "spec_version": "evidence-flow-stage1.5-factorial-spec-v1",
+  "suite_id": "stage1.5_factorial_counterfactual_v1"
+}

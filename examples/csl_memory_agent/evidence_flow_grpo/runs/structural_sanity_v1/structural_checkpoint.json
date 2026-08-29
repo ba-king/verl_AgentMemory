@@ -1,0 +1,9 @@
+{
+  "actual_optimizer_steps": 0,
+  "contains_model_weights": false,
+  "next_phase": "G0 Linux/NVIDIA server preflight",
+  "phase": "S0",
+  "schema_version": "evidence-flow-structural-checkpoint-v1",
+  "scorer_sha256": "8e68eaa8563544f7ab8ef9d6fdc32920dbbbd5d381213019826f2e894772ab17",
+  "status": "PASS"
+}
