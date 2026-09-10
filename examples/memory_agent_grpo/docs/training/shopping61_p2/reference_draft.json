@@ -1,0 +1,71 @@
+{
+  "needs": [
+    {
+      "id": "N1",
+      "text": "For Product 2, preserve both conditional rules: OLED pairs with Dolby Atmos and avoids Compact; LED pairs with Compact and avoids Dolby Atmos. The task explicitly requires compatibility with the previous (ground truth) products, which must not be silently equated with an actual purchase receipt.",
+      "source_refs": ["M012"]
+    },
+    {
+      "id": "N2",
+      "text": "Compare the five listed audio option descriptions and choose the highest-rated option among those compatible with the notes; the current page alone does not define the comparison scope.",
+      "source_refs": ["M012"]
+    },
+    {
+      "id": "N3",
+      "text": "Keep the combined expense of the entire bundle within $420, accounting for earlier actual purchases and later items.",
+      "source_refs": ["M012"]
+    },
+    {
+      "id": "N4",
+      "text": "Buy products in the task's specified order; this is Product 2 after the recorded Product 1 purchase.",
+      "source_refs": ["M012", "M011"]
+    }
+  ],
+  "evidence": [
+    {"id": "E1", "need_ids": ["N1", "N2", "N3", "N4"], "excerpt_id": "F0019"},
+    {"id": "E2", "need_ids": ["N1", "N2"], "excerpt_id": "F0020"},
+    {"id": "E3", "need_ids": ["N1"], "excerpt_id": "F0014"},
+    {"id": "E4", "need_ids": ["N1", "N3"], "excerpt_id": "F0016"},
+    {"id": "E5", "need_ids": ["N1", "N3", "N4"], "excerpt_id": "F0018"},
+    {"id": "E6", "need_ids": ["N1", "N2", "N3"], "excerpt_id": "F0025"},
+    {"id": "E7", "need_ids": ["N1", "N2", "N3"], "excerpt_id": "F0027"},
+    {
+      "id": "E8",
+      "need_ids": ["N1", "N3", "N4"],
+      "text": "The receipt records an actual purchase of B095XMWZB2 for $149.99. The preceding click on that ID and the returned Norcent N24-HD1 detail page link this purchase to a title explicitly containing LED. This establishes the recorded object's type and expense; the receipt's completion heading does not establish a match to the hidden reference product.",
+      "kind": "derived",
+      "premise_ids": ["E3", "E4", "E5"]
+    },
+    {
+      "id": "E9",
+      "need_ids": ["N1", "N2"],
+      "text": "The click on B00X3KFXJM followed by its iLive ITB105B detail page links that ID to Compact, a $100.0 price, and a 3.6 rating. If the actual recorded LED purchase is the applicable predecessor for the task's compatibility rule, this iLive candidate meets the positive Compact pairing condition. This partial match does not certify every compatibility condition or the highest rating among all listed options.",
+      "kind": "derived",
+      "premise_ids": ["E1", "E2", "E3", "E4", "E5", "E6", "E7"]
+    },
+    {
+      "id": "E10",
+      "need_ids": ["N3"],
+      "text": "Using the $420 bundle limit, the recorded $149.99 expense leaves $270.01 for remaining items. At the currently displayed iLive price of $100.0, buying it would bring cumulative expense to $249.99 and leave $170.01. This is a conditional calculation, not a purchase receipt or proof that the rest of the bundle will fit.",
+      "kind": "derived",
+      "premise_ids": ["E1", "E5", "E7"]
+    }
+  ],
+  "unresolved": [
+    {
+      "need_ids": ["N1", "N2"],
+      "text": "The supplied prefix has not established product-page ratings or full eligibility for the listed VIZIO, Sony, Samsung, and Creative options. Their task descriptions are available, but they are not comparative page evidence. iLive's known rating of 3.6 is insufficient to determine the highest-rated compatible option.",
+      "source_refs": ["M012", "M014", "M016"]
+    },
+    {
+      "need_ids": ["N3"],
+      "text": "The required costs of later bundle items are not established in this supplied prefix. The current balance calculation is known, but overall bundle affordability cannot yet be certified.",
+      "source_refs": ["M012", "M011", "M016"]
+    },
+    {
+      "need_ids": ["N1"],
+      "text": "The public receipt identifies the actual earlier purchase, while the task says previous (ground truth) products. Their equivalence is not established by this prefix. Keep compatibility conclusions conditional without discarding the known LED evidence.",
+      "source_refs": ["M012", "M008", "M009", "M011"]
+    }
+  ]
+}

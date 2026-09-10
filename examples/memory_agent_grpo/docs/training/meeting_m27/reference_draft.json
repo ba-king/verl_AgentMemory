@@ -1,0 +1,57 @@
+{
+  "needs": [
+    {
+      "id": "N1",
+      "text": "会议 M-27 的房间须容纳最新通知确定的 12 名与会者。",
+      "source_refs": ["S001", "S003"]
+    },
+    {
+      "id": "N2",
+      "text": "房间须在 2026-10-20 14:00–15:00（Asia/Shanghai）可用。",
+      "source_refs": ["S001"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "need_ids": ["N1", "N2"],
+      "excerpt_id": "F0001"
+    },
+    {
+      "id": "E2",
+      "need_ids": ["N1"],
+      "excerpt_id": "F0002"
+    },
+    {
+      "id": "E3",
+      "need_ids": ["N1", "N2"],
+      "excerpt_id": "F0003"
+    },
+    {
+      "id": "E4",
+      "need_ids": ["N1", "N2"],
+      "excerpt_id": "F0004"
+    },
+    {
+      "id": "E5",
+      "need_ids": ["N1"],
+      "text": "根据会议 M-27 的最新通知，旧记录中的 8 人已被 12 人更新，不能继续按 8 人判断容量是否满足。",
+      "kind": "derived",
+      "premise_ids": ["E1", "E2", "E3"]
+    },
+    {
+      "id": "E6",
+      "need_ids": ["N1"],
+      "text": "依据当前目录和最新人数，A 室容量 10 小于所需 12，容量不满足；B 室容量 16 大于等于所需 12，容量满足。这仅判断容量，不证明时段可用或已经预订。",
+      "kind": "derived",
+      "premise_ids": ["E1", "E3", "E4"]
+    }
+  ],
+  "unresolved": [
+    {
+      "need_ids": ["N2"],
+      "text": "当前提供的信息尚未确认 B 室在 2026-10-20 14:00–15:00（Asia/Shanghai）是否可用。",
+      "source_refs": ["S001", "S004"]
+    }
+  ]
+}

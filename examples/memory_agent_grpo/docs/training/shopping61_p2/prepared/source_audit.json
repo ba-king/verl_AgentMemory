@@ -1,0 +1,161 @@
+{
+  "sample_id": "shopping61_p2_seen_prefix",
+  "split": "development",
+  "split_group": "memoryarena_shopping_task61_and_shared_history",
+  "input_origin": "recorded Answer-visible public history projected into an offline Memory constructor input",
+  "reference_origin": "assistant_authored_from_allowed_prefix; not Qwen output or unique gold target",
+  "original_request_file": "examples/memory_agent_grpo/runs/v4pro_tasks61_113_full_packet_20260909_r1/episodes/t61__deepseek_v4_pro__reference_packet/answer_llm_calls.jsonl",
+  "original_request_line": 8,
+  "original_request_matches_seed": true,
+  "current_task_message_index": 12,
+  "last_public_message_index": 16,
+  "prior_actions_in_current_product": 2,
+  "retrieved_memory_counts": {
+    "M001": 0,
+    "M012": 0
+  },
+  "access_scope": "All 16 non-system messages in this one bounded prefix; not a recovered online Memory request.",
+  "input_source_count": 17,
+  "provenance": [
+    {
+      "source_id": "M001",
+      "original_message_index": 1,
+      "original_role": "user",
+      "content_sha256": "c756b94869cfa2313732e0fe7a7b9dc56012c1e24209cb944372e57cc0e78abd",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M002",
+      "original_message_index": 2,
+      "original_role": "assistant",
+      "content_sha256": "f005f105c49b4e6cab4cb5872381bf8b839e7969d21a3a70e19ca863dedcde05",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M003",
+      "original_message_index": 3,
+      "original_role": "user",
+      "content_sha256": "5ad7d273d8065f748c92cb2d81c786f93678c5785c700cd41c73d6af6c83e64a",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M004",
+      "original_message_index": 4,
+      "original_role": "assistant",
+      "content_sha256": "28a8227e746a19c6e4761fde8b0c5f099a51ce99882bc11a0275b36d936e825e",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M005",
+      "original_message_index": 5,
+      "original_role": "user",
+      "content_sha256": "f1970b93ec5e0f788a5a5feb05b3a29d3bdd2b73b898ec55c54bd9cde87dee9e",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M006",
+      "original_message_index": 6,
+      "original_role": "assistant",
+      "content_sha256": "b3e3d7ede1d3cd4388d418ced82f7267af7003ad4cd79e840525e0bdb4fc3de7",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M007",
+      "original_message_index": 7,
+      "original_role": "user",
+      "content_sha256": "3c20d21f751e7256caf60542dc8f6634a07e9bcfbb5d6985e9e694227e536217",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M008",
+      "original_message_index": 8,
+      "original_role": "assistant",
+      "content_sha256": "c4c69ea377e7b043d0ea0202a9b0dbb29547a051ea75950507244d0a696234a0",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M009",
+      "original_message_index": 9,
+      "original_role": "user",
+      "content_sha256": "c346c8eae2150cf5b5f4a8eefc7c6622f6075481b91a5dc16c52372974932ec7",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M010",
+      "original_message_index": 10,
+      "original_role": "assistant",
+      "content_sha256": "6af539c4171a51b58bf9fa546a21ebd3ec58c7c136d849be2c974cc8b4a6a13b",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M011",
+      "original_message_index": 11,
+      "original_role": "user",
+      "content_sha256": "332986ea3bc6d304da9f35f7810492b74702c43aa2cbf8642084f547e2fae16c",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M012",
+      "original_message_index": 12,
+      "original_role": "user",
+      "content_sha256": "b428a5725ea800920764d08accd8c9fcaf7d2aa264e938a7f6d079f1e87de57c",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M013",
+      "original_message_index": 13,
+      "original_role": "assistant",
+      "content_sha256": "fd23dd068bccd120b30d8a0c42f4725132f4ab380f590765272ce43ef33427c4",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M014",
+      "original_message_index": 14,
+      "original_role": "user",
+      "content_sha256": "16b493e6c29c7d733d5c223fed68057939a58dc0a057afc69900a9b74d499fc6",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M015",
+      "original_message_index": 15,
+      "original_role": "assistant",
+      "content_sha256": "65d7bb7ff46b6af732a65f48e24d268bdb97ec74a806e5e8fba3aa737603570a",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    },
+    {
+      "source_id": "M016",
+      "original_message_index": 16,
+      "original_role": "user",
+      "content_sha256": "366ad76aa00db7220e8835d238788975fabf40cc03789e0c55497fcc61fb1cd0",
+      "projection": "exact content; no cleaning or JSON unescaping"
+    }
+  ],
+  "context_origin": "bookkeeping derived from the verified prefix boundaries, roles and empty retrieval fields",
+  "excluded_inputs": [
+    "Original Answer system prompt M000; constructor uses its own existing generic prompt",
+    "Original appended rule-built packet: request.messages[17]",
+    "All response content and later trajectory",
+    "All Q001-Q013 independently acquired pages and their analyses/reference packets",
+    "Catalog files, hidden target labels, reward values and future-product inputs",
+    "This reference draft, review criteria, and provenance audit (kept outside constructor messages)"
+  ],
+  "protocol_status": "existing experimental premise interface; not promoted to runtime default",
+  "artifact_sha256": {
+    "sources.json": "0237580767727f617b16bdd203eb19b1f0502566b7e1b09a20f0e44d72789298",
+    "excerpt_catalog.json": "f3b6474f529f379aad133b4fac1e61cf0bbec74af7a25671b988ce0d0d9a8ef7",
+    "constructor_messages.json": "14249b9625fb988b6088b6a925dd8502a997e5c00eea1efe6938ecae49fd157d",
+    "reference_packet.json": "ec89c55405f7903dd6640e9c99601c26ba18a75d228a3da8001b9efdc0838cf8"
+  },
+  "dependency_sha256": {
+    "examples/memory_agent_grpo/runs/v4pro_task61_p2_golden_20260909_r1/seed.json": "20feb3b16f7c105d36cc57f369227235776913d89e8542e65941fcffb514845b",
+    "examples/memory_agent_grpo/runs/v4pro_tasks61_113_full_packet_20260909_r1/episodes/t61__deepseek_v4_pro__reference_packet/answer_llm_calls.jsonl": "a3dba5fc34e0b9385ec56abdf6a248fac3710aaf59da45e90729b3689130ec49",
+    "examples/memory_agent_grpo/docs/training/shopping61_p2/build_sample.py": "d2a7a37ec24ac24c1a58a2c2b5746bea43d2e312c63ce832cc22f6c20b96d290",
+    "examples/memory_agent_grpo/docs/training/shopping61_p2/reference_draft.json": "ed6e76268c947a5326a379f999cbf20f6acb7a2c957f93a0b0e6897ae639ec29",
+    "examples/memory_agent_grpo/memory_agent/packet/contract.py": "75322b30c47b47a64d4de533e7b0ef0af7c595ac8e7df57f66be2fb7ee93783f",
+    "examples/memory_agent_grpo/memory_agent/packet/excerpts.py": "a72880439da0dd0395ab511ca24f96d3ebab25bccae15930ac0b1a9b1713db7d",
+    "examples/memory_agent_grpo/memory_agent/packet/selection.py": "d58210f3cbe31e07a5057ea5d033eaf2edac6c8db0986f2080cece2fb65d99e9",
+    "examples/memory_agent_grpo/memory_agent/packet/selection_prompt.py": "78056455f29e7480f14f755572d263c63d9c1eac33803d2f147fe7c0c9685363",
+    "examples/memory_agent_grpo/memory_agent/packet/premises.py": "d13eaa210254421daeed79d1e1046a54e0827356a221805d4cbd8c4372b5dd2e",
+    "examples/memory_agent_grpo/memory_agent/packet/premise_prompt.py": "4e7a48151a37741e46c5f7c225c70ace44613a6d1934fe4d4e9a76aa322f01ff"
+  }
+}
