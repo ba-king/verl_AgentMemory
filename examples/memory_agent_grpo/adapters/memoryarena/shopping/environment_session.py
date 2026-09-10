@@ -43,6 +43,8 @@ class ShoppingEnvironmentSessionErrorCode(str, Enum):
     RESET_FAILED = "RESET_FAILED"
     STEP_FAILED = "STEP_FAILED"
     STEP_OUTPUT_INVALID = "STEP_OUTPUT_INVALID"
+    AVAILABLE_ACTIONS_FAILED = "AVAILABLE_ACTIONS_FAILED"
+    AVAILABLE_ACTIONS_OUTPUT_INVALID = "AVAILABLE_ACTIONS_OUTPUT_INVALID"
     OBSERVATION_POLICY_FAILED = "OBSERVATION_POLICY_FAILED"
     CLOSE_FAILED = "CLOSE_FAILED"
 
@@ -320,7 +322,8 @@ class ShoppingEnvironmentSession:
 
     The upstream task file necessarily contains a sealed evaluator target, but
     that file and its parsed definition stay on this trusted side. Only the
-    allowlisted page ``state`` crosses into model-visible protocol objects.
+    allowlisted page ``state`` and current clickable labels cross into
+    model-visible protocol objects.
     """
 
     def __init__(
@@ -465,6 +468,72 @@ class ShoppingEnvironmentSession:
         self._is_terminal = False
         self._termination_evidence = ShoppingTerminationEvidence(ShoppingTerminationKind.NOT_TERMINATED)
         return public_observation
+
+    def get_clickable_items(self) -> tuple[str, ...]:
+        """Read current public click targets without advancing the environment.
+
+        Fetch on every call so a previous page's buttons cannot authorize a
+        click. Preserve labels exactly: upstream radio values can be sensitive
+        to case or whitespace. Other available-actions fields stay unexamined.
+        """
+
+        if self._is_closed:
+            _fail(
+                ShoppingEnvironmentSessionErrorCode.SESSION_CLOSED,
+                "Shopping environment session is closed.",
+            )
+        if not self._has_reset:
+            _fail(
+                ShoppingEnvironmentSessionErrorCode.SESSION_NOT_RESET,
+                "Shopping environment session must be reset before reading clickable items.",
+            )
+        if self._is_terminal:
+            _fail(
+                ShoppingEnvironmentSessionErrorCode.SESSION_TERMINATED,
+                "Shopping environment session has already terminated.",
+            )
+
+        # Check this optional upstream capability only when it is needed;
+        # clients that only reset/step do not need to provide it at construction.
+        try:
+            get = getattr(self._upstream_client, "_get", None)
+        except Exception:
+            raise ShoppingEnvironmentSessionError(
+                ShoppingEnvironmentSessionErrorCode.CLIENT_INVALID,
+                "upstream_client must expose a callable _get method.",
+            ) from None
+        if not callable(get):
+            _fail(
+                ShoppingEnvironmentSessionErrorCode.CLIENT_INVALID,
+                "upstream_client must expose a callable _get method.",
+            )
+        try:
+            response = get("available_actions")
+        except Exception:
+            raise ShoppingEnvironmentSessionError(
+                ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_FAILED,
+                "MemoryArena Shopping available-actions request failed.",
+            ) from None
+        if type(response) is not dict or type(response.get("clickables")) is not list:
+            _fail(
+                ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_OUTPUT_INVALID,
+                "MemoryArena Shopping available-actions response must contain a clickable list.",
+            )
+        clickables = response["clickables"]
+        for item in clickables:
+            if type(item) is not str:
+                _fail(
+                    ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_OUTPUT_INVALID,
+                    "MemoryArena Shopping clickable items must be UTF-8 text.",
+                )
+            try:
+                item.encode("utf-8")
+            except UnicodeEncodeError:
+                raise ShoppingEnvironmentSessionError(
+                    ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_OUTPUT_INVALID,
+                    "MemoryArena Shopping clickable items must be UTF-8 text.",
+                ) from None
+        return tuple(clickables)
 
     def step(self, action: object) -> ShoppingEnvironmentStepResult:
         """Execute one internal WebShop action and drop reward/evaluator data."""

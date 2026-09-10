@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
+from dataclasses import replace
 
 import pytest
 
@@ -10,6 +12,7 @@ from examples.memory_agent_grpo.adapters.memoryarena.shopping.memory_episode_con
     ShoppingMemoryEpisodeInputError,
     ShoppingMemoryEpisodeInputErrorCode,
     ShoppingMemoryEpisodeRunStatus,
+    ShoppingMemoryProductTrace,
 )
 from examples.memory_agent_grpo.adapters.memoryarena.shopping.memory_episode_runtime import (
     ShoppingMemoryEpisodeRunner,
@@ -23,6 +26,7 @@ from examples.memory_agent_grpo.answer_agent.interaction_mode import (
 from examples.memory_agent_grpo.answer_agent.runtime import (
     AnswerAgentSubtaskRunnerConfig,
 )
+from examples.memory_agent_grpo.episode.trace import MemoryDecisionTrace
 from examples.memory_agent_grpo.memory_agent.action.protocol import (
     MemoryDecisionPhase,
 )
@@ -55,6 +59,8 @@ def _memory_runner(
     answer_client: _FakeAnswerClient | None = None,
     session_factory: _FakeSessionFactory | None = None,
     memory_output_correction_budget: int = 0,
+    memory_decision_observer: Callable[[MemoryDecisionTrace], None] | None = None,
+    product_observer: Callable[[ShoppingMemoryProductTrace], None] | None = None,
 ) -> tuple[
     ShoppingMemoryEpisodeRunner,
     _FakeAnswerClient,
@@ -79,6 +85,8 @@ def _memory_runner(
             memory_output_correction_budget=(
                 memory_output_correction_budget
             ),
+            memory_decision_observer=memory_decision_observer,
+            product_observer=product_observer,
         ),
         resolved_answer_client,
         resolved_session_factory,
@@ -248,7 +256,7 @@ def test_memory_provider_error_code_is_propagated_without_private_detail() -> No
     assert "PRIVATE_PROVIDER_DETAIL" not in serialized
 
 
-def test_one_episode_wide_output_correction_can_recover_without_raw_replay() -> None:
+def test_one_episode_wide_output_correction_replays_data_but_keeps_summary_safe() -> None:
     memory_client = ScriptedMemoryClient(
         outcomes=[
             NULL_ACTION,
@@ -277,7 +285,11 @@ def test_one_episode_wide_output_correction_can_recover_without_raw_replay() -> 
     )
     assert result.memory_output_correction.recovered is True
     assert "INVALID_JSON" in memory_client.calls[2][1].content
-    assert "PRIVATE_BAD_OUTPUT" not in memory_client.calls[2][1].content
+    correction = memory_client.calls[2][1].content
+    data = json.loads(correction.split("<correction_data_json>\n")[1].split("\n</correction_data_json>")[0])
+    assert data["rejected_output"] == "PRIVATE_BAD_OUTPUT"
+    assert "line 1" in data["validation_error_message"]
+    assert "PRIVATE_BAD_OUTPUT" not in json.dumps(result.to_safe_dict())
 
 
 def test_unrecovered_output_correction_fails_after_exactly_two_calls() -> None:
@@ -303,6 +315,236 @@ def test_unrecovered_output_correction_fails_after_exactly_two_calls() -> None:
     serialized = json.dumps(result.to_safe_dict(), ensure_ascii=False)
     assert "PRIVATE_BAD_FIRST" not in serialized
     assert "PRIVATE_BAD_SECOND" not in serialized
+
+
+def test_three_different_decisions_can_recover_and_write_once_each() -> None:
+    outcomes = []
+    for n in range(3):
+        repaired = add_action(f"PUBLIC_MEMORY_{n}")
+        # Two missing braces remain outside the deterministic repair rule.
+        outcomes.extend([NULL_ACTION, repaired[:-2], repaired])
+    outcomes.extend([NULL_ACTION] * 6)
+    client = ScriptedMemoryClient(outcomes=outcomes)
+    runner, _, _ = _memory_runner(memory_client=client, memory_output_correction_budget=3)
+    result = runner.run(_full_task())
+    assert result.pipeline_completed
+    assert result.memory_agent_invocation_count == 15
+    assert result.final_bank_state.record_count == 3
+    assert [c.product_ordinal for c in result.memory_output_corrections] == [1, 2, 3]
+    assert all(c.recovered for c in result.memory_output_corrections)
+    summary = result.to_safe_dict()
+    assert summary["memory_output_correction_count"] == 3
+    assert len(summary["memory_output_corrections"]) == 3
+    assert summary["memory_output_correction_limit_per_decision"] == 1
+    assert result.memory_output_correction == result.memory_output_corrections[0]
+    with pytest.raises(ValueError):
+        replace(result, memory_output_corrections=(result.memory_output_corrections[0],) * 3)
+
+
+def test_six_missing_add_braces_do_not_spend_retry_budget_and_memory_is_injected() -> None:
+    outcomes = []
+    for n in range(6):
+        outcomes.extend([
+            NULL_ACTION if n == 0 else retrieve_action(f"EXACT_MEMORY_{n - 1}"),
+            add_action(f"EXACT_MEMORY_{n}")[:-1],
+        ])
+    observed = []
+    client = ScriptedMemoryClient(outcomes=outcomes)
+    runner, _, _ = _memory_runner(
+        memory_client=client, memory_output_correction_budget=0,
+        memory_decision_observer=observed.append,
+    )
+    result = runner.run(_full_task())
+    assert result.pipeline_completed
+    assert result.memory_agent_invocation_count == len(client.calls) == 12
+    assert result.memory_output_corrections == ()
+    assert result.final_bank_state.record_count == 6
+    assert sum(trace.output_repair is not None for trace in observed) == 6
+    for n, product in enumerate(result.product_traces[1:], start=1):
+        assert f"EXACT_MEMORY_{n - 1}" in product.answer_input.retrieved_memories
+    summary = result.to_safe_dict()
+    assert summary["committed_memory_output_repair_count"] == 6
+    assert summary["memory_output_correction_count"] == 0
+    assert "EXACT_MEMORY" not in json.dumps(summary)
+    repaired = summary["product_results"][0]["memory_decisions"][1]
+    assert repaired["native_output_valid"] is False
+    assert repaired["raw_validation_error_code"] == "INVALID_JSON"
+    assert repaired["execution_code"] == "ADDED"
+
+
+def test_fourth_invalid_decision_stops_when_three_episode_corrections_are_used() -> None:
+    outcomes = []
+    for n in range(3):
+        repaired = add_action(f"MEMORY_{n}")
+        outcomes.extend([NULL_ACTION, repaired[:-2], repaired])
+    outcomes.extend([NULL_ACTION, "FOURTH_BAD_OUTPUT", add_action("MUST_NOT_EXECUTE")])
+    client = ScriptedMemoryClient(outcomes=outcomes)
+    runner, _, _ = _memory_runner(memory_client=client, memory_output_correction_budget=3)
+    result = runner.run(_full_task())
+    assert result.failed_product_ordinal == 4
+    assert result.failure_code is ShoppingMemoryEpisodeFailureCode.MEMORY_OUTPUT_VALIDATION_FAILED
+    assert result.memory_agent_invocation_count == len(client.calls) == 11
+    assert len(result.memory_output_corrections) == 3
+    assert result.final_bank_state.record_count == 3
+
+
+def test_one_decision_cannot_spend_remaining_episode_budget_on_second_retry() -> None:
+    client = ScriptedMemoryClient(outcomes=["BAD_FIRST", "BAD_CORRECTION", NULL_ACTION])
+    runner, answer, _ = _memory_runner(memory_client=client, memory_output_correction_budget=3)
+    result = runner.run(_full_task())
+    assert len(client.calls) == 2
+    assert len(result.memory_output_corrections) == 1
+    assert result.memory_output_corrections[0].recovered is False
+    assert not result.pipeline_completed and answer.calls == []
+
+
+def test_distinct_pre_post_and_after_retrieval_decisions_each_allow_one_correction() -> None:
+    client = ScriptedMemoryClient(outcomes=[
+        "BAD_PRE", NULL_ACTION,
+        "BAD_POST", retrieve_action("prior facts"),
+        "BAD_AFTER_RETRIEVAL", add_action("ONE_MEMORY"),
+        *([NULL_ACTION] * 10),
+    ])
+    runner, _, _ = _memory_runner(memory_client=client, memory_output_correction_budget=3)
+    result = runner.run(_full_task())
+    assert result.pipeline_completed and result.memory_agent_invocation_count == 16
+    assert [c.phase for c in result.memory_output_corrections] == list(MemoryDecisionPhase)
+    assert result.final_bank_state.record_count == 1
+
+
+@pytest.mark.parametrize("budget", [-1, 4, True, 1.5])
+def test_correction_budget_rejects_values_outside_supported_range(budget) -> None:
+    with pytest.raises(ValueError):
+        _memory_runner(memory_client=ScriptedMemoryClient(outcomes=[]), memory_output_correction_budget=budget)
+
+
+def test_observers_receive_rejected_attempt_then_correction_and_each_product() -> None:
+    memory_client = ScriptedMemoryClient(
+        outcomes=[
+            NULL_ACTION,
+            "REJECTED_RAW_OUTPUT",
+            add_action("CORRECTED_MEMORY"),
+            *([NULL_ACTION] * 10),
+        ]
+    )
+    memory_traces: list[MemoryDecisionTrace] = []
+    products: list[ShoppingMemoryProductTrace] = []
+    calls_at_product_observation: list[int] = []
+
+    def observe_product(trace: ShoppingMemoryProductTrace) -> None:
+        products.append(trace)
+        calls_at_product_observation.append(len(memory_client.calls))
+
+    runner, _, _ = _memory_runner(
+        memory_client=memory_client,
+        memory_output_correction_budget=1,
+        memory_decision_observer=memory_traces.append,
+        product_observer=observe_product,
+    )
+
+    result = runner.run(_full_task())
+
+    assert result.status is ShoppingMemoryEpisodeRunStatus.COMPLETED
+    assert len(memory_traces) == 13
+    rejected = memory_traces[1]
+    assert rejected.raw_output == "REJECTED_RAW_OUTPUT"
+    assert rejected.gateway_result.validation.error_code is ValidationErrorCode.INVALID_JSON
+    assert rejected.bank_before == rejected.bank_after
+    assert memory_traces[2].bank_before == rejected.bank_before
+    assert memory_traces[2].bank_after.record_count == 1
+    assert tuple(products) == result.product_traces
+    assert calls_at_product_observation == [3, 5, 7, 9, 11, 13]
+
+
+def test_memory_observer_receives_post_retrieval_follow_up() -> None:
+    memory_client = ScriptedMemoryClient(
+        outcomes=[NULL_ACTION, retrieve_action("absent"), add_action("memory"), *([NULL_ACTION] * 10)]
+    )
+    traces: list[MemoryDecisionTrace] = []
+    runner, _, _ = _memory_runner(
+        memory_client=memory_client,
+        memory_decision_observer=traces.append,
+    )
+
+    result = runner.run(_full_task())
+
+    assert result.status is ShoppingMemoryEpisodeRunStatus.COMPLETED
+    assert len(traces) == 13
+    assert traces[2].context.phase is MemoryDecisionPhase.POST_TASK_AFTER_RETRIEVAL
+    assert traces[2] is result.product_traces[0].post_task_decisions[1]
+
+
+def test_rejected_output_is_observable_when_no_correction_is_available() -> None:
+    memory_client = ScriptedMemoryClient(outcomes=["not JSON"])
+    traces: list[MemoryDecisionTrace] = []
+    runner, answer_client, _ = _memory_runner(
+        memory_client=memory_client,
+        memory_decision_observer=traces.append,
+    )
+
+    result = runner.run(_full_task())
+
+    assert result.status is ShoppingMemoryEpisodeRunStatus.FAILED
+    assert result.memory_validation_error_code is ValidationErrorCode.INVALID_JSON
+    assert len(traces) == 1
+    assert traces[0].raw_output == "not JSON"
+    assert traces[0].bank_before == traces[0].bank_after
+    assert answer_client.calls == []
+
+
+@pytest.mark.parametrize("raw_output", ["not JSON", add_action("memory")])
+def test_memory_observer_failure_stops_without_retrying_action(raw_output: str) -> None:
+    memory_client = ScriptedMemoryClient(outcomes=[NULL_ACTION, raw_output])
+    traces: list[MemoryDecisionTrace] = []
+
+    def fail_on_post_task(trace: MemoryDecisionTrace) -> None:
+        traces.append(trace)
+        if trace.context.phase is MemoryDecisionPhase.POST_TASK:
+            raise OSError("PRIVATE_FILESYSTEM_DETAIL")
+
+    runner, _, _ = _memory_runner(
+        memory_client=memory_client,
+        memory_output_correction_budget=1,
+        memory_decision_observer=fail_on_post_task,
+    )
+
+    result = runner.run(_full_task())
+
+    assert result.status is ShoppingMemoryEpisodeRunStatus.FAILED
+    assert result.failure_stage is ShoppingMemoryEpisodeFailureStage.INTERNAL
+    assert result.failure_code is ShoppingMemoryEpisodeFailureCode.MEMORY_INTERNAL_CONTRACT_ERROR
+    assert result.memory_agent_invocation_count == 2
+    assert len(traces) == 2
+    assert traces[-1].raw_output == raw_output
+    assert result.memory_output_correction is None
+    assert "PRIVATE_FILESYSTEM_DETAIL" not in json.dumps(result.to_safe_dict())
+
+
+def test_product_observer_failure_stops_before_opening_next_session() -> None:
+    memory_client = ScriptedMemoryClient(outcomes=[NULL_ACTION, add_action("memory")])
+    products: list[ShoppingMemoryProductTrace] = []
+
+    def fail_to_persist(trace: ShoppingMemoryProductTrace) -> None:
+        products.append(trace)
+        raise OSError("PRIVATE_FILESYSTEM_DETAIL")
+
+    runner, _, sessions = _memory_runner(
+        memory_client=memory_client,
+        product_observer=fail_to_persist,
+    )
+
+    result = runner.run(_full_task())
+
+    assert result.status is ShoppingMemoryEpisodeRunStatus.FAILED
+    assert result.failure_stage is ShoppingMemoryEpisodeFailureStage.INTERNAL
+    assert result.failure_code is ShoppingMemoryEpisodeFailureCode.TRACE_CONTRACT_ERROR
+    assert result.failed_product_ordinal == 1
+    assert result.memory_agent_invocation_count == 2
+    assert sessions.open_calls == [1]
+    assert len(products) == 1
+    assert products[0].bank_after.record_count == 1
+    assert result.product_traces == ()
+    assert "PRIVATE_FILESYSTEM_DETAIL" not in json.dumps(result.to_safe_dict())
 
 
 def test_target_and_evaluator_evidence_never_reach_either_model() -> None:

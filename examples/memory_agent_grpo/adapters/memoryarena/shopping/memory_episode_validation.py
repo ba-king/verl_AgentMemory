@@ -294,19 +294,27 @@ def validate_memory_episode_result(result: object) -> None:
         raise ValueError("memory_agent_invocation_count is inconsistent.")
     if (
         type(result.memory_output_correction_budget) is not int
-        or result.memory_output_correction_budget not in (0, 1)
+        or result.memory_output_correction_budget not in (0, 1, 2, 3)
     ):
-        raise ValueError("Memory output correction budget must be 0 or 1.")
-    correction = result.memory_output_correction
-    if correction is not None:
+        raise ValueError("Memory output correction budget must be an integer from 0 to 3.")
+    corrections = result.memory_output_corrections
+    if type(corrections) is not tuple or len(corrections) > result.memory_output_correction_budget:
+        raise ValueError("Memory output corrections must fit the episode budget.")
+    correction_count = len(corrections)
+    previous_key = (0, -1)
+    phase_order = {phase: i for i, phase in enumerate(MemoryDecisionPhase)}
+    for index, correction in enumerate(corrections):
         if (
             type(correction) is not ShoppingMemoryOutputCorrection
-            or result.memory_output_correction_budget != 1
             or correction.product_ordinal > len(result.product_traces) + 1
-            or result.memory_agent_invocation_count < committed_decisions + 1
+            or result.memory_agent_invocation_count < committed_decisions + correction_count
         ):
             raise ValueError("Memory output correction metadata is inconsistent.")
-    correction_count = 0 if correction is None else 1
+        key = (correction.product_ordinal, phase_order[correction.phase])
+        if key <= previous_key or (not correction.recovered and index != correction_count - 1):
+            raise ValueError("Each decision may have one correction, in execution order.")
+        previous_key = key
+    correction = corrections[-1] if corrections else None
 
     if result.status is ShoppingMemoryEpisodeRunStatus.COMPLETED:
         if (

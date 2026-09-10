@@ -21,7 +21,13 @@ def memory_decision_to_safe_dict(
     action = None if decision is None else decision.memory_action
     execution = trace.gateway_result.execution
     retrieval = None if execution is None else execution.retrieval
+    raw_validation = validation if trace.output_repair is None else trace.output_repair.original_validation
     return {
+        "native_output_valid": raw_validation.is_valid,
+        "raw_validation_error_code": (
+            None if raw_validation.error_code is None else raw_validation.error_code.value
+        ),
+        "output_repair_rule": None if trace.output_repair is None else trace.output_repair.rule,
         "phase": trace.context.phase.value,
         "action": None if action is None else action.action.value,
         "gateway_status": trace.gateway_result.status.value,
@@ -146,7 +152,17 @@ def memory_episode_result_to_safe_dict(
         "memory_output_correction_budget": (
             result.memory_output_correction_budget
         ),
-        "memory_output_correction_count": 0 if correction is None else 1,
+        "memory_output_correction_count": len(result.memory_output_corrections),
+        "memory_output_correction_limit_per_decision": 1,
+        "memory_output_corrections": [
+            {
+                "product_ordinal": item.product_ordinal,
+                "phase": item.phase.value,
+                "trigger_error_code": item.trigger_error_code.value,
+                "recovered": item.recovered,
+            }
+            for item in result.memory_output_corrections
+        ],
         "memory_output_correction": (
             None
             if correction is None
@@ -158,6 +174,11 @@ def memory_episode_result_to_safe_dict(
             }
         ),
         "committed_memory_decision_count": result.memory_decision_count,
+        "committed_memory_output_repair_count": sum(
+            decision.output_repair is not None
+            for product in result.product_traces
+            for decision in memory_decisions(product)
+        ),
         "committed_null_memory_decision_count": null_count,
         "committed_memory_action_counts": dict(sorted(action_counts.items())),
         "final_bank_record_count": result.final_bank_state.record_count,

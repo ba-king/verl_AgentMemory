@@ -76,6 +76,7 @@ DEFAULT_MAX_OBSERVATION_CHARS = 16_000
 DEFAULT_MAX_INFERENCE_STEPS = 20
 DEFAULT_MAX_CONSECUTIVE_TOOL_FAILURES = 2
 DEFAULT_ANSWER_MAX_TOKENS = 4_096
+DEFAULT_ANSWER_TOOL_CHOICE = DeepSeekToolChoice.REQUIRED
 DEFAULT_ENVIRONMENT_TIMEOUT_SECONDS = 300
 DEFAULT_UPSTREAM_STARTUP_TIMEOUT_SECONDS = 180.0
 
@@ -248,6 +249,7 @@ def _build_deepseek_client(
     *,
     api_key_env: str,
     answer_max_tokens: int,
+    answer_tool_choice: DeepSeekToolChoice = DEFAULT_ANSWER_TOOL_CHOICE,
 ) -> DeepSeekAnswerAgentClient:
     return DeepSeekAnswerAgentClient(
         DeepSeekAnswerAgentClientConfig(
@@ -257,7 +259,7 @@ def _build_deepseek_client(
             timeout_seconds=120.0,
             temperature=0.0,
             max_tokens=answer_max_tokens,
-            tool_choice=DeepSeekToolChoice.REQUIRED,
+            tool_choice=answer_tool_choice,
         ),
         token_counter=DeepSeekAnswerConservativeTokenCounter(),
     )
@@ -477,6 +479,7 @@ def _upstream_service(
     startup_timeout_seconds: float,
     api_key_env: str,
     additional_secret_env_names: tuple[str, ...] = (),
+    upstream_log_path: Path | None = None,
 ) -> Iterator[None]:
     port = _local_upstream_port(base_url)
     if _service_reachable(base_url):
@@ -498,7 +501,15 @@ def _upstream_service(
         api_key_env=api_key_env,
         additional_secret_env_names=additional_secret_env_names,
     )
+    log_descriptor: int | None = None
     try:
+        if upstream_log_path is not None:
+            log_descriptor = os.open(
+                upstream_log_path,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0),
+                0o600,
+            )
+            os.fchmod(log_descriptor, 0o600)
         process = subprocess.Popen(
             [
                 str(python_path),
@@ -511,12 +522,16 @@ def _upstream_service(
             ],
             cwd=str(memoryarena_root),
             env=child_environment,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL if log_descriptor is None else log_descriptor,
+            stderr=subprocess.DEVNULL if log_descriptor is None else log_descriptor,
             start_new_session=True,
         )
     except (OSError, ValueError):
         raise ShoppingSmokeSetupError("Upstream WebShop service could not be started.") from None
+    finally:
+        if log_descriptor is not None:
+            # The child retains its duplicated stdout/stderr descriptors.
+            os.close(log_descriptor)
     try:
         _wait_for_service(
             base_url=base_url,
@@ -550,6 +565,7 @@ def run_shopping_smoke(
     mode: ShoppingSmokeMode,
     api_key_env: str,
     answer_max_tokens: int,
+    answer_tool_choice: DeepSeekToolChoice = DEFAULT_ANSWER_TOOL_CHOICE,
 ) -> ShoppingSmokeSummary:
     """Compose one real WebShop Product without persisting its trajectory."""
 
@@ -571,6 +587,7 @@ def run_shopping_smoke(
         answer_client = _build_deepseek_client(
             api_key_env=api_key_env,
             answer_max_tokens=answer_max_tokens,
+            answer_tool_choice=answer_tool_choice,
         )
     else:
         raise ShoppingSmokeSetupError("Unsupported Shopping smoke mode.")
@@ -684,6 +701,12 @@ def _parse_args() -> argparse.Namespace:
         type=int,
         default=DEFAULT_ANSWER_MAX_TOKENS,
     )
+    parser.add_argument(
+        "--answer-tool-choice",
+        type=DeepSeekToolChoice,
+        choices=tuple(choice.value for choice in DeepSeekToolChoice),
+        default=DEFAULT_ANSWER_TOOL_CHOICE,
+    )
     return parser.parse_args()
 
 
@@ -743,6 +766,7 @@ def main() -> int:
                     mode=mode,
                     api_key_env=args.api_key_env,
                     answer_max_tokens=args.answer_max_tokens,
+                    answer_tool_choice=args.answer_tool_choice,
                 )
     except (
         MemoryArenaShoppingDependencyError,

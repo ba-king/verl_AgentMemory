@@ -82,7 +82,7 @@ def test_real_client_configuration_is_frozen_without_reading_a_key() -> None:
     assert client.config.model == DEEPSEEK_MODEL
     assert client.config.api_key_env == "TEST_DEEPSEEK_KEY"
     assert client.config.context_window_tokens == DEEPSEEK_CONTEXT_WINDOW_TOKENS
-    assert client.config.max_tokens == 1024
+    assert client.config.max_tokens == 4096
 
 
 def test_valid_retrieve_action_passes_without_execution() -> None:

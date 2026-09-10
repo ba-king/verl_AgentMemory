@@ -5,6 +5,10 @@ from __future__ import annotations
 from examples.memory_agent_grpo.memory_agent.action.protocol import (
     MemoryActionName,
 )
+from examples.memory_agent_grpo.memory_agent.action.repair import (
+    MemoryOutputRepair,
+    repair_missing_add_outer_brace,
+)
 from examples.memory_agent_grpo.memory_agent.action.validation import (
     validate_memory_decision_output,
 )
@@ -96,8 +100,26 @@ def validate_memory_decision_trace(
             "Gateway phase must equal the model-visible context phase.",
         )
 
+    if trace.output_repair is not None:
+        repair = trace.output_repair
+        if (
+            type(repair) is not MemoryOutputRepair
+            or type(repair.rule) is not str
+            or not valid_text(repair.repaired_output)
+            or not valid_action_validation(repair.original_validation)
+            or repair != repair_missing_add_outer_brace(
+                trace.raw_output,
+                phase=trace.context.phase,
+                visible_memory_ids=trace.context.visible_memory_ids,
+            )
+        ):
+            return invalid(
+                EpisodeValidationErrorCode.RAW_OUTPUT_MISMATCH,
+                "Repair must exactly match the permitted deterministic transformation.",
+            )
+
     expected_validation = validate_memory_decision_output(
-        trace.raw_output,
+        trace.effective_output,
         phase=trace.context.phase,
         visible_memory_ids=trace.context.visible_memory_ids,
     )
@@ -106,7 +128,7 @@ def validate_memory_decision_trace(
     ) != action_validation_signature(expected_validation):
         return invalid(
             EpisodeValidationErrorCode.RAW_OUTPUT_MISMATCH,
-            "Gateway validation must be derived from the recorded raw output.",
+            "Gateway validation must follow raw output and any verified syntax repair.",
         )
 
     decision = expected_validation.decision

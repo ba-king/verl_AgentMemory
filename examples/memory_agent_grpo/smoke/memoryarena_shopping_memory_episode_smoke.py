@@ -42,6 +42,7 @@ from examples.memory_agent_grpo.adapters.memoryarena.shopping.tool_catalog impor
 from examples.memory_agent_grpo.answer_agent.interaction_mode import (
     AnswerAgentInteractionMode,
 )
+from examples.memory_agent_grpo.answer_agent.providers.deepseek import DeepSeekToolChoice
 from examples.memory_agent_grpo.answer_agent.runtime import (
     AnswerAgentSubtaskRunnerConfig,
 )
@@ -55,6 +56,7 @@ from examples.memory_agent_grpo.smoke.memoryarena_shopping_answer_only_episode_s
     _resolve_catalog_sources,
 )
 from examples.memory_agent_grpo.smoke.memoryarena_shopping_smoke import (
+    DEFAULT_ANSWER_TOOL_CHOICE,
     DEFAULT_API_KEY_ENV,
     DEFAULT_ENVIRONMENT_TIMEOUT_SECONDS,
     DEFAULT_MAX_CONSECUTIVE_TOOL_FAILURES,
@@ -73,7 +75,7 @@ DEFAULT_MEMORY_EPISODE_UPSTREAM_URL = "http://127.0.0.1:36034"
 DEFAULT_MEMORY_API_KEY_ENV = "P2R_MEMORY_API_KEY"
 DEFAULT_MEMORY_EPISODE_MAX_OBSERVATION_CHARS = 8_192
 DEFAULT_MEMORY_EPISODE_ANSWER_MAX_TOKENS = 8_192
-DEFAULT_MEMORY_OUTPUT_CORRECTION_BUDGET = 1
+DEFAULT_MEMORY_OUTPUT_CORRECTION_BUDGET = 3
 _ENV_NAME_PATTERN = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 
 
@@ -198,6 +200,7 @@ def run_shopping_memory_episode_smoke(
     answer_api_key_env: str,
     memory_api_key_env: str,
     answer_max_tokens: int,
+    answer_tool_choice: DeepSeekToolChoice = DEFAULT_ANSWER_TOOL_CHOICE,
     memory_output_correction_budget: int = DEFAULT_MEMORY_OUTPUT_CORRECTION_BUDGET,
 ) -> ShoppingMemoryEpisodeSmokeSummary:
     """Compose both agents, one persistent Bank, and six fresh sessions."""
@@ -224,6 +227,7 @@ def run_shopping_memory_episode_smoke(
     answer_client = _build_deepseek_client(
         api_key_env=answer_api_key_env,
         answer_max_tokens=answer_max_tokens,
+        answer_tool_choice=answer_tool_choice,
     )
 
     with tempfile.TemporaryDirectory(
@@ -344,11 +348,17 @@ def _parse_args() -> argparse.Namespace:
         default=DEFAULT_MEMORY_EPISODE_ANSWER_MAX_TOKENS,
     )
     parser.add_argument(
+        "--answer-tool-choice",
+        type=DeepSeekToolChoice,
+        choices=tuple(choice.value for choice in DeepSeekToolChoice),
+        default=DEFAULT_ANSWER_TOOL_CHOICE,
+    )
+    parser.add_argument(
         "--memory-output-correction-budget",
         type=int,
-        choices=(0, 1),
+        choices=(0, 1, 2, 3),
         default=DEFAULT_MEMORY_OUTPUT_CORRECTION_BUDGET,
-        help="Episode-wide Memory JSON correction budget; training remains 0.",
+        help="Episode-wide correction limit; at most one retry per decision. Training remains 0.",
     )
     parser.add_argument(
         "--confirm-live-api",
@@ -433,6 +443,7 @@ def main() -> int:
                     answer_api_key_env=args.answer_api_key_env,
                     memory_api_key_env=args.memory_api_key_env,
                     answer_max_tokens=args.answer_max_tokens,
+                    answer_tool_choice=args.answer_tool_choice,
                     memory_output_correction_budget=(
                         args.memory_output_correction_budget
                     ),

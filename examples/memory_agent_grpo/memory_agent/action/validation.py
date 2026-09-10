@@ -116,7 +116,12 @@ def _load_json(raw_output: str) -> tuple[Any | None, ValidationResult | None]:
             ValidationErrorCode.DUPLICATE_JSON_KEY,
             f"JSON object contains the duplicate key {exc.key!r}.",
         )
-    except (json.JSONDecodeError, RecursionError, ValueError):
+    except json.JSONDecodeError as exc:
+        return None, _invalid(
+            ValidationErrorCode.INVALID_JSON,
+            f"Output is not strict JSON: {exc.msg} (line {exc.lineno}, column {exc.colno}, character {exc.pos}).",
+        )
+    except (RecursionError, ValueError):
         return None, _invalid(ValidationErrorCode.INVALID_JSON, "Output is not strict JSON.")
     return payload, None
 

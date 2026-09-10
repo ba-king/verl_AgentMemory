@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
 import sys
 from pathlib import Path
 
@@ -28,6 +30,12 @@ from examples.memory_agent_grpo.answer_agent.tool_protocol.observation import (
     ToolObservationStatus,
 )
 from examples.memory_agent_grpo.smoke import memoryarena_shopping_smoke as smoke
+from examples.memory_agent_grpo.tests.answer_agent.providers._support import (
+    RecordingTransport,
+    messages,
+    response_body,
+    tool_call,
+)
 
 
 def _tool_definitions() -> tuple[ToolDefinition, ...]:
@@ -128,13 +136,31 @@ def _passing_summary(
     )
 
 
-def test_shopping_client_requires_a_provider_tool_call() -> None:
+@pytest.mark.parametrize("choice", [None, DeepSeekToolChoice.REQUIRED, DeepSeekToolChoice.AUTO])
+def test_shopping_client_renders_selected_tool_choice(monkeypatch, choice) -> None:
+    transport = RecordingTransport((200, response_body(
+        content=None, finish_reason="tool_calls",
+        tool_calls=[tool_call(name="click", arguments='{"item":"Buy Now"}')],
+    )))
+    monkeypatch.setenv(smoke.DEFAULT_API_KEY_ENV, "test-only-secret")
+    monkeypatch.setattr(
+        "examples.memory_agent_grpo.answer_agent.providers.deepseek.UrllibHttpTransport", lambda: transport,
+    )
     client = smoke._build_deepseek_client(
         api_key_env=smoke.DEFAULT_API_KEY_ENV,
         answer_max_tokens=2048,
+        **({} if choice is None else {"answer_tool_choice": choice}),
     )
 
-    assert client.config.tool_choice is DeepSeekToolChoice.REQUIRED
+    client.generate_initial(messages(), _tool_definitions())
+
+    expected = DeepSeekToolChoice.REQUIRED if choice is None else choice
+    assert client.config.tool_choice is expected
+    payload = json.loads(transport.calls[0]["body"])
+    assert payload["tool_choice"] == expected.value
+    assert payload["max_tokens"] == 2048
+    assert payload["thinking"] == {"type": "disabled"}
+    assert len(transport.calls) == 1
 
 
 def test_scripted_client_exercises_three_sequential_native_calls() -> None:
@@ -337,6 +363,8 @@ def test_live_cli_forwards_explicit_paths_and_budgets(
             "17",
             "--answer-max-tokens",
             "2048",
+            "--answer-tool-choice",
+            "auto",
         ],
     )
 
@@ -351,6 +379,7 @@ def test_live_cli_forwards_explicit_paths_and_budgets(
     assert calls[0]["upstream_items_file"] == Path("/tmp/reduced-items.json")
     assert calls[0]["max_inference_steps"] == 17
     assert calls[0]["answer_max_tokens"] == 2048
+    assert calls[0]["answer_tool_choice"] is DeepSeekToolChoice.AUTO
     output = capsys.readouterr().out
     assert "PRIVATE-SECRET-VALUE" not in output
     assert api_key_environment not in output
@@ -433,6 +462,117 @@ def test_upstream_service_refuses_to_reuse_occupied_port(
             raise AssertionError("occupied service must never be reused")
 
     assert process_calls == []
+
+
+def test_upstream_service_preserves_child_startup_error_in_private_log(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    log_path = tmp_path / "webshop.log"
+    opened_descriptors: list[int] = []
+    monkeypatch.setattr(smoke, "_service_reachable", lambda base_url: False)
+
+    def failed_child(*args, **kwargs):
+        del args
+        descriptor = kwargs["stdout"]
+        assert descriptor == kwargs["stderr"]
+        opened_descriptors.append(descriptor)
+        os.write(descriptor, b"ModuleNotFoundError: No module named 'webshop_dependency'\n")
+        return type("FailedChild", (), {"poll": lambda self: 1})()
+
+    monkeypatch.setattr(smoke.subprocess, "Popen", failed_child)
+    with pytest.raises(smoke.ShoppingSmokeSetupError, match="did not become ready"):
+        with smoke._upstream_service(
+            memoryarena_root=tmp_path,
+            base_url="http://127.0.0.1:36014",
+            python_executable=Path(sys.executable),
+            items_file=tmp_path / "items.json",
+            startup_timeout_seconds=1,
+            api_key_env=smoke.DEFAULT_API_KEY_ENV,
+            upstream_log_path=log_path,
+        ):
+            pytest.fail("failed child must not yield a ready service")
+
+    assert "ModuleNotFoundError" in log_path.read_text()
+    assert stat.S_IMODE(log_path.stat().st_mode) == 0o600
+    with pytest.raises(OSError):
+        os.fstat(opened_descriptors[0])
+
+
+@pytest.mark.parametrize("keep_log", [False, True])
+def test_upstream_service_closes_parent_log_and_preserves_process_cleanup(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    keep_log: bool,
+) -> None:
+    class RunningChild:
+        terminated = False
+        waited = False
+
+        def poll(self):
+            return None
+
+        def terminate(self):
+            self.terminated = True
+
+        def wait(self, *, timeout):
+            assert timeout == 15.0
+            self.waited = True
+
+    child = RunningChild()
+    descriptors: list[int] = []
+    monkeypatch.setattr(smoke, "_service_reachable", lambda base_url: False)
+
+    def start_child(*args, **kwargs):
+        del args
+        assert kwargs["stdout"] == kwargs["stderr"]
+        descriptors.append(kwargs["stdout"])
+        return child
+
+    def ready(**kwargs):
+        del kwargs
+        if keep_log:
+            with pytest.raises(OSError):
+                os.fstat(descriptors[0])
+        else:
+            assert descriptors[0] == smoke.subprocess.DEVNULL
+
+    monkeypatch.setattr(smoke.subprocess, "Popen", start_child)
+    monkeypatch.setattr(smoke, "_wait_for_service", ready)
+    with smoke._upstream_service(
+        memoryarena_root=tmp_path,
+        base_url="http://127.0.0.1:36014",
+        python_executable=Path(sys.executable),
+        items_file=tmp_path / "items.json",
+        startup_timeout_seconds=1,
+        api_key_env=smoke.DEFAULT_API_KEY_ENV,
+        upstream_log_path=tmp_path / "webshop.log" if keep_log else None,
+    ):
+        assert child.terminated is False
+    assert child.terminated is True
+    assert child.waited is True
+
+
+def test_upstream_service_does_not_overwrite_existing_log(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    log_path = tmp_path / "webshop.log"
+    log_path.write_text("previous failure")
+    monkeypatch.setattr(smoke, "_service_reachable", lambda base_url: False)
+    monkeypatch.setattr(smoke.subprocess, "Popen", lambda *args, **kwargs: pytest.fail("must not start"))
+    with pytest.raises(smoke.ShoppingSmokeSetupError, match="could not be started"):
+        with smoke._upstream_service(
+            memoryarena_root=tmp_path,
+            base_url="http://127.0.0.1:36014",
+            python_executable=Path(sys.executable),
+            items_file=tmp_path / "items.json",
+            startup_timeout_seconds=1,
+            api_key_env=smoke.DEFAULT_API_KEY_ENV,
+            upstream_log_path=log_path,
+        ):
+            pytest.fail("existing log must prevent a new launch")
+    assert log_path.read_text() == "previous failure"
 
 
 def test_wait_for_service_rejects_unknown_service_after_child_exits(

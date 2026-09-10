@@ -95,7 +95,7 @@ class ShoppingMemoryEpisodeSessionFactory(Protocol):
 
 @dataclass(frozen=True)
 class ShoppingMemoryOutputCorrection:
-    """Content-free audit record for the episode's sole correction attempt."""
+    """Content-free audit record for one decision's single correction attempt."""
 
     product_ordinal: int
     phase: MemoryDecisionPhase
@@ -169,7 +169,7 @@ class ShoppingMemoryEpisodeResult:
     final_bank_state: MemoryBankState
     memory_agent_invocation_count: int
     memory_output_correction_budget: int = 0
-    memory_output_correction: ShoppingMemoryOutputCorrection | None = None
+    memory_output_corrections: tuple[ShoppingMemoryOutputCorrection, ...] = ()
     failed_product_ordinal: int | None = None
     failure_stage: ShoppingMemoryEpisodeFailureStage | None = None
     failure_code: ShoppingMemoryEpisodeFailureCode | None = None
@@ -186,6 +186,11 @@ class ShoppingMemoryEpisodeResult:
     @property
     def pipeline_completed(self) -> bool:
         return self.status is ShoppingMemoryEpisodeRunStatus.COMPLETED
+
+    @property
+    def memory_output_correction(self) -> ShoppingMemoryOutputCorrection | None:
+        """Legacy read-only view of the first attempt; use the tuple for all attempts."""
+        return self.memory_output_corrections[0] if self.memory_output_corrections else None
 
     @property
     def memory_decision_count(self) -> int:

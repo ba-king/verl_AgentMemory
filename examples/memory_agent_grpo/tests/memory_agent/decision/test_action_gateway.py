@@ -10,8 +10,6 @@ from examples.memory_agent_grpo.memory_agent.action.validation import (
 )
 from examples.memory_agent_grpo.memory_agent.bank.bank_state import MemoryBankState, MemoryRecord
 from examples.memory_agent_grpo.memory_agent.bank.store import MemoryBankStore
-from examples.memory_agent_grpo.memory_agent.executor.engine import MemoryActionExecutor
-from examples.memory_agent_grpo.memory_agent.executor.outcome import ExecutionCode, ExecutionResult, ExecutionStatus
 from examples.memory_agent_grpo.memory_agent.decision.action_gateway import (
     ActionToExecutorGateway,
     ActionToExecutorResult,
@@ -21,6 +19,8 @@ from examples.memory_agent_grpo.memory_agent.decision.context import (
     MemoryDecisionContext,
     TaskResult,
 )
+from examples.memory_agent_grpo.memory_agent.executor.engine import MemoryActionExecutor
+from examples.memory_agent_grpo.memory_agent.executor.outcome import ExecutionCode, ExecutionResult, ExecutionStatus
 from examples.memory_agent_grpo.memory_agent.retrieval.result import RetrievalMatch, RetrievalResult
 
 
@@ -356,7 +356,7 @@ def test_validation_failure_serializes_stable_error_code() -> None:
         "status": "INVALID_OUTPUT",
         "decision": None,
         "error_code": "INVALID_JSON",
-        "error_message": "Output is not strict JSON.",
+        "error_message": "Output is not strict JSON: Expecting value (line 1, column 1, character 0).",
     }
 
 

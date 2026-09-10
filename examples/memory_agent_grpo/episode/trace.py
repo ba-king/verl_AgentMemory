@@ -9,6 +9,7 @@ from examples.memory_agent_grpo.answer_agent.input import AnswerAgentSubtaskInpu
 from examples.memory_agent_grpo.answer_agent.runtime.result import (
     AnswerAgentSubtaskRunResult,
 )
+from examples.memory_agent_grpo.memory_agent.action.repair import MemoryOutputRepair
 from examples.memory_agent_grpo.memory_agent.bank.bank_state import MemoryBankState
 from examples.memory_agent_grpo.memory_agent.decision.action_gateway import (
     ActionToExecutorResult,
@@ -85,11 +86,29 @@ class MemoryDecisionTrace:
     gateway_result: ActionToExecutorResult
     bank_before: MemoryBankState
     bank_after: MemoryBankState
+    output_repair: MemoryOutputRepair | None = None
+
+    @property
+    def effective_output(self) -> str:
+        return self.raw_output if self.output_repair is None else self.output_repair.repaired_output
 
     def to_dict(self) -> dict[str, object]:
         return {
             "context": self.context.to_dict(),
             "raw_output": self.raw_output,
+            "output_repair": (
+                None
+                if self.output_repair is None
+                else {
+                    "rule": self.output_repair.rule,
+                    "repaired_output": self.output_repair.repaired_output,
+                    "original_validation": {
+                        "status": self.output_repair.original_validation.status.value,
+                        "error_code": self.output_repair.original_validation.error_code.value,
+                        "error_message": self.output_repair.original_validation.error_message,
+                    },
+                }
+            ),
             "gateway_result": self.gateway_result.to_dict(),
             "bank_before": self.bank_before.to_dict(),
             "bank_after": self.bank_after.to_dict(),

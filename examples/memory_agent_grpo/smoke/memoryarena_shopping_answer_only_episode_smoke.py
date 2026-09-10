@@ -46,11 +46,13 @@ from examples.memory_agent_grpo.adapters.memoryarena.shopping.tool_catalog impor
 from examples.memory_agent_grpo.answer_agent.interaction_mode import (
     AnswerAgentInteractionMode,
 )
+from examples.memory_agent_grpo.answer_agent.providers.deepseek import DeepSeekToolChoice
 from examples.memory_agent_grpo.answer_agent.runtime import (
     AnswerAgentSubtaskRunnerConfig,
 )
 from examples.memory_agent_grpo.smoke.memoryarena_shopping_smoke import (
     DEFAULT_ANSWER_MAX_TOKENS,
+    DEFAULT_ANSWER_TOOL_CHOICE,
     DEFAULT_API_KEY_ENV,
     DEFAULT_ENVIRONMENT_TIMEOUT_SECONDS,
     DEFAULT_MAX_CONSECUTIVE_TOOL_FAILURES,
@@ -276,6 +278,7 @@ def run_shopping_answer_only_episode_smoke(
     max_consecutive_tool_failures: int,
     api_key_env: str,
     answer_max_tokens: int,
+    answer_tool_choice: DeepSeekToolChoice = DEFAULT_ANSWER_TOOL_CHOICE,
 ) -> ShoppingAnswerOnlyEpisodeSmokeSummary:
     """Run six isolated Product conversations against one local service."""
 
@@ -298,6 +301,7 @@ def run_shopping_answer_only_episode_smoke(
     answer_client = _build_deepseek_client(
         api_key_env=api_key_env,
         answer_max_tokens=answer_max_tokens,
+        answer_tool_choice=answer_tool_choice,
     )
 
     with tempfile.TemporaryDirectory(
@@ -405,6 +409,12 @@ def _parse_args() -> argparse.Namespace:
         default=DEFAULT_ANSWER_MAX_TOKENS,
     )
     parser.add_argument(
+        "--answer-tool-choice",
+        type=DeepSeekToolChoice,
+        choices=tuple(choice.value for choice in DeepSeekToolChoice),
+        default=DEFAULT_ANSWER_TOOL_CHOICE,
+    )
+    parser.add_argument(
         "--confirm-live-api",
         action="store_true",
         help="Required confirmation that this command may make paid DeepSeek calls.",
@@ -477,6 +487,7 @@ def main() -> int:
                     ),
                     api_key_env=args.api_key_env,
                     answer_max_tokens=args.answer_max_tokens,
+                    answer_tool_choice=args.answer_tool_choice,
                 )
     except (
         MemoryArenaShoppingDependencyError,

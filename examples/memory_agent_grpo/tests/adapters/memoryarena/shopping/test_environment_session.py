@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import traceback
 from dataclasses import dataclass, field
 from types import SimpleNamespace
 
@@ -78,6 +79,19 @@ class _FakeClient:
         self.close_calls += 1
 
 
+@dataclass
+class _AvailableActionsClient(_FakeClient):
+    available_actions: list[object] = field(default_factory=list)
+    get_calls: list[str] = field(default_factory=list)
+
+    def _get(self, path: str) -> object:
+        self.get_calls.append(path)
+        response = self.available_actions.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+
 def _session(
     client: object | None = None,
     *,
@@ -133,6 +147,173 @@ def test_step_returns_public_state_and_separate_trusted_done_without_reward() ->
     assert second.termination_evidence.purchased_target_matched is True
     assert session.is_terminal is True
     assert session.termination_evidence == second.termination_evidence
+
+
+def test_clickable_items_are_fetched_fresh_and_keep_exact_labels() -> None:
+    first_page = ["buy now", " Mixed Case ", "红色", ""]
+    client = _AvailableActionsClient(
+        available_actions=[
+            {"clickables": first_page},
+            {"clickables": ["< prev", "back to search"]},
+            {"clickables": []},
+        ],
+    )
+    session = _session(client)
+    session.reset(seed=7)
+
+    first = session.get_clickable_items()
+    second = session.get_clickable_items()
+    empty = session.get_clickable_items()
+    first_page.append("later mutation")
+
+    assert first == ("buy now", " Mixed Case ", "红色", "")
+    assert second == ("< prev", "back to search")
+    assert empty == ()
+    assert client.get_calls == ["available_actions"] * 3
+    assert client.reset_calls == [7]
+    assert client.step_calls == []
+    assert session.is_terminal is False
+    assert session.termination_evidence.kind is ShoppingTerminationKind.NOT_TERMINATED
+
+
+def test_clickable_items_ignore_private_response_fields_and_task_definition() -> None:
+    class ForbiddenValue:
+        def __repr__(self) -> str:
+            raise AssertionError("private value must not be formatted")
+
+    client = _AvailableActionsClient(
+        available_actions=[
+            {
+                "clickables": ["public item"],
+                "reward": ForbiddenValue(),
+                "target_products": ForbiddenValue(),
+                "has_search_bar": ForbiddenValue(),
+            }
+        ],
+    )
+    session = _session(client)
+    session.reset()
+    # This public read does not re-read the evaluator-bearing task definition.
+    client.task_def = None
+
+    assert session.get_clickable_items() == ("public item",)
+    assert client.step_calls == []
+
+
+def test_available_actions_capability_is_checked_only_when_called() -> None:
+    client = _FakeClient(step_outputs=[_FakeStepOutput(state="public page", done=False)])
+    session = _session(client)
+    session.reset()
+    session.step("search[keywords]")
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as caught:
+        session.get_clickable_items()
+
+    assert caught.value.code is ShoppingEnvironmentSessionErrorCode.CLIENT_INVALID
+    assert client.step_calls == ["search[keywords]"]
+
+
+def test_available_actions_noncallable_capability_is_rejected() -> None:
+    class InvalidClient(_FakeClient):
+        _get = "PRIVATE-NONCALLABLE"
+
+    session = _session(InvalidClient())
+    session.reset()
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as caught:
+        session.get_clickable_items()
+
+    assert caught.value.code is ShoppingEnvironmentSessionErrorCode.CLIENT_INVALID
+    assert "PRIVATE-NONCALLABLE" not in str(caught.value)
+
+
+def test_available_actions_attribute_error_is_sanitized() -> None:
+    class InvalidClient(_FakeClient):
+        @property
+        def _get(self) -> object:
+            raise RuntimeError("PRIVATE-ATTRIBUTE-FAILURE")
+
+    session = _session(InvalidClient())
+    session.reset()
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as caught:
+        session.get_clickable_items()
+
+    assert caught.value.code is ShoppingEnvironmentSessionErrorCode.CLIENT_INVALID
+    rendered = "".join(traceback.format_exception(caught.value))
+    assert "RuntimeError: PRIVATE-ATTRIBUTE-FAILURE" not in rendered
+    assert caught.value.__suppress_context__ is True
+
+
+def test_available_actions_request_error_is_sanitized() -> None:
+    client = _AvailableActionsClient(available_actions=[RuntimeError("PRIVATE-REQUEST-FAILURE")])
+    session = _session(client)
+    session.reset()
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as caught:
+        session.get_clickable_items()
+
+    assert caught.value.code is ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_FAILED
+    assert "PRIVATE-REQUEST-FAILURE" not in "".join(traceback.format_exception(caught.value))
+    assert caught.value.__suppress_context__ is True
+    assert client.get_calls == ["available_actions"]
+    assert client.step_calls == []
+    assert session.is_terminal is False
+
+
+@pytest.mark.parametrize(
+    "response",
+    [
+        None,
+        [],
+        "PRIVATE-INVALID-RESPONSE",
+        {},
+        {"clickables": None},
+        {"clickables": "PRIVATE-INVALID-RESPONSE"},
+        {"clickables": ("public item",)},
+        {"clickables": [123]},
+        {"clickables": [True]},
+        {"clickables": [b"public item"]},
+        {"clickables": ["PRIVATE-INVALID-RESPONSE\ud800"]},
+    ],
+)
+def test_invalid_available_actions_schema_is_rejected(response: object) -> None:
+    client = _AvailableActionsClient(available_actions=[response])
+    session = _session(client)
+    session.reset()
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as caught:
+        session.get_clickable_items()
+
+    assert caught.value.code is ShoppingEnvironmentSessionErrorCode.AVAILABLE_ACTIONS_OUTPUT_INVALID
+    assert "PRIVATE-INVALID-RESPONSE" not in str(caught.value)
+    assert client.step_calls == []
+
+
+def test_clickable_items_require_an_active_reset_session() -> None:
+    client = _AvailableActionsClient(
+        available_actions=[{"clickables": ["public item"]}],
+        step_outputs=[_FakeStepOutput(state="Task complete", done=True)],
+    )
+    session = _session(client)
+
+    with pytest.raises(ShoppingEnvironmentSessionError) as before_reset:
+        session.get_clickable_items()
+    assert before_reset.value.code is ShoppingEnvironmentSessionErrorCode.SESSION_NOT_RESET
+
+    session.reset()
+    session.step("click[Buy Now]")
+    with pytest.raises(ShoppingEnvironmentSessionError) as after_terminal:
+        session.get_clickable_items()
+    assert after_terminal.value.code is ShoppingEnvironmentSessionErrorCode.SESSION_TERMINATED
+
+    session.reset(seed=1)
+    assert session.get_clickable_items() == ("public item",)
+    session.close()
+    with pytest.raises(ShoppingEnvironmentSessionError) as after_close:
+        session.get_clickable_items()
+    assert after_close.value.code is ShoppingEnvironmentSessionErrorCode.SESSION_CLOSED
+    assert client.get_calls == ["available_actions"]
 
 
 def test_soft_exit_is_terminal_but_not_purchase_completion() -> None:

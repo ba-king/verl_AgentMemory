@@ -119,7 +119,7 @@ def build_deepseek_smoke_client(*, api_key_env: str) -> OpenAICompatibleMemoryAg
             context_window_tokens=DEEPSEEK_CONTEXT_WINDOW_TOKENS,
             timeout_seconds=120.0,
             temperature=0.0,
-            max_tokens=1024,
+            max_tokens=4096,
             response_format=MemoryAgentResponseFormat.JSON_OBJECT,
             thinking_mode=MemoryAgentThinkingMode.DISABLED,
         ),

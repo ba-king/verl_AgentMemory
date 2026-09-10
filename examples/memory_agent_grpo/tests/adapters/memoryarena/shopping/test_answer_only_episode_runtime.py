@@ -222,6 +222,10 @@ class _FakeUpstreamClient:
         assert type(instruction) is str
         return f"PUBLIC_PRODUCT_{self.product_ordinal}_INITIAL\n{instruction}\nSearch [SEP] search"
 
+    def _get(self, path: str) -> dict[str, object]:
+        assert path == "available_actions"
+        return {"has_search_bar": not self.step_calls, "clickables": ["buy now"] if self.step_calls else ["search"]}
+
     def step(self, action: str) -> object:
         self.step_calls.append(action)
         if action.startswith("search["):

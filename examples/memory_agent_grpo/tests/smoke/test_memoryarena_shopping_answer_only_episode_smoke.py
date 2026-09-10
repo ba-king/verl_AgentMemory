@@ -23,6 +23,7 @@ from examples.memory_agent_grpo.adapters.memoryarena.shopping.environment_sessio
     ShoppingTerminationKind,
 )
 from examples.memory_agent_grpo.answer_agent.input import AnswerAgentSubtaskInput
+from examples.memory_agent_grpo.answer_agent.providers.deepseek import DeepSeekToolChoice
 from examples.memory_agent_grpo.answer_agent.response import (
     AnswerAgentResponse,
     AnswerAgentToolCall,
@@ -428,6 +429,8 @@ def test_successful_main_forwards_arguments_and_prints_only_safe_summary(
             "4",
             "--answer-max-tokens",
             "1536",
+            "--answer-tool-choice",
+            "auto",
         ],
     )
 
@@ -449,6 +452,7 @@ def test_successful_main_forwards_arguments_and_prints_only_safe_summary(
         "max_consecutive_tool_failures": 4,
         "api_key_env": environment_name,
         "answer_max_tokens": 1536,
+        "answer_tool_choice": DeepSeekToolChoice.AUTO,
     }
     captured = capsys.readouterr()
     assert captured.err == ""
@@ -489,9 +493,11 @@ def test_summary_aggregates_safe_structural_evidence_without_raw_content() -> No
     assert "SEALED-TARGET" not in serialized
 
 
+@pytest.mark.parametrize("answer_tool_choice", [None, DeepSeekToolChoice.AUTO])
 def test_run_composes_one_service_and_one_six_product_runner(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
+    answer_tool_choice: DeepSeekToolChoice | None,
 ) -> None:
     full_task = _full_task()
     expected_result = _completed_episode_result()
@@ -516,6 +522,11 @@ def test_run_composes_one_service_and_one_six_product_runner(
     session_factory_calls: list[dict[str, object]] = []
     runner_init_calls: list[dict[str, object]] = []
     runner_run_calls: list[object] = []
+    client_builder_calls: list[dict[str, object]] = []
+
+    def build_answer(**kwargs: object):
+        client_builder_calls.append(kwargs)
+        return answer_client
 
     class FakeSessionFactory:
         def __init__(self, **kwargs: object) -> None:
@@ -559,7 +570,7 @@ def test_run_composes_one_service_and_one_six_product_runner(
     monkeypatch.setattr(
         smoke,
         "_build_deepseek_client",
-        lambda **kwargs: answer_client,
+        build_answer,
     )
     monkeypatch.setattr(smoke, "build_shopping_catalog_bundle", fake_build_bundle)
     monkeypatch.setattr(smoke, "ShoppingAnswerOnlySessionFactory", FakeSessionFactory)
@@ -580,9 +591,14 @@ def test_run_composes_one_service_and_one_six_product_runner(
         max_consecutive_tool_failures=3,
         api_key_env="TEST_COMPOSITION_KEY",
         answer_max_tokens=1024,
+        **({} if answer_tool_choice is None else {"answer_tool_choice": answer_tool_choice}),
     )
 
     assert summary.episode_result is expected_result
+    assert client_builder_calls == [{
+        "api_key_env": "TEST_COMPOSITION_KEY", "answer_max_tokens": 1024,
+        "answer_tool_choice": DeepSeekToolChoice.REQUIRED if answer_tool_choice is None else answer_tool_choice,
+    }]
     assert summary.catalog_summary is catalog_summary
     assert events == [
         "catalog_bundle",

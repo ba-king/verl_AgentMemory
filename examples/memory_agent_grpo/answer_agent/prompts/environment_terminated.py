@@ -32,8 +32,7 @@ the current public task evidence and prior public tool observations.
 
 Every call is executed before the next inference because its observation may
 change the valid next actions. Never predict a later action before seeing the
-current call's observation. Do not repeat a successful call with the same tool
-and arguments unless the new public state explicitly requires it.
+current call's observation.
 
 The trusted task executor is the sole authority on completion. When it reports
 that the environment has terminated, the runner stops immediately. Do not

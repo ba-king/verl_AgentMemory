@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 
 from ....answer_agent.input import AnswerAgentSubtaskInput
@@ -83,7 +84,7 @@ class _ProductStageFailed(RuntimeError):
 @dataclass
 class _RunCounters:
     memory_agent_invocation_count: int = 0
-    memory_output_correction: ShoppingMemoryOutputCorrection | None = None
+    memory_output_corrections: tuple[ShoppingMemoryOutputCorrection, ...] = ()
 
 
 _MEMORY_FAILURE_CODES = {
@@ -111,6 +112,7 @@ def _execute_memory_stage(
     product_ordinal: int,
     memory_output_correction_budget: int,
     counters: _RunCounters,
+    memory_decision_observer: Callable[[MemoryDecisionTrace], None] | None = None,
 ) -> MemoryDecisionTrace:
     counters.memory_agent_invocation_count += 1
     try:
@@ -118,12 +120,13 @@ def _execute_memory_stage(
             memory_client=memory_client,
             gateway=gateway,
             context=context,
+            repair_add_outer_brace=True,
+            trace_observer=memory_decision_observer,
         )
     except MemoryDecisionStepError as error:
         if (
             error.code is MemoryDecisionStepErrorCode.OUTPUT_VALIDATION_FAILED
-            and memory_output_correction_budget == 1
-            and counters.memory_output_correction is None
+            and len(counters.memory_output_corrections) < memory_output_correction_budget
             and type(error.validation_error_code) is ValidationErrorCode
         ):
             trigger_error_code = error.validation_error_code
@@ -133,26 +136,30 @@ def _execute_memory_stage(
                     memory_client=memory_client,
                     gateway=gateway,
                     context=context,
+                    repair_add_outer_brace=True,
                     correction_error_code=trigger_error_code,
+                    correction_raw_output=error.rejected_output,
+                    correction_error_message=error.validation_error_message,
+                    trace_observer=memory_decision_observer,
                 )
             except MemoryDecisionStepError as corrected_error:
-                counters.memory_output_correction = (
+                counters.memory_output_corrections += (
                     ShoppingMemoryOutputCorrection(
                         product_ordinal=product_ordinal,
                         phase=context.phase,
                         trigger_error_code=trigger_error_code,
                         recovered=False,
-                    )
+                    ),
                 )
                 error = corrected_error
             else:
-                counters.memory_output_correction = (
+                counters.memory_output_corrections += (
                     ShoppingMemoryOutputCorrection(
                         product_ordinal=product_ordinal,
                         phase=context.phase,
                         trigger_error_code=trigger_error_code,
                         recovered=True,
-                    )
+                    ),
                 )
                 return corrected_trace
         code = _MEMORY_FAILURE_CODES[error.code]
@@ -180,6 +187,7 @@ def _run_post_task_decisions(
     product_ordinal: int,
     memory_output_correction_budget: int,
     counters: _RunCounters,
+    memory_decision_observer: Callable[[MemoryDecisionTrace], None] | None = None,
 ) -> tuple[MemoryDecisionTrace, ...]:
     first = _execute_memory_stage(
         memory_client=memory_client,
@@ -196,6 +204,7 @@ def _run_post_task_decisions(
         product_ordinal=product_ordinal,
         memory_output_correction_budget=memory_output_correction_budget,
         counters=counters,
+        memory_decision_observer=memory_decision_observer,
     )
     post_task_retrieval = retrieval_from_trace(first)
     if post_task_retrieval is None:
@@ -216,6 +225,7 @@ def _run_post_task_decisions(
         product_ordinal=product_ordinal,
         memory_output_correction_budget=memory_output_correction_budget,
         counters=counters,
+        memory_decision_observer=memory_decision_observer,
     )
     return (first, second)
 
@@ -233,6 +243,8 @@ class ShoppingMemoryEpisodeRunner:
         tool_definitions: object,
         config: AnswerAgentSubtaskRunnerConfig,
         memory_output_correction_budget: int = 0,
+        memory_decision_observer: Callable[[MemoryDecisionTrace], None] | None = None,
+        product_observer: Callable[[ShoppingMemoryProductTrace], None] | None = None,
     ) -> None:
         if not callable(getattr(memory_client, "generate", None)):
             raise ValueError("memory_client must expose a callable generate method.")
@@ -244,12 +256,18 @@ class ShoppingMemoryEpisodeRunner:
             raise ValueError("task_input_adapter must be a ShoppingTaskInputAdapter.")
         if type(config) is not AnswerAgentSubtaskRunnerConfig:
             raise ValueError("config must be an AnswerAgentSubtaskRunnerConfig.")
+        for name, observer in (
+            ("memory_decision_observer", memory_decision_observer),
+            ("product_observer", product_observer),
+        ):
+            if observer is not None and not callable(observer):
+                raise ValueError(f"{name} must be callable or None.")
         if (
             type(memory_output_correction_budget) is not int
-            or memory_output_correction_budget not in (0, 1)
+            or memory_output_correction_budget not in (0, 1, 2, 3)
         ):
             raise ValueError(
-                "memory_output_correction_budget must be exactly 0 or 1."
+                "memory_output_correction_budget must be an integer from 0 to 3."
             )
         if (
             config.interaction_mode
@@ -266,6 +284,8 @@ class ShoppingMemoryEpisodeRunner:
         self._task_input_adapter = task_input_adapter
         self._tool_definitions = validated_tool_definitions(tool_definitions)
         self._config = config
+        self._memory_decision_observer = memory_decision_observer
+        self._product_observer = product_observer
         self._memory_output_correction_budget = (
             memory_output_correction_budget
         )
@@ -298,6 +318,14 @@ class ShoppingMemoryEpisodeRunner:
                     gateway=gateway,
                     counters=counters,
                 )
+                if self._product_observer is not None:
+                    try:
+                        self._product_observer(trace)
+                    except Exception:
+                        raise _ProductStageFailed(
+                            stage=ShoppingMemoryEpisodeFailureStage.INTERNAL,
+                            code=ShoppingMemoryEpisodeFailureCode.TRACE_CONTRACT_ERROR,
+                        ) from None
             except _ProductStageFailed as failure:
                 return self._failed_result(
                     committed_products=committed_products,
@@ -330,7 +358,7 @@ class ShoppingMemoryEpisodeRunner:
             memory_output_correction_budget=(
                 self._memory_output_correction_budget
             ),
-            memory_output_correction=counters.memory_output_correction,
+            memory_output_corrections=counters.memory_output_corrections,
         )
 
     def _failed_result(
@@ -350,7 +378,7 @@ class ShoppingMemoryEpisodeRunner:
             memory_output_correction_budget=(
                 self._memory_output_correction_budget
             ),
-            memory_output_correction=counters.memory_output_correction,
+            memory_output_corrections=counters.memory_output_corrections,
             failed_product_ordinal=product_ordinal,
             failure_stage=failure.stage,
             failure_code=failure.code,
@@ -411,6 +439,7 @@ class ShoppingMemoryEpisodeRunner:
                         self._memory_output_correction_budget
                     ),
                     counters=counters,
+                    memory_decision_observer=self._memory_decision_observer,
                 )
                 pre_task_retrieval = retrieval_from_trace(pre_task_decision)
                 answer_input = AnswerAgentSubtaskInput(
@@ -481,6 +510,7 @@ class ShoppingMemoryEpisodeRunner:
                 self._memory_output_correction_budget
             ),
             counters=counters,
+            memory_decision_observer=self._memory_decision_observer,
         )
         try:
             return ShoppingMemoryProductTrace(

@@ -17,6 +17,7 @@ from examples.memory_agent_grpo.adapters.memoryarena.shopping.memory_episode_con
 from examples.memory_agent_grpo.answer_agent.interaction_mode import (
     AnswerAgentInteractionMode,
 )
+from examples.memory_agent_grpo.answer_agent.providers.deepseek import DeepSeekToolChoice
 from examples.memory_agent_grpo.answer_agent.runtime import (
     AnswerAgentSubtaskRunnerConfig,
 )
@@ -186,6 +187,8 @@ def test_successful_main_prints_only_allowlisted_summary(
             "7000",
             "--answer-max-tokens",
             "9000",
+            "--answer-tool-choice",
+            "auto",
             "--upstream-url",
             "http://127.0.0.1:39034",
         ],
@@ -197,6 +200,7 @@ def test_successful_main_prints_only_allowlisted_summary(
     assert calls[0]["memory_api_key_env"] == memory_env
     assert calls[0]["max_observation_chars"] == 7000
     assert calls[0]["answer_max_tokens"] == 9000
+    assert calls[0]["answer_tool_choice"] is DeepSeekToolChoice.AUTO
     assert calls[0]["upstream_url"] == "http://127.0.0.1:39034"
     captured = capsys.readouterr()
     assert captured.err == ""
@@ -207,9 +211,11 @@ def test_successful_main_prints_only_allowlisted_summary(
     assert json.loads(captured.out)["verification_code"] == "PASS"
 
 
+@pytest.mark.parametrize("answer_tool_choice", [None, DeepSeekToolChoice.AUTO])
 def test_run_composes_both_agents_one_bank_runner_and_one_service(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
+    answer_tool_choice: DeepSeekToolChoice | None,
 ) -> None:
     full_task = _full_task()
     expected_result = _completed_episode_result()
@@ -232,6 +238,11 @@ def test_run_composes_both_agents_one_bank_runner_and_one_service(
     events: list[str] = []
     service_calls: list[dict[str, object]] = []
     runner_init_calls: list[dict[str, object]] = []
+    client_builder_calls: list[dict[str, object]] = []
+
+    def build_answer(**kwargs: object):
+        client_builder_calls.append(kwargs)
+        return answer_client
 
     class FakeSessionFactory:
         def __init__(self, **kwargs: object) -> None:
@@ -269,7 +280,7 @@ def test_run_composes_both_agents_one_bank_runner_and_one_service(
     monkeypatch.setattr(
         smoke,
         "_build_deepseek_client",
-        lambda **kwargs: answer_client,
+        build_answer,
     )
     monkeypatch.setattr(
         smoke,
@@ -295,9 +306,14 @@ def test_run_composes_both_agents_one_bank_runner_and_one_service(
         answer_api_key_env="CUSTOM_ANSWER_KEY",
         memory_api_key_env="CUSTOM_MEMORY_KEY",
         answer_max_tokens=8_192,
+        **({} if answer_tool_choice is None else {"answer_tool_choice": answer_tool_choice}),
     )
 
     assert summary.episode_result is expected_result
+    assert client_builder_calls == [{
+        "api_key_env": "CUSTOM_ANSWER_KEY", "answer_max_tokens": 8_192,
+        "answer_tool_choice": DeepSeekToolChoice.REQUIRED if answer_tool_choice is None else answer_tool_choice,
+    }]
     assert summary.catalog_summary is catalog_summary
     assert events == ["service_enter", "episode_run", "service_exit"]
     assert len(runner_init_calls) == 1

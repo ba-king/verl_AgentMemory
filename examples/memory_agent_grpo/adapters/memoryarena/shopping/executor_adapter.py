@@ -18,6 +18,7 @@ from .environment_session import (
 )
 
 _SAFE_EXECUTION_ERROR = "Shopping action execution failed."
+_CLICKABLES_UNAVAILABLE_ERROR = "Unable to verify current clickable items. The click was not executed; try again."
 _TOOL_ARGUMENT_NAMES = {
     "search": "keywords",
     "click": "item",
@@ -94,13 +95,15 @@ def _validate_call_identity(call: ValidatedToolCall) -> None:
 
 def _safe_error_result(
     call: ValidatedToolCall,
+    *,
+    content: str = _SAFE_EXECUTION_ERROR,
 ) -> AnswerAgentTaskToolExecutionResult:
     return AnswerAgentTaskToolExecutionResult(
         tool_observation=ToolObservation(
             tool_call_id=call.tool_call_id,
             tool_name=call.name,
             status=ToolObservationStatus.ERROR,
-            content=_SAFE_EXECUTION_ERROR,
+            content=content,
         ),
         is_terminal=False,
     )
@@ -152,6 +155,25 @@ class ShoppingToolExecutorAdapter:
         action = _internal_webshop_action(call.name, arguments)
         if action is None:
             return _safe_error_result(call)
+
+        if call.name == "click":
+            try:
+                clickable_items = self._session.get_clickable_items()
+            except ShoppingEnvironmentSessionError:
+                return _safe_error_result(call, content=_CLICKABLES_UNAVAILABLE_ERROR)
+            # WebShop lowercases the submitted argument, then checks the raw
+            # clickable keys. It explicitly excludes the search button from
+            # click actions. Preserve the original model arguments on execution.
+            item = arguments["item"].lower()
+            if item == "search" or item not in clickable_items:
+                available = [value for value in clickable_items if value != "search"]
+                return _safe_error_result(
+                    call,
+                    content=(
+                        "Click rejected: the requested item is not clickable on the current page. "
+                        "Current clickable items: " + json.dumps(available, ensure_ascii=False)
+                    ),
+                )
 
         try:
             step_result = self._session.step(action)
