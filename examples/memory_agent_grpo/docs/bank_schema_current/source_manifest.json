@@ -1,0 +1,31 @@
+{
+  "scope": "CURRENT_LOCAL_MEMORA_CONTRACT_NOT_FULL_RUNTIME_RELEASE",
+  "source_root_relative_to_repo": "examples/memory_agent_grpo",
+  "sha256": {
+    "memory_agent/action/structured_update.py": "5ebc421e4ac810dad215bdef578f8e2d506d068ee842641045c7ba8622bd10ff",
+    "memory_agent/bank/bank_state.py": "1db6c93c2359783776e6960ce243240ff63b4dbbf5722b26e251cef042ef6f8e",
+    "memory_agent/bank/store.py": "198bd2193469759d39bde5b3a08c400c5b1daaa7bde3e38c12a44054bf483b64",
+    "memory_agent/bank/validation.py": "a14a9476ec2ee27eeca85b3003f07f2db705b6d57bb1fe8170e2787590dc9775",
+    "memory_agent/executor/engine.py": "edb3a3113b81dde5161989eae26420e3b2df67e5485047de0fecc2a8cfbc94f5",
+    "teacher_pilot/travel_v0/structured_record/record_renderer.py": "c0efdff80d30799b3973a382dc7f4da517fffadc0e8a5eff78aecb3b00df06d4",
+    "teacher_pilot/travel_v0/structured_record/policy.py": "ce81a025556af964f2a7c33eea2ab842d1ea754f0764bd68e50cef3cac5bf84a",
+    "teacher_pilot/travel_v0/structured_record/bank.py": "f5eb11bcabffbf12731f93d42ad70876659dfeef89f88588dd3637c8fc14bef0",
+    "teacher_pilot/travel_v0/structured_record_v2/policy.py": "ecbb4a0759d68b062c9d507d08b33573facad0256bba374267433bd4e23fa572",
+    "teacher_pilot/travel_v0/structured_record_v2/bank.py": "f399f53b45ac43c155db73bcc8dd7af953fab9f284a763bfc5f413e5f9660219",
+    "teacher_pilot/travel_v0/single_action/protocol.py": "6dc2c11cbc3a3309081756fa7812ab06ef676b9de6d62455f81d1ab10c09228b",
+    "teacher_pilot/travel_v0/memory_runtime.py": "8f0b1eb537348c6f538c2bad757c998d1d301a2cae949e662787c9ecbc86cefb",
+    "memora_sft_dev/teacher_rollout_v1/interface.py": "5a3d48df26429bc7dfc061c3652b8dc57049ebce6e2d31b01d5711c3d9335e2a",
+    "memora_sft_dev/structured_adapter.py": "6a303dc9b42a763cc183775a2126fe65f9f32f852d3cc97d6375f0e0f8c54587",
+    "memora_teacher/autonomous_v1/rollout.py": "7b9cd8a7570227ecabd69e3bd6853ede6a03665f768bf2aa0dbfc950c4b3d862",
+    "memora_teacher/tool_time_v1/contract.py": "8cd90b61edaeb421efbde7251ab1f8efa2b3afa2208113fcc3f5995447779078",
+    "memora_teacher/weekly_pro_yield_v2/interface.py": "7665744e1a1dd667d5aae6228a33eb304d842015acc247e8c7eb7fcae0c96ac7",
+    "memora_teacher/artifacts.py": "592b4e44bdfbff09655f619573665297c35dc2b66177af8237636016df526670",
+    "memora_sft_dev/reviewed_sessions_v2/dataset.py": "b41ae04f3ab39ef4d842ee0eaaee9ddc929324b3067287aa5fefea0f4944a339"
+  },
+  "record_shape": "structured_record_v1",
+  "update_contract": "structured_record_v2",
+  "terminal_wire_contract": "weekly_pro_yield_v2",
+  "runtime_modified": false,
+  "model_calls": 0,
+  "known_consistency_issue_resolved": false
+}

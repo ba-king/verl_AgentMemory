@@ -1,0 +1,244 @@
+{
+  "example_only": true,
+  "visible_ids": [
+    "M031"
+  ],
+  "nonempty_bank": [
+    {
+      "type": "function",
+      "function": {
+        "name": "ADD",
+        "description": "Create one independent durable record supported by the visible dialogue.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "record": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "scope": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_]+)*$"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "subject",
+                "scope",
+                "fields"
+              ]
+            }
+          },
+          "required": [
+            "record"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "UPDATE",
+        "description": "Edit changed fields of one visible record. Unmentioned fields stay unchanged.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "memory_id": {
+              "type": "string",
+              "pattern": "\\S",
+              "enum": [
+                "M031"
+              ]
+            },
+            "set_fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_]+)*$"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "value"
+                ]
+              }
+            },
+            "remove_fields": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_]+)*$"
+              }
+            }
+          },
+          "required": [
+            "memory_id",
+            "set_fields",
+            "remove_fields"
+          ]
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "DELETE",
+        "description": "Remove one entire visible record; use UPDATE for partial field removal.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "memory_id": {
+              "type": "string",
+              "enum": [
+                "M031"
+              ]
+            }
+          },
+          "required": [
+            "memory_id"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "YIELD",
+        "description": "Finish this maintenance episode when no further supported durable change remains.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "done"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    }
+  ],
+  "empty_bank": [
+    {
+      "type": "function",
+      "function": {
+        "name": "ADD",
+        "description": "Create one independent durable record supported by the visible dialogue.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "record": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "scope": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_]+)*$"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "value"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "subject",
+                "scope",
+                "fields"
+              ]
+            }
+          },
+          "required": [
+            "record"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "YIELD",
+        "description": "Finish this maintenance episode when no further supported durable change remains.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "done"
+              ]
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    }
+  ]
+}

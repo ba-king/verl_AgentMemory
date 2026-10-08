@@ -1,0 +1,8 @@
+{
+  "artifact_consistency": "PASS",
+  "record_and_action_schemas": "PASS",
+  "executor_probe_artifacts_checked": 9,
+  "new_model_calls": 0,
+  "teacher_quality_evaluated": false,
+  "known_runtime_inconsistency_resolved": false
+}

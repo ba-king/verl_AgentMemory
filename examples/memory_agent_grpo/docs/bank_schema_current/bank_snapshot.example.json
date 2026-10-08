@@ -1,0 +1,31 @@
+{
+  "records": [
+    {
+      "memory_id": "M031",
+      "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+      "record": {
+        "subject": "user",
+        "scope": "document: demo_research_plan",
+        "fields": [
+          {
+            "path": "kind",
+            "value": "content"
+          },
+          {
+            "path": "item",
+            "value": "demo_research_plan"
+          },
+          {
+            "path": "data.budget",
+            "value": "1000000"
+          },
+          {
+            "path": "data.objectives",
+            "value": "Preserve this unrelated field exactly."
+          }
+        ]
+      }
+    }
+  ],
+  "next_id": 32
+}

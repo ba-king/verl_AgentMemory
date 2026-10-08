@@ -1,5 +1,7 @@
 # 本次 GitHub 更新的 review 入口
 
+最新 Memora Bank 定义请先看 [当前 Bank schema 审阅包](bank_schema_current/README_CN.md)：包含记录格式、动作参数、实际回执和已发现的一致性差异。此次仅同步 schema 材料；下文是之前的交付记录，不代表最新 Memora runtime 已全部发布。
+
 本次交付范围是 `examples/memory_agent_grpo/` 的推理修复、packet 构造模块、测试和训练准备文档。训练数据来源的选择仍待讨论，本次没有决定使用 MemoryArena test 数据训练，也没有启动训练。
 
 ## 三个主题

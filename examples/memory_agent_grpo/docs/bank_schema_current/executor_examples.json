@@ -1,0 +1,846 @@
+{
+  "origin": "SYNTHETIC_OFFLINE_EXECUTOR_PROBES_NOT_TEACHER_TRAJECTORIES",
+  "model_calls": 0,
+  "training_samples": 0,
+  "common_bank_before": {
+    "records": [
+      {
+        "memory_id": "M031",
+        "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+        "record": {
+          "subject": "user",
+          "scope": "document: demo_research_plan",
+          "fields": [
+            {
+              "path": "kind",
+              "value": "content"
+            },
+            {
+              "path": "item",
+              "value": "demo_research_plan"
+            },
+            {
+              "path": "data.budget",
+              "value": "1000000"
+            },
+            {
+              "path": "data.objectives",
+              "value": "Preserve this unrelated field exactly."
+            }
+          ]
+        }
+      }
+    ],
+    "next_id": 32
+  },
+  "cases": [
+    {
+      "case": "update_budget",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_update_budget",
+            "type": "function",
+            "function": {
+              "name": "UPDATE",
+              "arguments": "{\"memory_id\":\"M031\",\"remove_fields\":[],\"set_fields\":[{\"path\":\"data.budget\",\"value\":\"1100000\"}]}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "UPDATE",
+        "arguments": {
+          "memory_id": "M031",
+          "remove_fields": [],
+          "set_fields": [
+            {
+              "path": "data.budget",
+              "value": "1100000"
+            }
+          ]
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_update_budget",
+        "content": "{\"code\":\"UPDATED\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"document: demo_research_plan\\\"\\nFields:\\n- kind = \\\"content\\\"\\n- item = \\\"demo_research_plan\\\"\\n- data.budget = \\\"1100000\\\"\\n- data.objectives = \\\"Preserve this unrelated field exactly.\\\"\",\"memory_id\":\"M031\",\"record\":{\"fields\":[{\"path\":\"kind\",\"value\":\"content\"},{\"path\":\"item\",\"value\":\"demo_research_plan\"},{\"path\":\"data.budget\",\"value\":\"1100000\"},{\"path\":\"data.objectives\",\"value\":\"Preserve this unrelated field exactly.\"}],\"scope\":\"document: demo_research_plan\",\"subject\":\"user\"}},\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "UPDATED",
+        "record": {
+          "memory_id": "M031",
+          "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1100000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+          "record": {
+            "subject": "user",
+            "scope": "document: demo_research_plan",
+            "fields": [
+              {
+                "path": "kind",
+                "value": "content"
+              },
+              {
+                "path": "item",
+                "value": "demo_research_plan"
+              },
+              {
+                "path": "data.budget",
+                "value": "1100000"
+              },
+              {
+                "path": "data.objectives",
+                "value": "Preserve this unrelated field exactly."
+              }
+            ]
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1100000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1100000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "d65ab10564606b376fc68dd4089ec676a7eed8236c486664d6052ea5c30b1562"
+    },
+    {
+      "case": "remove_one_field",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_remove_one_field",
+            "type": "function",
+            "function": {
+              "name": "UPDATE",
+              "arguments": "{\"memory_id\":\"M031\",\"remove_fields\":[\"data.budget\"],\"set_fields\":[]}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "UPDATE",
+        "arguments": {
+          "memory_id": "M031",
+          "remove_fields": [
+            "data.budget"
+          ],
+          "set_fields": []
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_remove_one_field",
+        "content": "{\"code\":\"UPDATED\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"document: demo_research_plan\\\"\\nFields:\\n- kind = \\\"content\\\"\\n- item = \\\"demo_research_plan\\\"\\n- data.objectives = \\\"Preserve this unrelated field exactly.\\\"\",\"memory_id\":\"M031\",\"record\":{\"fields\":[{\"path\":\"kind\",\"value\":\"content\"},{\"path\":\"item\",\"value\":\"demo_research_plan\"},{\"path\":\"data.objectives\",\"value\":\"Preserve this unrelated field exactly.\"}],\"scope\":\"document: demo_research_plan\",\"subject\":\"user\"}},\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "UPDATED",
+        "record": {
+          "memory_id": "M031",
+          "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+          "record": {
+            "subject": "user",
+            "scope": "document: demo_research_plan",
+            "fields": [
+              {
+                "path": "kind",
+                "value": "content"
+              },
+              {
+                "path": "item",
+                "value": "demo_research_plan"
+              },
+              {
+                "path": "data.objectives",
+                "value": "Preserve this unrelated field exactly."
+              }
+            ]
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "2d92f12460fa37efa57309c07e0befd8657aedaf1fd797e010ce2c3d9945b81d"
+    },
+    {
+      "case": "delete_record",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_delete_record",
+            "type": "function",
+            "function": {
+              "name": "DELETE",
+              "arguments": "{\"memory_id\":\"M031\"}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "DELETE",
+        "arguments": {
+          "memory_id": "M031"
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_delete_record",
+        "content": "{\"code\":\"DELETED\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"document: demo_research_plan\\\"\\nFields:\\n- kind = \\\"content\\\"\\n- item = \\\"demo_research_plan\\\"\\n- data.budget = \\\"1000000\\\"\\n- data.objectives = \\\"Preserve this unrelated field exactly.\\\"\",\"memory_id\":\"M031\"},\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "DELETED",
+        "record": {
+          "memory_id": "M031",
+          "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\""
+        }
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": []
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "1993e0bb2abf957661d3cd35a785334459d2c6b2344f526eb5e6371dd36ca766"
+    },
+    {
+      "case": "yield",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_yield",
+            "type": "function",
+            "function": {
+              "name": "YIELD",
+              "arguments": "{\"status\":\"done\"}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "YIELD",
+        "arguments": {}
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_yield",
+        "content": "{\"code\":\"YIELDED\",\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "YIELDED"
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708"
+    },
+    {
+      "case": "duplicate_add",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_duplicate_add",
+            "type": "function",
+            "function": {
+              "name": "ADD",
+              "arguments": "{\"record\":{\"fields\":[{\"path\":\"kind\",\"value\":\"content\"},{\"path\":\"item\",\"value\":\"demo_research_plan\"},{\"path\":\"data.budget\",\"value\":\"1000000\"},{\"path\":\"data.objectives\",\"value\":\"Preserve this unrelated field exactly.\"}],\"scope\":\"document: demo_research_plan\",\"subject\":\"user\"}}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "ADD",
+        "arguments": {
+          "record": {
+            "fields": [
+              {
+                "path": "kind",
+                "value": "content"
+              },
+              {
+                "path": "item",
+                "value": "demo_research_plan"
+              },
+              {
+                "path": "data.budget",
+                "value": "1000000"
+              },
+              {
+                "path": "data.objectives",
+                "value": "Preserve this unrelated field exactly."
+              }
+            ],
+            "scope": "document: demo_research_plan",
+            "subject": "user"
+          }
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_duplicate_add",
+        "content": "{\"code\":\"EXACT_DUPLICATE_ADD\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"document: demo_research_plan\\\"\\nFields:\\n- kind = \\\"content\\\"\\n- item = \\\"demo_research_plan\\\"\\n- data.budget = \\\"1000000\\\"\\n- data.objectives = \\\"Preserve this unrelated field exactly.\\\"\",\"memory_id\":\"M031\",\"record\":{\"fields\":[{\"path\":\"kind\",\"value\":\"content\"},{\"path\":\"item\",\"value\":\"demo_research_plan\"},{\"path\":\"data.budget\",\"value\":\"1000000\"},{\"path\":\"data.objectives\",\"value\":\"Preserve this unrelated field exactly.\"}],\"scope\":\"document: demo_research_plan\",\"subject\":\"user\"}},\"status\":\"NO_CHANGE\"}"
+      },
+      "receipt": {
+        "status": "NO_CHANGE",
+        "code": "EXACT_DUPLICATE_ADD",
+        "record": {
+          "memory_id": "M031",
+          "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+          "record": {
+            "fields": [
+              {
+                "path": "kind",
+                "value": "content"
+              },
+              {
+                "path": "item",
+                "value": "demo_research_plan"
+              },
+              {
+                "path": "data.budget",
+                "value": "1000000"
+              },
+              {
+                "path": "data.objectives",
+                "value": "Preserve this unrelated field exactly."
+              }
+            ],
+            "scope": "document: demo_research_plan",
+            "subject": "user"
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708"
+    },
+    {
+      "case": "same_value_update",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_same_value_update",
+            "type": "function",
+            "function": {
+              "name": "UPDATE",
+              "arguments": "{\"memory_id\":\"M031\",\"remove_fields\":[],\"set_fields\":[{\"path\":\"data.budget\",\"value\":\"1000000\"}]}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "UPDATE",
+        "arguments": {
+          "memory_id": "M031",
+          "remove_fields": [],
+          "set_fields": [
+            {
+              "path": "data.budget",
+              "value": "1000000"
+            }
+          ]
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_same_value_update",
+        "content": "{\"code\":\"UNCHANGED_UPDATE\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"document: demo_research_plan\\\"\\nFields:\\n- kind = \\\"content\\\"\\n- item = \\\"demo_research_plan\\\"\\n- data.budget = \\\"1000000\\\"\\n- data.objectives = \\\"Preserve this unrelated field exactly.\\\"\",\"memory_id\":\"M031\",\"record\":{\"fields\":[{\"path\":\"kind\",\"value\":\"content\"},{\"path\":\"item\",\"value\":\"demo_research_plan\"},{\"path\":\"data.budget\",\"value\":\"1000000\"},{\"path\":\"data.objectives\",\"value\":\"Preserve this unrelated field exactly.\"}],\"scope\":\"document: demo_research_plan\",\"subject\":\"user\"}},\"status\":\"NO_CHANGE\"}"
+      },
+      "receipt": {
+        "status": "NO_CHANGE",
+        "code": "UNCHANGED_UPDATE",
+        "record": {
+          "memory_id": "M031",
+          "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+          "record": {
+            "subject": "user",
+            "scope": "document: demo_research_plan",
+            "fields": [
+              {
+                "path": "kind",
+                "value": "content"
+              },
+              {
+                "path": "item",
+                "value": "demo_research_plan"
+              },
+              {
+                "path": "data.budget",
+                "value": "1000000"
+              },
+              {
+                "path": "data.objectives",
+                "value": "Preserve this unrelated field exactly."
+              }
+            ]
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708"
+    },
+    {
+      "case": "new_record",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_new_record",
+            "type": "function",
+            "function": {
+              "name": "ADD",
+              "arguments": "{\"record\":{\"fields\":[{\"path\":\"item\",\"value\":\"coffee\"},{\"path\":\"preference\",\"value\":\"dislike\"}],\"scope\":\"preference: demo_food\",\"subject\":\"user\"}}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "ADD",
+        "arguments": {
+          "record": {
+            "fields": [
+              {
+                "path": "item",
+                "value": "coffee"
+              },
+              {
+                "path": "preference",
+                "value": "dislike"
+              }
+            ],
+            "scope": "preference: demo_food",
+            "subject": "user"
+          }
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_new_record",
+        "content": "{\"code\":\"ADDED\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"preference: demo_food\\\"\\nFields:\\n- item = \\\"coffee\\\"\\n- preference = \\\"dislike\\\"\",\"memory_id\":\"M032\",\"record\":{\"fields\":[{\"path\":\"item\",\"value\":\"coffee\"},{\"path\":\"preference\",\"value\":\"dislike\"}],\"scope\":\"preference: demo_food\",\"subject\":\"user\"}},\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "ADDED",
+        "record": {
+          "memory_id": "M032",
+          "content": "Subject: \"user\"\nScope: \"preference: demo_food\"\nFields:\n- item = \"coffee\"\n- preference = \"dislike\"",
+          "record": {
+            "fields": [
+              {
+                "path": "item",
+                "value": "coffee"
+              },
+              {
+                "path": "preference",
+                "value": "dislike"
+              }
+            ],
+            "scope": "preference: demo_food",
+            "subject": "user"
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 33,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          },
+          {
+            "content": "Subject: \"user\"\nScope: \"preference: demo_food\"\nFields:\n- item = \"coffee\"\n- preference = \"dislike\"",
+            "memory_id": "M032",
+            "record": {
+              "fields": [
+                {
+                  "path": "item",
+                  "value": "coffee"
+                },
+                {
+                  "path": "preference",
+                  "value": "dislike"
+                }
+              ],
+              "scope": "preference: demo_food",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "89381d77ff89a2f3cc0299219f9c70421e31b9241dcbf65598ee051044b013bd"
+    }
+  ],
+  "known_inconsistency": {
+    "description": "ADD accepts ancestor paths that UPDATE rejects.",
+    "add": {
+      "case": "ancestor_conflict_add",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_ancestor_conflict_add",
+            "type": "function",
+            "function": {
+              "name": "ADD",
+              "arguments": "{\"record\":{\"fields\":[{\"path\":\"a\",\"value\":\"x\"},{\"path\":\"a.b\",\"value\":\"y\"}],\"scope\":\"synthetic_conflict\",\"subject\":\"user\"}}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "ADD",
+        "arguments": {
+          "record": {
+            "fields": [
+              {
+                "path": "a",
+                "value": "x"
+              },
+              {
+                "path": "a.b",
+                "value": "y"
+              }
+            ],
+            "scope": "synthetic_conflict",
+            "subject": "user"
+          }
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_ancestor_conflict_add",
+        "content": "{\"code\":\"ADDED\",\"record\":{\"content\":\"Subject: \\\"user\\\"\\nScope: \\\"synthetic_conflict\\\"\\nFields:\\n- a = \\\"x\\\"\\n- a.b = \\\"y\\\"\",\"memory_id\":\"M032\",\"record\":{\"fields\":[{\"path\":\"a\",\"value\":\"x\"},{\"path\":\"a.b\",\"value\":\"y\"}],\"scope\":\"synthetic_conflict\",\"subject\":\"user\"}},\"status\":\"SUCCEEDED\"}"
+      },
+      "receipt": {
+        "status": "SUCCEEDED",
+        "code": "ADDED",
+        "record": {
+          "memory_id": "M032",
+          "content": "Subject: \"user\"\nScope: \"synthetic_conflict\"\nFields:\n- a = \"x\"\n- a.b = \"y\"",
+          "record": {
+            "fields": [
+              {
+                "path": "a",
+                "value": "x"
+              },
+              {
+                "path": "a.b",
+                "value": "y"
+              }
+            ],
+            "scope": "synthetic_conflict",
+            "subject": "user"
+          }
+        }
+      },
+      "bank_after": {
+        "next_id": 33,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          },
+          {
+            "content": "Subject: \"user\"\nScope: \"synthetic_conflict\"\nFields:\n- a = \"x\"\n- a.b = \"y\"",
+            "memory_id": "M032",
+            "record": {
+              "fields": [
+                {
+                  "path": "a",
+                  "value": "x"
+                },
+                {
+                  "path": "a.b",
+                  "value": "y"
+                }
+              ],
+              "scope": "synthetic_conflict",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "3829143cbcd41b66be6aaff8177650734caec6e4fb9657f3e5d7b753767725c5"
+    },
+    "update": {
+      "case": "ancestor_conflict_update",
+      "assistant": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "example_ancestor_conflict_update",
+            "type": "function",
+            "function": {
+              "name": "UPDATE",
+              "arguments": "{\"memory_id\":\"M031\",\"remove_fields\":[],\"set_fields\":[{\"path\":\"a\",\"value\":\"x\"},{\"path\":\"a.b\",\"value\":\"y\"}]}"
+            }
+          }
+        ]
+      },
+      "canonical_action": {
+        "action": "UPDATE",
+        "arguments": {
+          "memory_id": "M031",
+          "remove_fields": [],
+          "set_fields": [
+            {
+              "path": "a",
+              "value": "x"
+            },
+            {
+              "path": "a.b",
+              "value": "y"
+            }
+          ]
+        }
+      },
+      "tool": {
+        "role": "tool",
+        "tool_call_id": "example_ancestor_conflict_update",
+        "content": "{\"code\":\"INVALID_STRUCTURED_UPDATE\",\"detail\":\"record_path_ancestor_conflict\",\"status\":\"REJECTED\"}"
+      },
+      "receipt": {
+        "status": "REJECTED",
+        "code": "INVALID_STRUCTURED_UPDATE",
+        "detail": "record_path_ancestor_conflict"
+      },
+      "bank_after": {
+        "next_id": 32,
+        "records": [
+          {
+            "content": "Subject: \"user\"\nScope: \"document: demo_research_plan\"\nFields:\n- kind = \"content\"\n- item = \"demo_research_plan\"\n- data.budget = \"1000000\"\n- data.objectives = \"Preserve this unrelated field exactly.\"",
+            "memory_id": "M031",
+            "record": {
+              "fields": [
+                {
+                  "path": "kind",
+                  "value": "content"
+                },
+                {
+                  "path": "item",
+                  "value": "demo_research_plan"
+                },
+                {
+                  "path": "data.budget",
+                  "value": "1000000"
+                },
+                {
+                  "path": "data.objectives",
+                  "value": "Preserve this unrelated field exactly."
+                }
+              ],
+              "scope": "document: demo_research_plan",
+              "subject": "user"
+            }
+          }
+        ]
+      },
+      "bank_before_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708",
+      "bank_after_sha256": "4a12e5ecd86776049ad6f5d93a7242a6d7f88257fe57a1afe2e0e29ce69fd708"
+    }
+  }
+}
