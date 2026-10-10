@@ -1,3 +1,9 @@
+# 当前方法开发入口
+
+继续开发 AgentMemory 方法，请先读 [TEACHER_HANDOFF_CN.md](TEACHER_HANDOFF_CN.md)。
+它标出了当前 Bank / 字段级 UPDATE、Packet V3、RP 接口、harness 与训练数据读取器的实际代码位置。
+下面是早期 Shopping pipeline 的历史说明，不能视为最新统一配置。
+
 # Memory Agent GRPO — Shopping inference pipeline
 
 This directory contains the reviewable inference-side foundation for a future
@@ -257,3 +263,8 @@ the Shopping adapter explicitly enables it. A repaired output is not a native
 model success, and the appended token must not be attributed to model generation
 in future GRPO rollouts. See the [focused review guide](docs/reviews/MEMORY_ADD_BRACE_REPAIR_CN.md)
 for the rule, historical replay, boundary tests and limitations.
+# 当前交接入口
+
+老师使用最新 Memora SFT 数据，请先看 [TEACHER_HANDOFF_CN.md](TEACHER_HANDOFF_CN.md)。
+其中列出数据读取、原生工具格式、schema、执行器、审核与导出的实际源码和离线检查命令。
+以下保留项目原有说明。

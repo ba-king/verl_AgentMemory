@@ -1,0 +1,44 @@
+{
+  "retriever": {
+    "sparse_top_n": 20,
+    "dense_top_n": 20,
+    "top_k": 5,
+    "rrf_constant": 60,
+    "rrf_weights": [
+      1,
+      1
+    ]
+  },
+  "embedding": {
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "download_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "actual_file_sha256": {
+      "config.json": "b5bf1f51fc45be473a54718cef92448d90a1be001bf9b9a44b8c7f10a19feaa9",
+      "config_sentence_transformers.json": "10667c72ddb772627bf1780cb7f86af8e2ae0032b8c243c731172064105c6961",
+      "generation_config.json": "28396d421a2108acce96383f6a7de78008f7f1b17f807958f3c14c51dbfb65fb",
+      "model.safetensors": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+      "modules.json": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+      "tokenizer.json": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+      "tokenizer_config.json": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "pooling": "last_non_padding_token",
+    "normalize": true,
+    "query_instruction": "Given a question about a user's past conversations, retrieve the personal memories needed to answer it.",
+    "max_length": 4096,
+    "dtype": "float32",
+    "device": "cpu",
+    "attention": "eager",
+    "torch": "2.7.1",
+    "transformers": "5.14.1"
+  },
+  "final_top_k": 5,
+  "final_top_k_frozen": true,
+  "audit_decision": "FREEZE_TOP_5",
+  "applies_to": "Next Natural Teacher Rollout / SFT data-generation candidate only; prior pilot configs unchanged",
+  "source_config": "/Users/lizizheng/Agent_Mem/verl/examples/memory_agent_grpo/runs/stage3_reward_feasibility_20260911_r1/formal_cpu/retrieval_config.json",
+  "source_config_sha256": "e5f8e9e023c1d090fb4669be46dfd0d6b11f5560a94f2c52402929ba6393bd63",
+  "audit_report": "/Users/lizizheng/Agent_Mem/verl/examples/memory_agent_grpo/teacher_pilot/retrieval_depth_audit_v1/RETRIEVAL_DEPTH_AUDIT_CN.md",
+  "freeze_policy": "Do not tune K per episode. Log later retrieval failures without automatically changing K.",
+  "evidence_scope": "Observed offline depth coverage; not end-to-end success, trained Teacher performance, or a population-optimal K claim"
+}

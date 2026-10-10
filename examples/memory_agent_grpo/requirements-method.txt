@@ -1,0 +1,7 @@
+# Bank, schemas, native protocol and packet CPU development checks.
+jsonschema>=4.23,<5
+requests>=2.32,<3
+numpy>=1.26,<3
+pytest>=8,<9
+# Dense retrieval/model integrations additionally need torch/transformers and
+# separately downloaded weights. The training_data reader uses only stdlib.
